@@ -18,10 +18,8 @@ a:hover {
 }
 
 /* posts */
-h3 {
-  font-family: 'Share Tech Mono', monospace;
-  text-align: center;
-  color: #0c0;
+.dim-text {
+  color: #666;
 }
 
 /* tags */
@@ -31,6 +29,27 @@ h3 {
 
 .tag:hover, .tag a:hover {
   color: #0e0;
+}
+
+#tag-cloud td {
+  text-align: center;
+  background-color: #1c1e22;
+}
+
+#tag-cloud table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  color: #0c0;
+}
+
+#sidebar h2 {
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
 }
 
 /* login box */
@@ -59,3 +78,8 @@ h3 {
   padding-right: 3%;
 }
 
+/* footer */
+.myfooter {
+  margin-bottom: 20px;
+  margin-top: 2px;
+}
