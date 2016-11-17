@@ -1,0 +1,18 @@
+User Stories: 
+
+As a reader, I want to be able to view blog posts. 
+As a reader, I want to be able to search blog posts. 
+As a reader, I would like to be able to click on a tag to view other posts with the same tag. 
+As a reader, I would like to be able to add comments. 
+
+As an admin/user, I would like to be able to create a new post.
+As an admin/user, I would like to be able to edit a post.
+As an admin/user(?), I would like to be able to delete a post.
+
+As an admin/user(?), I would like to be able to create a new static page.
+As an admin/user(?), I would like to be able to edit a new static page.
+As an admin/user(?), I would like to be able to delete a static page.
+
+As an admin, I would like to be able to approve posts.
+As an admin, I would like to be able to approve edits.
+As an admin, I would like to be able to approve comments.
