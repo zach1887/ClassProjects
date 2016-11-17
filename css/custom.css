@@ -2,6 +2,11 @@ body {
   padding-top: 75px;
 }
 
+a:hover {
+  color: #0f0;
+  text-decoration: none;
+}
+
 /* navbar */
 .navbar {
   font-family: 'Share Tech Mono', monospace;
