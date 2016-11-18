@@ -6,6 +6,12 @@ As a reader, I want to be able to view blog posts.
 As a reader, I want to be able to view static pages. 
 -- no ajax | verb: get, url: /staticpage/{id}, requestbody: none, responsebody: jsp
 
+As an admin, I want to be able to view the admin tools. 
+-- no ajax | verb: get, url: /admin, requestbody: none, responsebody: jsp
+
+As an employee, I want to be able to view the employee tools. 
+-- no ajax | verb: get, url: /employee, requestbody: none, responsebody: jsp
+
 As a reader, I want to be able to view an advanced search page. 
 -- no ajax | verb: get, url: /search, requestbody: none, responsebody: jsp
 
