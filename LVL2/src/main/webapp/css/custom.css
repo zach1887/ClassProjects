@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'Strasua';
+  src: url('../fonts/strasua.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Bauhaus';
+  src: url('../fonts/bauhaus.ttf') format('truetype');
+}
+
+body {
+  padding-top: 75px;
+}
+
+a:hover {
+
+  text-decoration: none;
+}
+
+/* navbar */
+.navbar {
+  font-family: 'Strasua';
+}
+
+#mypage .navbar-inverse, #mypage .navbar-brand {
+
+}
+
+/* posts */
+.dim-text {
+  color: #274277;
+}
+
+/* tags */
+.tag{
+
+}
+
+.tag:hover, .tag a:hover {
+
+}
+
+#tag-cloud td {
+  text-align: center;
+
+}
+
+#tag-cloud table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  font-family: 'Bauhaus';
+  text-align: center;
+
+}
+
+#sidebar h2 {
+  font-family: 'Bauhaus';
+  text-align: center;
+}
+
+/* login box */
+.form-signin-heading {
+  font-family: 'Bauhaus';
+  text-align: center;
+}
+
+.form-signin input {
+  margin: 3% 0;
+}
+
+#login-dropdown {
+  background-color: #9aee00;
+  width: 200px;
+  padding: 0% 10% 5%;
+}
+
+.dropdown .btn {
+  background-color: #4372cf;
+}
+
+/* post history */
+.post-history {
+  text-align: right;
+
+}
+
+.post-history li {
+  list-style-type: none;
+  padding-right: 3%;
+}
+
+/* footer */
+.myfooter {
+  margin-bottom: 20px;
+  margin-top: 2px;
+}

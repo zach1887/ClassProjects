@@ -1,0 +1,79 @@
+User Stories: 
+
+As a reader, I want to be able to view blog posts. 
+-- no ajax | verb: get, url: /blog/{id}, requestbody: none, responsebody: jsp
+
+As a reader, I want to be able to view static pages. 
+-- no ajax | verb: get, url: /staticpage/{id}, requestbody: none, responsebody: jsp
+
+As an admin, I want to be able to view the admin tools. 
+-- no ajax | verb: get, url: /admin, requestbody: none, responsebody: jsp
+
+As an employee, I want to be able to view the employee tools. 
+-- no ajax | verb: get, url: /employee, requestbody: none, responsebody: jsp
+
+As a reader, I want to be able to view an advanced search page. 
+-- no ajax | verb: get, url: /search, requestbody: none, responsebody: jsp
+
+As a reader, I want to be able to search blog posts by author. 
+-- no ajax | verb: post, url: /search, requestbody: criteria, responsebody: jsp 
+As a reader, I want to be able to search blog posts by tag. 
+-- no ajax | verb: post, url: /search, requestbody: criteria, responsebody: jsp 
+As a reader, I want to be able to search blog posts by body content. 
+-- no ajax | verb: post, url: /search, requestbody: criteria, responsebody: jsp 
+As a reader, I want to be able to search blog posts by title. 
+-- no ajax | verb: post, url: /search, requestbody: criteria, responsebody: jsp 
+As a reader, I want to be able to search blog posts by date. 
+-- no ajax | verb: post, url: /search, requestbody: criteria, responsebody: jsp 
+
+As a reader, I would like to be able to click on a tag to view other posts with the same tag. 
+-- no ajax | verb: get, url: /blog/tag/{tag}, requestbody: none, responsebody: jsp
+As a reader, I would like to be able to click on an author's name to view other posts by that author. 
+-- no ajax | verb: get, url: /blog/author/{author}, requestbody: none, responsebody: jsp
+
+As a reader, I would like to be able to add comments. 
+-- ajax | verb: post, url: /blog/comment/{id}, requestbody: none, responsebody: none
+As a reader, I would like to be able to view comments. 
+-- no ajax | verb: get, url: /blog/{id}#comments, requestbody: none, responsebody: jsp
+
+As an admin, I would like to be able to create a new post. 
+-- ajax | verb: post, url: /blog, requestbody: blog, responsebody: none
+As an employee, I would like submit a new post for approval. 
+-- ajax | verb: post, url: /blog, requestbody: blog, responsebody: none
+
+As an admin, I would like to be able to edit a post. 
+-- ajax | verb: put, url: /blog/{id}, requestbody: blog, responsebody: none
+As an employee, I would like to submit an edited post for approval. 
+-- ajax | verb: put, url: /blog/{id}, requestbody: blog, responsebody: none
+
+As an admin, I would like to be able to delete a post. 
+-- ajax | verb: delete, url: /blog/{id}, requestbody: none, responsebody: none
+As an employee, I would like to be able to flag a post for deletion. 
+-- ajax | verb: delete, url: /blog{id}, requestbody: none, responsebody: none
+
+As an admin, I would like to be able to save a post draft. 
+-- ajax | verb: post, url: /blog, requestbody: blog, responsebody: none
+
+As an admin, I would like to be able to create a new static page. 
+-- ajax | verb: post, url: /staticpage, requestbody: staticpage, responsebody: none
+As an employee, I would like to be able to submit a new static page for approval. 
+-- ajax | verb: post, url: /staticpage, requestbody: staticpage, responsebody: none
+
+As an admin, I would like to be able to edit a new static page. 
+-- ajax | verb: put, url: /staticpage/{id}, requestbody: staticpage, responsebody: none
+As an employee, I would like to submit an edited static page for approval. 
+-- ajax | verb: put, url: /staticpage/{id}, requestbody: staticpage, responsebody: none 
+
+As an admin, I would like to be able to delete a static page. 
+-- ajax | verb: delete, url: /staticpage/{id}, requestbody: none, responsebody: none
+As an employee, I would like to flag a static page for deletion. 
+-- ajax | verb: delete, url: /staticpage/{id}, requestbody: none, responsebody: none
+
+As an admin, I would like to be able to approve posts. 
+-- ajax | verb: put, url: /blog/approve/{id}, requestbody: none, responsebody: none
+As an admin, I would like to be able to approve edits. 
+-- ajax | verb: put, url: /blog/approve/{id}, requestbody: none, responsebody: none
+As an admin, I would like to be able to approve comments. 
+-- ajax | verb: put, url: /comment/{id}, requestbody: none, responsebody: none
+As an admin, I would like to be able to approve static pages. 
+-- ajax | verb: put, url: /staticpage/approve/{id}, requestbody: none, responsebody: none

@@ -1,0 +1,252 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <title>Blag</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/theme.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+
+  <body id="mypage">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
+               
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+              </button> <a class="navbar-brand" href="${pageContext.request.contextPath}/">lvl2</a>
+            </div>
+            
+            <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="${pageContext.request.contextPath}/about">About Us</a>
+                </li>
+                <li>
+                  <a href="${pageContext.request.contextPath}/admin">Other Stuff</a>
+                </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                      <input type="text" class="form-control" />
+                    </div> 
+                    <button type="submit" class="btn btn-default">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                  </form>
+                </li>
+                
+                <li class="dropdown" style="margin-right: 10px">
+
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span><strong class="caret"></strong></a>
+                  
+                  <div class="dropdown-menu" id="login-dropdown">
+                   <form class="form-signin">
+                      <h2 class="form-signin-heading">Login</h2>
+                      
+                      <label for="inputEmail" class="sr-only">Email address</label>
+                      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                      
+                      <label for="inputPassword" class="sr-only">Password</label>
+                      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                      
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                      </div>
+                      
+                      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button> 
+                    </form>
+                  </div>
+                </li>
+
+              </ul>
+
+            </div>           
+          </nav>
+
+          <!-- main row -->
+          <div class="row">
+
+            <!-- post area -->
+            <div class="col-md-9" id="post-area">
+              
+              <div class="row post">
+                <div class="col-md-12">
+                  <h3>
+                    <a href="#" class="post-title">Lorem ipsum dolor sit amet.</a>
+                  </h3>
+                  <small class="dim-text">By: Brumpo Tungus</small>
+                  <small class="pull-right dim-text">11/11/1111</small>
+                  <br/>
+                  <div class="post-content well">
+                  <img>
+                    Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+                  </div>
+                  <small class="dim-text">Comments(0)</small>
+                  <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                </div>
+              </div>
+
+              <div class="row post">
+                <div class="col-md-12">
+                  <h3>
+                    <a href="#" class="post-title">Lorem ipsum dolor sit amet.</a>
+                  </h3>
+                  <small class="dim-text">By: Brumpo Tungus</small>
+                  <small class="pull-right dim-text">11/11/1111</small>
+                  <br/>
+                  <div class="post-content well">
+                    Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+                  </div>
+                  <small class="dim-text">Comments(0)</small>
+                  <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                </div>
+              </div>
+
+              <div class="row post">
+                <div class="col-md-12">
+                  <h3>
+                    <a href="#" class="post-title">Lorem ipsum dolor sit amet.</a>
+                  </h3>
+                  <small class="dim-text">By: Brumpo Tungus</small>
+                  <small class="pull-right dim-text">11/11/1111</small>
+                  <br/>
+                  <div class="post-content well">
+                    Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+                  </div>
+                  <small class="dim-text">Comments(0)</small>
+                  <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <!--<textarea></textarea>-->
+                </div>
+              </div>
+            </div>
+            <!-- /post area -->
+
+            <!-- sidebar -->
+            <div class="col-md-3" id="sidebar">
+
+              <!-- post history -->
+              <h2>Recent Posts</h2>
+              <div class="row well" id="post-history">
+
+                <div>
+                  <h3>October</h3>
+                  <ul>
+                    <li>
+                      <a href="#">Post 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Post 2</a>
+                    </li>
+                    <li>
+                      <a href="#">Post 3</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3>November</h3>
+                  <ul>
+                    <li>
+                      <a href="#">Post 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Post 2</a>
+                    </li>
+                    <li>
+                      <a href="#">Post 3</a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+              <!-- /post history -->
+
+              <!-- tags -->
+              <div class="row" id="tag-cloud">
+              <h2>Tags</h2>
+                <div class="well">
+                  <table class="table-condensed">
+                    <tr>
+                      <td><a href="#" class="tag">#tag1</a></td>
+                      <td><a href="#" class="tag">#tag2</a></td>
+                      <td><a href="#" class="tag">#tag3</a></td>
+                      <td><a href="#" class="tag">#tag4</a></td>
+                      <td><a href="#" class="tag">#tag5</a></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#" class="tag">#tag6</a></td>
+                      <td><a href="#" class="tag">#tag7</a></td>
+                      <td><a href="#" class="tag">#tag8</a></td>
+                      <td><a href="#" class="tag">#tag9</a></td>
+                      <td><a href="#" class="tag">#tag10</a></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <!-- /tags -->
+            </div> 
+            <!-- /sidebar -->
+          </div>
+          <!-- /main row -->
+          <hr>
+          <div class="row col-lg-12 text-center dim-text myfooter">
+            ©2016 lvl2
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    
+  </body>
+</html>
+
