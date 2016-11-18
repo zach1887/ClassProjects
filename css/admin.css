@@ -1,0 +1,11 @@
+#exTab .tab-content {
+	background-color: #3364c6;
+}
+
+#exTab .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+h2 {
+	font-family: 'Bauhaus';
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <title>Blag</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/theme.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--<script src="js/ie-emulation-modes-warning.js"></script>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+
+  <body id="mypage">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
+               
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+              </button> <a class="navbar-brand" href="index.html">lvl2</a>
+            </div>
+            
+            <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="about.html">About Us</a>
+                </li>
+                <li>
+                  <a href="#">Other Stuff</a>
+                </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                      <input type="text" class="form-control" />
+                    </div> 
+                    <button type="submit" class="btn btn-default">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                  </form>
+                </li>
+                
+                <li class="dropdown" style="margin-right: 10px">
+
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span><strong class="caret"></strong></a>
+                  
+                  <div class="dropdown-menu" id="login-dropdown">
+                   <form class="form-signin">
+                      <h2 class="form-signin-heading">Login</h2>
+                      
+                      <label for="inputEmail" class="sr-only">Email address</label>
+                      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                      
+                      <label for="inputPassword" class="sr-only">Password</label>
+                      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                      
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                      </div>
+                      
+                      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button> 
+                    </form>
+                  </div>
+                </li>
+
+              </ul>
+
+            </div>           
+          </nav>
+
+          <!-- main row -->
+          <div class="row">
+            <div class="col-md-12">
+            <h2 class="text-center">Admin Panel</h2>
+              <div id="exTab" class="container"> 
+                <ul  class="nav nav-pills">
+
+                  <li class="active">
+                    <a  href="#1b" data-toggle="tab">New Post</a>
+                  </li>
+                  <li><a href="#2b" data-toggle="tab">Pending Comments</a>
+                  </li>
+                  <li><a href="#3b" data-toggle="tab">Pending Posts</a>
+                  </li>
+                  <li><a href="#4b" data-toggle="tab">Scheduled Posts</a>
+                  </li>
+                </ul>
+
+                  <div class="tab-content clearfix">
+
+
+                    <div class="tab-pane active" id="1b">
+                      <h3>New Post</h3>
+                      <form>
+                        <div class="form-group row col-md-12">
+                          <label for="post-title">Title:</label>
+                          <input type="text" class="form-control" id="post-title">
+                        </div>
+                        <div class="form-group row col-md-3">
+                          <label for="post-date">Date:</label>
+                          <input type="Date" class="form-control" id="post-date">
+                        </div>
+                        <div class="form-group row col-md-12">
+                          <textarea class="form-control" id=newPost></textarea>
+                        </div>
+                        <div class="form-group pull-right row col-xs-3">
+                          <button class="btn btn-default">Preview</button>
+                          <button class="btn btn-default">Save</button>
+                          <button class="btn btn-primary">Post</button>
+                        </div>
+                      </form>
+                    </div>
+
+
+                    <div class="tab-pane" id="2b">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Post</th>
+                              <th>Username</th>
+                              <th>Comment</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><a href="#">Biden Forges President’s Signature On Executive Order To Make December Dokken History Month</a></td>
+                              <td>Karl</td>
+                              <td>If there were two guys on the moon, and one killed the other with a rock, how fucked up would that be?</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">Introducing the Cinco-Fone</a></td>
+                              <td>Tim</td>
+                              <td>Great Job</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">FDA Approves New Pasta Shape</a></td>
+                              <td>Dooley</td>
+                              <td>Mamma-mia!</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="tab-pane" id="3b">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Post</th>
+                              <th>User</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><a href="#">Report: Holding Trophy Above Head Still Number One Celebration Technique</a></td>
+                              <td>Karl</td>
+                              <td>11/22/16</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">America Chooses The Glass Ceiling: A Look Back At Hillary Clinton's Presidential Campaign</a></td>
+                              <td>Tim</td>
+                              <td>Immediate!</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">New Report Finds Americans Most Interested In Science When Moon Looks Different Than Usual</a></td>
+                              <td>Dooley</td>
+                              <td>12/01/16</td>
+                              <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a href="#">Edit</a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="tab-pane" id="4b">
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Post</th>
+                              <th>User</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><a href="#">James Dyson Meets In Secret With Alien Ambassador To Receive TEchnology For New hand Dryer</a></td>
+                              <td>Karl</td>
+                              <td>12/05/16</td>
+                              <td class="pull-right"><a href="#">Cancel</a>/<a href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">Stanley Introduces New Sawed-Off Hot Glue Shotgun</a></td>
+                              <td>Tim</td>
+                              <td>11/19/16</td>
+                              <td class="pull-right"><a href="#">Cancel</a>/<a href="#">Edit</a></td>
+                            </tr>
+                            <tr>
+                              <td><a href="#">Man Grateful To Live In Society Where Mattress Disappears If Left On Sidewalk For A Couple Days</a></td>
+                              <td>Dooley</td>
+                              <td>1/08/17</td>
+                              <td class="pull-right"><a href="#">Cancel</a>/<a href="#">Edit</a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+
+
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!-- /main row -->
+          <hr>
+          <div class="row col-lg-12 text-center dim-text myfooter">
+            ©2016 lvl2
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
+  </body>
+</html>
