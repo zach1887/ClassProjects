@@ -17,7 +17,11 @@
         <!-- Custom styles for this template -->
         <link href="css/theme.min.css" rel="stylesheet">
         <link href="css/custom.css" rel="stylesheet">
-
+        
+        <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp'}">
+           <link href="css/admin.css" rel="stylesheet"> 
+        </c:if>
+        
         <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
