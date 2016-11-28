@@ -50,5 +50,6 @@
         </div>
 
         <%@ include file="template/footer.jsp" %>
+        <script>$("#nav-about").addClass("active")</script>
     </body>
 </html>

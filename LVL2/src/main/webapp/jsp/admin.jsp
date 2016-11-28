@@ -279,5 +279,6 @@
         <script>tinymce.init({selector: 'textarea'});</script>
 
         <%@ include file="template/footer.jsp" %>
+        <script>$("#nav-other").addClass("active")</script>
     </body>
 </html>

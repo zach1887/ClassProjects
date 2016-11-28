@@ -9,13 +9,13 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li id="nav-about">
                     <a href="${pageContext.request.contextPath}/about">About Us</a>
                 </li>
-                <li>
+                <li id="nav-other">
                     <a href="${pageContext.request.contextPath}/admin">Other Stuff</a>
                 </li>
-                <li>
+                <li id="nav-static">
                     <a href="${pageContext.request.contextPath}/static/3">Static Page From DB</a>
                 </li>
             </ul>

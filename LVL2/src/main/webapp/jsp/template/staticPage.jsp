@@ -19,7 +19,7 @@
         <div class="container-fluid">
 
             <%@ include file="navbar.jsp" %>
-
+            
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8" id="content-area">
@@ -35,5 +35,6 @@
         </div>
 
         <%@ include file="footer.jsp" %>
+        <script>$("#nav-static").addClass("active")</script>
     </body>
 </html>
