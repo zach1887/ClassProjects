@@ -43,7 +43,11 @@
     </bean>
     
     <!-- #5 last step initializing your dao! -->
-    <bean id="jdbcDao" class="com.tsguild.lvl2.dao.StaticPageDaoImpl">
+    <bean id="staticPageDao" class="com.tsguild.lvl2.dao.StaticPageDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplateBean" />
+    </bean>
+    
+    <bean id="blogPostDao" class="com.tsguild.lvl2.dao.BlogPostDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplateBean" />
     </bean>
     

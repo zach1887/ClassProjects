@@ -20,7 +20,7 @@
                     <div class="row post">
                         <div class="col-md-12">
                             <h3>
-                                <a href="#" class="post-title">Lorem ipsum dolor sit amet.</a>
+                                <a href="blog/1" class="post-title">Lorem ipsum dolor sit amet.</a>
                             </h3>
                             <small class="dim-text">By: Brumpo Tungus</small>
                             <small class="pull-right dim-text">11/11/1111</small>
