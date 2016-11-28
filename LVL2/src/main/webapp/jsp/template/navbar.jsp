@@ -15,6 +15,9 @@
                 <li>
                     <a href="${pageContext.request.contextPath}/admin">Other Stuff</a>
                 </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/static/3">Static Page From DB</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

@@ -25,4 +25,7 @@ public class HomeController {
     public String admin(Map<String, Object> model) {
         return "admin";
     }
+    
+
+    
 }
