@@ -52,7 +52,7 @@ public class StaticPageDaoImpl implements StaticPageDao {
 
     //Get static page by ID
     private static final String SQL_GET_PAGE
-            = "SELECT StaticPages.pageId, StaticPages.pageTitle, StaticPages.pageContent, StaticPages.status "
+            = "SELECT * "
             + "FROM StaticPages WHERE pageId = ?";
 
     @Override
@@ -88,7 +88,6 @@ public class StaticPageDaoImpl implements StaticPageDao {
         @Override
         public StaticPage mapRow(ResultSet rs, int rowNum) throws SQLException {
             StaticPage mappedPage = new StaticPage();
-            
             
             mappedPage.setId(Integer.parseInt(rs.getString("pageId")));
             mappedPage.setTitle(rs.getString("pageTitle"));

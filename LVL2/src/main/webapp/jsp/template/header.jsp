@@ -1,12 +1,21 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        
+
         <!-- favicon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
-        
+
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,11 +25,11 @@
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/theme.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
-        
-    <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp'}">
+        <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp'}">
+        <!-- load extra css if admin page -->
         <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet"> 
-    </c:if>
-        
+        </c:if>
+
         <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -33,3 +42,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <title><c:out value="${title}" default="LVL2"/></title>
+        
+    </head>

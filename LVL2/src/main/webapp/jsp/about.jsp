@@ -6,9 +6,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
         <%@ include file="template/header.jsp" %>
-    </head>
+
     <body id="mypage">
         <div class="container-fluid">
 
