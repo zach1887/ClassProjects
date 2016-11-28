@@ -29,7 +29,6 @@ import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.StaticPage;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class StaticPageController {
     
-    private StaticPageDao dao;
+    private final StaticPageDao dao;
     
     @Inject
     public StaticPageController(StaticPageDao dao){

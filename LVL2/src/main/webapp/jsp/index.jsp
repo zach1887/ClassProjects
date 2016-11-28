@@ -3,10 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html lang="en">
 
-        <%@ include file="template/header.jsp" %>
+<%@ include file="template/header.jsp" %>
 
     <body id="mypage">
         <div class="container-fluid">

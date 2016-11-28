@@ -26,8 +26,9 @@
         <link href="${pageContext.request.contextPath}/css/theme.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
         <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp'}">
-        <!-- load extra css if admin page -->
-        <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet"> 
+        <!-- load extra css and js if admin page -->
+        <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
+        <script src="${pageContext.request.contextPath}/js/nodep-date-input-polyfill.dist.js" async></script>
         </c:if>
 
         <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
