@@ -26,6 +26,8 @@
 package com.tsguild.lvl2.dao;
 
 import com.tsguild.lvl2.dto.BlogPost;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -45,7 +47,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    
+
     // Add blog post
     private static final String SQL_ADD_POST
             = "INSERT INTO Posts (title, author, datePosted, content, status)"
@@ -66,9 +68,18 @@ public class BlogPostDaoImpl implements BlogPostDao {
         return blogPost;
     }
 
+    private static final String SQL_GET_POST_BY_ID
+            = "SELECT * FROM Posts WHERE postId = ?";
+
     @Override
     public BlogPost getBlogPostById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return jdbcTemplate.queryForObject(SQL_GET_POST_BY_ID, // select stmt
+                    new PostMapper(), // what we're turning the RS into!
+                    id); // and then subsitituting in any placeholders
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -91,4 +102,28 @@ public class BlogPostDaoImpl implements BlogPostDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private static final class PostMapper implements RowMapper<BlogPost> {
+
+        @Override
+        public BlogPost mapRow(ResultSet rs, int rowNum) throws SQLException {
+            BlogPost post = new BlogPost();
+            int id = rs.getInt("postId");
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            String datePosted = rs.getString("datePosted");
+            String content = rs.getString("content");
+            int status = rs.getInt("status");
+
+            // set properties
+            post.setId(id);
+            post.setTitle(title);
+            post.setAuthor(author);
+            post.setDatePosted(datePosted);
+            post.setContent(content);
+            post.setStatus(status);
+
+            return post;
+        }
+
+    }
 }

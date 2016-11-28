@@ -26,6 +26,7 @@
 package com.tsguild.lvl2.dto;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -115,6 +116,59 @@ public class BlogPost {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + this.id;
+        hash = 43 * hash + Objects.hashCode(this.title);
+        hash = 43 * hash + Objects.hashCode(this.author);
+        hash = 43 * hash + Objects.hashCode(this.datePosted);
+        hash = 43 * hash + Objects.hashCode(this.content);
+        hash = 43 * hash + this.status;
+        hash = 43 * hash + Objects.hashCode(this.comments);
+        hash = 43 * hash + Objects.hashCode(this.tags);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BlogPost other = (BlogPost) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.author, other.author)) {
+            return false;
+        }
+        if (!Objects.equals(this.datePosted, other.datePosted)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        if (!Objects.equals(this.comments, other.comments)) {
+            return false;
+        }
+        if (!Objects.equals(this.tags, other.tags)) {
+            return false;
+        }
+        return true;
     }
     
     

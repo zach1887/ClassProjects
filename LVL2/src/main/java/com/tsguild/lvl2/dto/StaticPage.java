@@ -25,6 +25,8 @@
  */
 package com.tsguild.lvl2.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Dan Whitlow
@@ -86,5 +88,43 @@ public class StaticPage {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + this.id;
+        hash = 13 * hash + Objects.hashCode(this.title);
+        hash = 13 * hash + Objects.hashCode(this.content);
+        hash = 13 * hash + this.status;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StaticPage other = (StaticPage) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        return true;
+    }
       
+    
 }
