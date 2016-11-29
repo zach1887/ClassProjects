@@ -31,6 +31,8 @@ import com.tsguild.lvl2.dto.BlogPost;
 import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,11 +55,34 @@ public class AdminController {
         this.blogDao = blogDao;
     }
     
-    @ResponseBody
+    //@ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value="/blog", method=RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost){
         return blogDao.addBlogPost(blogPost);
     }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
+    public void editBlogPost(@RequestBody BlogPost editedPost){
+        blogDao.updateBlogPost(editedPost);
+    }
+    
+    // this isnt the real edit page just using it for testing
+    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+    public String editBlogPost(ModelMap model, @PathVariable int id){
+        BlogPost postToEdit = blogDao.getBlogPostById(id);
+        
+        model.addAttribute("title", postToEdit.getTitle());
+        model.addAttribute("author", postToEdit.getAuthor());
+        model.addAttribute("datePosted", postToEdit.getDatePosted());
+        model.addAttribute("content", postToEdit.getContent());
+        model.addAttribute("status", postToEdit.getStatus());
+        model.addAttribute("id", postToEdit.getId());
+        
+        return "edit";
+    }
+    
+    
     
 }

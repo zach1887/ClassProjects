@@ -42,7 +42,7 @@
                                         <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
                                     </div>
                                     <div class="form-group row col-md-12">
-                                        <textarea class="form-control clear-form" id=new-post-content name="newPostContent"></textarea>
+                                        <textarea class="form-control clear-form" id="new-post-content" name="newPostContent"></textarea>
                                     </div>
                                     <div class="form-group pull-right row col-xs-4">
                                         <button class="btn btn-default clear-button">Clear</button>

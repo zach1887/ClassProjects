@@ -68,6 +68,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
         return blogPost;
     }
 
+    // Get blog post by ID
     private static final String SQL_GET_POST_BY_ID
             = "SELECT * FROM Posts WHERE postId = ?";
 
@@ -92,9 +93,21 @@ public class BlogPostDaoImpl implements BlogPostDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // Update blog post
+    private static final String SQL_UPDATE_POST_BY_ID
+            = "UPDATE Posts SET title = ?, content = ?, author = ?, "
+            + "datePosted = ?, status = ? "
+            + "WHERE Posts.postId = ?";
+
     @Override
     public void updateBlogPost(BlogPost updatedPage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_UPDATE_POST_BY_ID,
+                updatedPage.getTitle(),
+                updatedPage.getContent(),
+                updatedPage.getAuthor(),
+                updatedPage.getDatePosted(),
+                updatedPage.getStatus(),
+                updatedPage.getId());
     }
 
     @Override

@@ -17,6 +17,11 @@ $(document).ready(function () {
         addPost();
     });
     
+    $("#edit-post-button").click(function(event){
+        event.preventDefault();
+        editPost();
+    });
+    
 });
 
 
@@ -41,6 +46,35 @@ function addPost(){
             content : postContent,
             author : "Brumpo Tungus",
             status : 1
+        })
+    }).done(function(data){ //success is depreciated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function editPost(){
+    var postTitle = $("#edit-post-title").val();
+    var postDate = $("#edit-post-date").val();
+    var postContent = tinymce.get('edit-post-content').getContent();
+    var postId = $("#edit-post-id").val();
+    var postAuthor = $("#edit-post-author").val();
+    var postStatus = $("#edit-post-status").val();
+    
+    $.ajax({
+        url : 'edit',
+        type : 'POST',
+        headers : {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json'
+        },
+        'dataType' : 'json',
+        data : JSON.stringify({
+            title : postTitle,
+            datePosted : postDate,
+            content : postContent,
+            author : postAuthor,
+            status : postStatus,
+            id : postId
         })
     }).done(function(data){ //success is depreciated, were supposed to use done now
         alert("success!");
