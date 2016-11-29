@@ -24,7 +24,7 @@
                                 <h3>
                                     <a href="#" class="post-title">${post.title}</a>
                                 </h3>
-                                <small class="dim-text"><a href="/blog/author/${post.author}">By: ${author}</a></small>
+                                <small class="dim-text"><a href="${pageContext.request.contextPath}/author/${post.author}">By: ${author}</a></small>
                                 <small class="pull-right dim-text">${post.datePosted}</small>
                                 <br/>
                                 <div class="post-content well">
