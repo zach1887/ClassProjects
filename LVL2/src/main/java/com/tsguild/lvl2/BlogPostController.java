@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BlogPostController {
 
-    private BlogPostDao dao;
+    private final BlogPostDao dao;
 
     @Inject
     public BlogPostController(BlogPostDao dao) {

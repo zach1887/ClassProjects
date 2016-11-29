@@ -1,8 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@ include file="template/header.jsp" %>
 
     <body id="mypage">
@@ -53,7 +48,7 @@
                                         <button class="btn btn-default clear-button">Clear</button>
                                         <button class="btn btn-default">Preview</button>
                                         <button class="btn btn-default">Save</button>
-                                        <button class="btn btn-primary">Post</button>
+                                        <button id="new-post-button" class="btn btn-primary">Post</button>
                                     </div>
                                 </form>
                             </div>
@@ -71,7 +66,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Biden Forges President’s Signature On Executive Order To Make December Dokken History Month</a></td>
+                                            <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Biden Forges President?s Signature On Executive Order To Make December Dokken History Month</a></td>
                                             <td>Karl</td>
                                             <td>If there were two guys on the moon, and one killed the other with a rock, how fucked up would that be?</td>
                                             <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
@@ -201,7 +196,7 @@
             <!-- /main row -->
             <hr>
             <div class="row col-lg-12 text-center dim-text myfooter">
-                ©2016 lvl2
+                �2016 lvl2
             </div>
         </div>
 

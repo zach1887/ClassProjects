@@ -1,10 +1,14 @@
 <div class="row">
                 <nav class="navbar navbar-default navbar-fixed-top">
+                    
                     <div class="navbar-header">
-
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                        </button> <a class="navbar-brand" href="${pageContext.request.contextPath}/">lvl2</a>
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> 
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/">lvl2</a>                       
                     </div>
 
                     <div class="collapse navbar-collapse">
@@ -16,11 +20,11 @@
                                 <a href="${pageContext.request.contextPath}/admin">Other Stuff</a>
                             </li>
                             <li id="nav-static">
-                                <a href="${pageContext.request.contextPath}/static/1">Static Page From DB</a>
+                                <a href="${pageContext.request.contextPath}/static/3">Static Page From DB</a>
                             </li>
                         </ul>
 
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">  
                             <li>
                                 <form class="navbar-form navbar-left" role="search">
                                     <div class="form-group">
@@ -31,8 +35,8 @@
                                     </button>
                                 </form>
                             </li>
+                            
                             <li class="dropdown" style="margin-right: 10px">
-
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login<strong class="caret"></strong></a>
 
                                 <div class="dropdown-menu" id="login-dropdown">

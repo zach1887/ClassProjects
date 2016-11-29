@@ -1,11 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%@ include file="template/header.jsp" %>
-
     <body id="mypage">
         <div class="container-fluid">
 
@@ -143,7 +136,7 @@
             <!-- /main row -->
             <hr>
             <div class="row col-lg-12 text-center dim-text myfooter">
-                Â©2016 lvl2
+                ©2016 lvl2
             </div>
         </div>
 
