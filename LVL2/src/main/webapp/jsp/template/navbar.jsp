@@ -17,7 +17,7 @@
                                 <a href="${pageContext.request.contextPath}/about">About Us</a>
                             </li>
                             <li id="nav-other">
-                                <a href="${pageContext.request.contextPath}/admin">Other Stuff</a>
+                                <a href="${pageContext.request.contextPath}/admin">Admin</a>
                             </li>
                             <li id="nav-static">
                                 <a href="${pageContext.request.contextPath}/static/3">Static Page From DB</a>
