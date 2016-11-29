@@ -18,28 +18,23 @@
 
                 <!-- post area -->
                 <div class="col-md-9" id="post-area">
-
-                    <div class="row post">
-                        <div class="col-md-12">
-                            <h3>
-                                <a href="#" class="post-title">${title}</a>
-                            </h3>
-                                <small class="dim-text"><a href="${pageContext.request.contextPath}/author/${author}">By: ${author}</a></small>
-                            <small class="pull-right dim-text">${datePosted}</small>
-                            <br/>
-                            <div class="post-content well">
-                                ${content}
+                    <c:forEach items="${authorPosts}" var="post">
+                        <div class="row post">
+                            <div class="col-md-12">
+                                <h3>
+                                    <a href="#" class="post-title">${post.title}</a>
+                                </h3>
+                                <small class="dim-text"><a href="/blog/author/${post.author}">By: ${author}</a></small>
+                                <small class="pull-right dim-text">${post.datePosted}</small>
+                                <br/>
+                                <div class="post-content well">
+                                    ${post.content}
+                                </div>
+                                <small class="dim-text">Comments(0)</small>
+                                <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
                             </div>
-                            <small class="dim-text">Comments(0)</small>
-                            <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!--<textarea></textarea>-->
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <!-- /post area -->
 
