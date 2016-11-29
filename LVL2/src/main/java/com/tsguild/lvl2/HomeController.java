@@ -31,11 +31,6 @@ public class HomeController {
         return "about";
     }
     
-    @RequestMapping(value="/admin", method=RequestMethod.GET)
-    public String admin(Map<String, Object> model) {
-        return "admin";
-    }
-    
     @RequestMapping(value="/author/{author}", method=RequestMethod.GET)
     public String displayPostsByAuthor(Model model, @PathVariable String author) {
         

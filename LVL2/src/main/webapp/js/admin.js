@@ -22,6 +22,10 @@ $(document).ready(function () {
         editPost();
     });
     
+    $("#delete").click(function(event){
+        deletePost();
+    });
+    
 });
 
 
@@ -78,5 +82,16 @@ function editPost(){
         })
     }).done(function(data){ //success is depreciated, were supposed to use done now
         alert("success!");
+    });
+}
+
+function deletePost(){
+    var postId = $("#delete").data("postId");
+    
+    $.ajax({
+        url : 'blog/' + postId,
+        type : 'DELETE'
+    }).done(function(data){ //success is depreciated, were supposed to use done now
+        location.reload();
     });
 }

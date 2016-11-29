@@ -201,99 +201,100 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                    <tr>
-                                        <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="${post.id}">Report: Holding Trophy Above Head Still Number One Celebration Technique</a></td>
-                                        <td>Karl</td>
-                                        <td>11/22/16</td>
-                                        <td class="pull-right"><a href="#">Delete</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    <c:forEach items="${posts}" var="post">
+                                        <tr>
+                                            <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="${post.id}">${post.title}</a></td>
+                                            <td>${post.author}</td>
+                                            <td>${post.datePosted}</td>
+                                            <td class="pull-right"><a href="#" id="delete" data-post-id="${post.id}">Delete</a></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /main row -->
-        <hr>
-        <div class="row col-lg-12 text-center dim-text myfooter">
-            ©2016 lvl2
-        </div>
-    </div>
-
-
-    <!-- Preivew Modal -->
-    <div id="post-preview-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Post Ttitle</h4>
-                    <div class="dim-text">Author - 11/11/1111</div>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            <!-- /main row -->
+            <hr>
+            <div class="row col-lg-12 text-center dim-text myfooter">
+                ©2016 lvl2
             </div>
-
         </div>
-    </div>
-    <!-- /preview modal -->
 
-    <!-- Edit Modal -->
-    <div id="post-edit-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Post Ttitle</h4>
-                    <div class="dim-text">Author - 11/11/1111</div>
+        <!-- Preivew Modal -->
+        <div id="post-preview-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Post Ttitle</h4>
+                        <div class="dim-text">Author - 11/11/1111</div>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="edit-form">
-                        <div class="form-group">
-                            <input type="hidden" id="edit-post-id" value="1">
-                            <label for="post-title">Title:</label>
-                            <input type="text" class="form-control clear-form" id="edit-post-title" placeholder="Title">
-                        </div>
-                        <div class="form-group">
-                            <label for="post-date">Date:</label>
-                            <input type="Date" class="form-control clear-form" id="edit-post-date">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id=edit-post-content name="editPostContent"></textarea>
-                        </div>
-                        <div class="form-group pull-right">
-                            <button class="btn btn-default clear-button">Clear</button>
-                            <button class="btn btn-default">Preview</button>
-                            <button class="btn btn-default">Save</button>
-                            <button class="btn btn-primary">Post</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+
             </div>
-
         </div>
-    </div>
+        <!-- /preview modal -->
 
-    <!-- my script depends on jquery, so defer until it is loaded -->
-    <script type='text/javascript' src="${pageContext.request.contextPath}/js/admin.js" defer='defer'></script>
-    <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'});</script>
+        <!-- Edit Modal -->
+        <div id="post-edit-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
 
-    <%@ include file="template/footer.jsp" %>
-    <script>$("#nav-other").addClass("active")</script>
-</body>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Post Ttitle</h4>
+                        <div class="dim-text">Author - 11/11/1111</div>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-form">
+                            <div class="form-group">
+                                <input type="hidden" id="edit-post-id" value="1">
+                                <label for="post-title">Title:</label>
+                                <input type="text" class="form-control clear-form" id="edit-post-title" placeholder="Title">
+                            </div>
+                            <div class="form-group">
+                                <label for="post-date">Date:</label>
+                                <input type="Date" class="form-control clear-form" id="edit-post-date">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id=edit-post-content name="editPostContent"></textarea>
+                            </div>
+                            <div class="form-group pull-right">
+                                <button class="btn btn-default clear-button">Clear</button>
+                                <button class="btn btn-default">Preview</button>
+                                <button class="btn btn-default">Save</button>
+                                <button class="btn btn-primary">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- my script depends on jquery, so defer until it is loaded -->
+        <script type='text/javascript' src="${pageContext.request.contextPath}/js/admin.js" defer='defer'></script>
+        <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({selector: 'textarea'});</script>
+
+        <%@ include file="template/footer.jsp" %>
+        <script>$("#nav-other").addClass("active")</script>
+    </body>
 </html>

@@ -28,7 +28,6 @@ package com.tsguild.lvl2.dao;
 import com.tsguild.lvl2.dto.BlogPost;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -84,11 +83,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
         }
     }
 
+    private static final String SQL_GET_ALL_POSTS
+            = "SELECT * FROM Posts";
+    
     @Override
     public List<BlogPost> getAllBlogPosts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
     }
-
+    
     @Override
     public List<BlogPost> searchBlogPosts(Map<SearchTerm, String> criteria) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -111,9 +113,12 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 updatedPage.getId());
     }
 
+    private static final String SQL_DELETE_POST_BY_ID
+            = "DELETE FROM Posts WHERE postId = ?";
+    
     @Override
     public void removeBlogPost(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_DELETE_POST_BY_ID, id);
     }
 
     private static final String SQL_GET_POST_BY_AUTHOR

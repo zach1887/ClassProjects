@@ -28,15 +28,16 @@ package com.tsguild.lvl2;
 import com.tsguild.lvl2.dao.BlogPostDao;
 import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
+import java.util.List;
 import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -53,6 +54,15 @@ public class AdminController {
     public AdminController(StaticPageDao staticDao, BlogPostDao blogDao){
         this.staticDao = staticDao;
         this.blogDao = blogDao;
+    }
+    
+    @RequestMapping(value="/admin", method=RequestMethod.GET)
+    public String admin(Model model) {
+        
+        List<BlogPost> posts = blogDao.getAllBlogPosts();
+        model.addAttribute("posts", posts);
+                
+        return "admin";
     }
     
     //@ResponseBody
@@ -83,6 +93,9 @@ public class AdminController {
         return "edit";
     }
     
-    
-    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value="/blog/{id}", method=RequestMethod.DELETE)
+    public void deleteBlogPost(@PathVariable int id) {
+        blogDao.removeBlogPost(id);
+    }
 }
