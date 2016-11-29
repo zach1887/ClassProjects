@@ -50,15 +50,34 @@ CREATE TABLE `Comments` (
    PRIMARY KEY(`commentId`)
    );
  
-ALTER TABLE `Comments`
-ADD CONSTRAINT fk_Posts
-FOREIGN KEY(`postId`)
-REFERENCES `Posts`(`postId`); 
+-- ALTER TABLE `Comments`
+-- ADD CONSTRAINT fk_Posts
+-- FOREIGN KEY(`postId`)
+-- REFERENCES `Posts`(`postId`); 
 
 CREATE TABLE `StatusCodes` (
   `statusId` INT AUTO_INCREMENT NOT NULL, 
   `status` VARCHAR(50),
   PRIMARY KEY(`statusId`)
   );
+  
+  --
+-- Table structure for table `users`
+--
+CREATE TABLE IF NOT EXISTS `users` (
+ `user_id` int(11) NOT NULL AUTO_INCREMENT,
+ `username` varchar(20) NOT NULL,
+ `password` varchar(20) NOT NULL,
+ `enabled` tinyint(1) NOT NULL,
+ PRIMARY KEY (`user_id`),
+ KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
    
+CREATE TABLE IF NOT EXISTS `authorities` (
+ `username` varchar(20) NOT NULL,
+ `authority` varchar(20) NOT NULL,
+ KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `authorities`
+ ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
