@@ -44,7 +44,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login<strong class="caret"></strong></a>
 
                         <div class="dropdown-menu" id="login-dropdown">
-                            <form method="post" class="form-signin signin" action="j_spring_security_check"> 
+                            <form method="post" class="form-signin signin" action="${pageContext.request.contextPath}/j_spring_security_check"> 
                                 <h2 class="form-signin-heading">Login</h2>
 
                                 <label for="inputEmail" class="sr-only">Email address</label>

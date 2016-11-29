@@ -23,7 +23,7 @@
         <!-- #3b - Use the login page at this endpoint -->
         <!-- #3c - Redirect here if login fails -->
         <form-login login-processing-url="/j_spring_security_check"
-                    login-page="/**" 
+                    login-page="/" 
                     authentication-failure-url="/"/> 
         <!-- #3d - Go back to home page when user logs out -->
         <logout logout-success-url="/" />
