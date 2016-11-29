@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -65,7 +66,7 @@ public class AdminController {
         return "admin";
     }
     
-    //@ResponseBody
+    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value="/blog", method=RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost){

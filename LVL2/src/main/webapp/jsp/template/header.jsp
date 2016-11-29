@@ -26,7 +26,7 @@
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/theme.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
-        <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp' || pageContext.request.requestURI == '/LVL2/jsp/edit.jsp'}">
+        <c:if test="${pageContext.request.requestURI == '/LVL2/admin' || pageContext.request.requestURI == '/LVL2/jsp/edit.jsp'}">
         <!-- load extra css and js if admin page -->
         <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
         <script src="${pageContext.request.contextPath}/js/nodep-date-input-polyfill.dist.js" async></script>
