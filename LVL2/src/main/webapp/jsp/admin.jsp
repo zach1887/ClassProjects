@@ -50,7 +50,7 @@
                                     <button class="btn btn-default clear-button">Clear</button>
                                     <button class="btn btn-default">Preview</button>
                                     <button class="btn btn-default">Save</button>
-                                    <button class="btn btn-primary">Post</button>
+                                    <button id="new-post-button" class="btn btn-primary">Post</button>
                                 </div>
                             </form>
                         </div>
