@@ -28,6 +28,7 @@ package com.tsguild.lvl2.dao;
 import com.tsguild.lvl2.dto.BlogPost;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -113,6 +114,20 @@ public class BlogPostDaoImpl implements BlogPostDao {
     @Override
     public void removeBlogPost(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static final String SQL_GET_POST_BY_AUTHOR
+            = "SELECT * FROM Posts WHERE author = ?";
+
+    @Override
+    public List<BlogPost> getBlogPostsByAuthor(String author) {
+        try {
+            return jdbcTemplate.query(SQL_GET_POST_BY_AUTHOR, // select stmt
+                    new PostMapper(), // what we're turning the RS into!
+                    author); // and then subsitituting in any placeholders
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     private static final class PostMapper implements RowMapper<BlogPost> {
