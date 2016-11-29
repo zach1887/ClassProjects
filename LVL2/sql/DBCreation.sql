@@ -51,7 +51,7 @@ CREATE TABLE `Comments` (
    );
  
 ALTER TABLE `Comments`
-ADD CONSTRAINT fk_Posts
+ADD CONSTRAINT fk_Posts2
 FOREIGN KEY(`postId`)
 REFERENCES `Posts`(`postId`); 
 
