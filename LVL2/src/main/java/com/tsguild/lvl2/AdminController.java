@@ -83,7 +83,15 @@ public class AdminController {
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
     }
-
+    
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value="/blog", method=RequestMethod.PUT)
+    public BlogPost draftBlogPost(@RequestBody BlogPost blogPost){
+        blogPost.setStatus(9);
+        return blogDao.addBlogPost(blogPost);
+    }
+    
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public void editBlogPost(@RequestBody BlogPost editedPost, HttpServletRequest request) {

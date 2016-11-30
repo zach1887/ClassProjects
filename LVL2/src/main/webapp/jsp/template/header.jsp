@@ -29,8 +29,10 @@
         <c:if test="${pageContext.request.requestURI == '/LVL2/jsp/admin.jsp' || pageContext.request.requestURI == '/LVL2/jsp/edit.jsp'}">
         <!-- load extra css and js if admin page -->
         <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
+        <script src="${pageContext.request.contextPath}/js/admin.js" defer></script>
         <script src="${pageContext.request.contextPath}/js/nodep-date-input-polyfill.dist.js" async></script>
         </c:if>
+        
 
         <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
 
