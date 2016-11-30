@@ -8,7 +8,12 @@
         <!-- main row -->
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">Admin Panel</h2>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <h2 class="text-center">Admin Panel</h2>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                    <h2 class="text-center">Employee Panel</h2>
+                </sec:authorize>
                 <div id="exTab" class="container"> 
                     <ul  class="nav nav-pills">
 
@@ -17,14 +22,22 @@
                         </li>
                         <!-- <li><a href="#b2">New Static Page</a> 
                         </li> -->
-                        <li><a href="#b2">Pending Comments</a>
-                        </li>
-                        <li><a href="#b3">Pending Posts</a>
-                        </li>
-                        <li><a href="#b4">Scheduled Posts</a>
-                        </li>
-                        <li><a href="#b5">Deleted Posts</a>
-                        </li>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#b2">Pending Comments</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#b3">Pending Posts</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#b4">Scheduled Posts</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li><a href="#b5">Deleted Posts</a>
+                            </li>
+                        </sec:authorize>
                         <li><a href="#b6">All Posts</a>
                         </li>
                     </ul>

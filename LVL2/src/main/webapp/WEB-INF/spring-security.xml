@@ -27,8 +27,8 @@
                     authentication-failure-url="/"/> 
         <!-- #3d - Go back to home page when user logs out -->
         <logout logout-success-url="/" />
-        <!-- #3e - Access to these endpoints require admin role -->
-        <intercept-url pattern="/admin" access="ROLE_ADMIN" />
+        <!-- #3e - Access to these endpoints require admin/employee role -->
+        <intercept-url pattern="/admin" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
         <!-- #3f - Access to all other controller endpoints require user role -->
         <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
     </http>
