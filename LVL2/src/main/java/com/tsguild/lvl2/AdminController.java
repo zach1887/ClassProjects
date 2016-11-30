@@ -80,6 +80,7 @@ public class AdminController {
             blogPost.setStatus(1);
         }
 
+        blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
     }
 
