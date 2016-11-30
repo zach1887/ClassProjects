@@ -69,8 +69,8 @@ public class AdminController {
         return blogDao.getAllBlogPosts();
     }
     
-    //@ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+//    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value="/blog", method=RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost){
         return blogDao.addBlogPost(blogPost);
