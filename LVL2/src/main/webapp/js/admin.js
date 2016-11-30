@@ -1,3 +1,6 @@
+
+// <script> 
+
 //register events
 $(document).ready(function () {
 
@@ -17,6 +20,15 @@ $(document).ready(function () {
     $("#new-post-button").click(function (event) {
         event.preventDefault();
         addPost();
+    });
+    
+    $("#new-preview-button").click(function (event) {
+        event.preventDefault();
+    });
+    
+    $("#new-save-button").click(function (event) {
+        event.preventDefault();
+        savePost();
     });
 
     $("#edit-post-button").click(function (event) {
@@ -66,7 +78,7 @@ function loadAllPosts() {
 }
 
 function clearAllPostTable() {
-    $('#allPosts').empty();
+    $('#allPosts').empty(); 
 }
 
 function addPost() {
@@ -94,6 +106,32 @@ function addPost() {
         loadAllPosts();
     });
 }
+
+function savePost() {
+    var postTitle = $("#post-title").val();
+    var postDate = $("#post-date").val();
+    var postContent = tinymce.get('new-post-content').getContent();
+
+    $.ajax({
+        url: 'blog',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            title: postTitle,
+            datePosted: postDate,
+            content: postContent,
+            author: "Brumpo Tungus"
+        })
+    }).done(function (data) { //success is depreciated, were supposed to use done now
+        alert("success!");
+        loadAllPosts();
+    });
+}
+
 
 function editPost() {
     var postTitle = $("#edit-post-title").val();
@@ -132,3 +170,5 @@ function deletePost(postId) {
         loadAllPosts();
     });
 }
+
+// </script> 

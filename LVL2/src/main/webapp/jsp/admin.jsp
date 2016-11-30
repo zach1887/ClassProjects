@@ -48,8 +48,8 @@
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-button">Clear</button>
-                                    <button class="btn btn-default">Preview</button>
-                                    <button class="btn btn-default">Save</button>
+                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
+                                    <button  id="new-save-button" class="btn btn-default">Save</button>
                                     <button id="new-post-button" class="btn btn-primary">Post</button>
                                 </div>
                             </form>
@@ -212,7 +212,7 @@
         <!-- /main row -->
         <hr>
         <div class="row col-lg-12 text-center dim-text myfooter">
-            Â©2016 lvl2
+            ©2016 lvl2
         </div>
     </div>
 
@@ -281,8 +281,6 @@
         </div>
     </div>
 
-    <!-- my script depends on jquery, so defer until it is loaded -->
-    <script type='text/javascript' src="${pageContext.request.contextPath}/js/admin.js" defer='defer'></script>
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>tinymce.init({selector: 'textarea'});</script>
 
