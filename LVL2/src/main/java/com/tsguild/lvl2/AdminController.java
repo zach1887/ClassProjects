@@ -60,7 +60,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
-
+        
         return "admin";
     }
 
@@ -111,7 +111,13 @@ public class AdminController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
-    public void deleteBlogPost(@PathVariable int id) {
-        blogDao.removeBlogPost(id);
+    public void deleteBlogPost(@PathVariable int id, HttpServletRequest request) {
+        BlogPost post = blogDao.getBlogPostById(id);
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            post.setStatus(10);
+            blogDao.updateBlogPost(post);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            blogDao.removeBlogPost(id);
+        }
     }
 }

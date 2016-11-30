@@ -135,6 +135,7 @@ function deletePost(postId) {
         url: 'blog/' + postId,
         type: 'DELETE'
     }).done(function (data) { //success is depreciated, were supposed to use done now
+        alert("success!");
         loadAllPosts();
     });
 }
