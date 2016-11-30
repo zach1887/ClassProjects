@@ -18,7 +18,7 @@
                     <a href="${pageContext.request.contextPath}/about">About Us</a>
                 </li>
                 <li id="nav-static">
-                    <a href="${pageContext.request.contextPath}/static/3">Static Page From DB</a>
+                    <a href="${pageContext.request.contextPath}/static/1">Static Page From DB</a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li id="nav-other">
