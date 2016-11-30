@@ -8,7 +8,12 @@
         <!-- main row -->
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">Admin Panel</h2>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <h2 class="text-center">Admin Panel</h2>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                    <h2 class="text-center">Employee Panel</h2>
+                </sec:authorize>
                 <div id="exTab" class="container"> 
                     <ul  class="nav nav-pills">
 
@@ -71,20 +76,24 @@
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Biden Forges President’s Signature On Executive Order To Make December Dokken History Month</a></td>
                                         <td>Karl</td>
                                         <td>If there were two guys on the moon, and one killed the other with a rock, how fucked up would that be?</td>
-                                        <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Introducing the Cinco-Fone</a></td>
                                         <td>Tim</td>
                                         <td>Great Job</td>
-                                        <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
-                                    </tr>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
+                                        </sec:authorize>                                    </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">FDA Approves New Pasta Shape</a></td>
                                         <td>Dooley</td>
                                         <td>Mamma-mia!</td>
-                                        <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
-                                    </tr>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a onclick="approveComment(0)">Approve</a>/<a onclick="deleteComment(0)">Deny</a></td>
+                                        </sec:authorize>                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -105,19 +114,25 @@
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Report: Holding Trophy Above Head Still Number One Celebration Technique</a></td>
                                         <td>Karl</td>
                                         <td>11/22/16</td>
-                                        <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">America Chooses The Glass Ceiling: A Look Back At Hillary Clinton's Presidential Campaign</a></td>
                                         <td>Tim</td>
                                         <td>Immediate!</td>
-                                        <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">New Report Finds Americans Most Interested In Science When Moon Looks Different Than Usual</a></td>
                                         <td>Dooley</td>
                                         <td>12/01/16</td>
-                                        <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Approve</a>/<a href="#">Deny</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                 </tbody>
                             </table>
@@ -139,19 +154,25 @@
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">James Dyson Meets In Secret With Alien Ambassador To Receive Technology For New Hand Dryer</a></td>
                                         <td>Karl</td>
                                         <td>12/05/16</td>
-                                        <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Stanley Introduces New Sawed-Off Hot Glue Shotgun</a></td>
                                         <td>Tim</td>
                                         <td>11/19/16</td>
-                                        <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Man Grateful To Live In Society Where Mattress Disappears If Left On Sidewalk For A Couple Days</a></td>
                                         <td>Dooley</td>
                                         <td>1/08/17</td>
-                                        <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Cancel</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                 </tbody>
                             </table>
@@ -172,19 +193,25 @@
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Breitbart Traffic Down As Readers Now Getting Bulk Of News Analysis From Graffiti Scrawled Across Neighborhood</a></td>
                                         <td>Karl</td>
                                         <td>12/05/16</td>
-                                        <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">God Weirded Out By Christian Who Loves Him After Only Month In Church</a></td>
                                         <td>Tim</td>
                                         <td>11/19/16</td>
-                                        <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Surgeon General Recommends Exercising Once Every Several Months During Flash Of Panic About Health</a></td>
                                         <td>Dooley</td>
                                         <td>1/08/17</td>
-                                        <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <td class="pull-right"><a href="#">Undelete</a>/<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a></td>
+                                        </sec:authorize>
                                     </tr>
                                 </tbody>
                             </table>

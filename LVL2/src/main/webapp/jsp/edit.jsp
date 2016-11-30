@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group row col-md-3">
                         <label for="edit-post-date">Date:</label>
-                        <input type="Date" class="form-control clear-form" id="edit-post-date" name="editPostDate" value="${date}">
+                        <input type="Date" class="form-control clear-form" id="edit-post-date" name="editPostDate" value="${datePosted}">
                     </div>
                     <div class="form-group row col-md-12">
                         <textarea class="form-control clear-form" id="edit-post-content" name="editPostContent">

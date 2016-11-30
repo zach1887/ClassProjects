@@ -61,6 +61,12 @@ function fillAllPostTable(data, status) {
                 .append($('<td>').text(post.datePosted))
                 .append($('<td>').append($('<a>')
                                 .attr({
+                                    'href': 'edit/' + post.id
+                                })
+                                .text('Edit')
+                                ))
+                .append($('<td>').append($('<a>')
+                                .attr({
                                     'onClick': 'deletePost(' + post.id + ')'
                                 })
                                 .text('Delete')
@@ -99,7 +105,7 @@ function addPost() {
             datePosted: postDate,
             content: postContent,
             author: "Brumpo Tungus",
-            status: 1
+            status: -1
         })
     }).done(function (data) { //success is depreciated, were supposed to use done now
         alert("success!");
@@ -142,8 +148,8 @@ function editPost() {
     var postStatus = $("#edit-post-status").val();
 
     $.ajax({
-        url: 'edit',
-        type: 'POST',
+        url: '/LVL2/edit/' + postId,
+        type: 'POST', 
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -167,6 +173,7 @@ function deletePost(postId) {
         url: 'blog/' + postId,
         type: 'DELETE'
     }).done(function (data) { //success is depreciated, were supposed to use done now
+        alert("success!");
         loadAllPosts();
     });
 }

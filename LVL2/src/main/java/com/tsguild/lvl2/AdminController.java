@@ -30,6 +30,7 @@ import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
 import java.util.List;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,32 +48,39 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 public class AdminController {
-    
+
     private final StaticPageDao staticDao;
     private final BlogPostDao blogDao;
-    
+
     @Inject
-    public AdminController(StaticPageDao staticDao, BlogPostDao blogDao){
+    public AdminController(StaticPageDao staticDao, BlogPostDao blogDao) {
         this.staticDao = staticDao;
         this.blogDao = blogDao;
     }
-    
-    @RequestMapping(value="/admin", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
         
         return "admin";
     }
-    
+
     @ResponseBody
-    @RequestMapping(value="/posts", method=RequestMethod.GET)
+    @RequestMapping(value = "/posts", method = RequestMethod.GET)
     public List<BlogPost> getAllBlogPosts() {
         return blogDao.getAllBlogPosts();
     }
-    
+
     @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value="/blog", method=RequestMethod.POST)
-    public BlogPost createBlogPost(@RequestBody BlogPost blogPost){
+    @RequestMapping(value = "/blog", method = RequestMethod.POST)
+    public BlogPost createBlogPost(@RequestBody BlogPost blogPost, HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            blogPost.setStatus(2);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            blogPost.setStatus(1);
+        }
+
+        blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
     }
     
@@ -85,29 +93,40 @@ public class AdminController {
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-    public void editBlogPost(@RequestBody BlogPost editedPost){
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public void editBlogPost(@RequestBody BlogPost editedPost, HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            editedPost.setStatus(2);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            editedPost.setStatus(1);
+        }
         blogDao.updateBlogPost(editedPost);
     }
-    
+
     // this isnt the real edit page just using it for testing
-    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-    public String editBlogPost(ModelMap model, @PathVariable int id){
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editBlogPost(ModelMap model, @PathVariable int id) {
         BlogPost postToEdit = blogDao.getBlogPostById(id);
-        
+
         model.addAttribute("title", postToEdit.getTitle());
         model.addAttribute("author", postToEdit.getAuthor());
         model.addAttribute("datePosted", postToEdit.getDatePosted());
         model.addAttribute("content", postToEdit.getContent());
         model.addAttribute("status", postToEdit.getStatus());
         model.addAttribute("id", postToEdit.getId());
-        
+
         return "edit";
     }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value="/blog/{id}", method=RequestMethod.DELETE)
-    public void deleteBlogPost(@PathVariable int id) {
-        blogDao.removeBlogPost(id);
+    @RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
+    public void deleteBlogPost(@PathVariable int id, HttpServletRequest request) {
+        BlogPost post = blogDao.getBlogPostById(id);
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            post.setStatus(10);
+            blogDao.updateBlogPost(post);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            blogDao.removeBlogPost(id);
+        }
     }
 }

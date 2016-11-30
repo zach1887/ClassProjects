@@ -52,12 +52,15 @@ public class BlogPostDaoImpl implements BlogPostDao {
     private static final String SQL_ADD_POST
             = "INSERT INTO Posts (title, author, datePosted, content, status)"
             + " VALUES (?, ?, ?, ?, ?);";
+    private static final String SQL_GET_DISPLAY_NAME
+            = "SELECT displayname FROM users WHERE username = ?";
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public BlogPost addBlogPost(BlogPost blogPost) {
+        String displayName = jdbcTemplate.queryForObject(SQL_GET_DISPLAY_NAME, String.class, blogPost.getAuthor());
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
-                blogPost.getAuthor(), blogPost.getDatePosted(),
+                displayName, blogPost.getDatePosted(),
                 blogPost.getContent(), blogPost.getStatus());
 
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",

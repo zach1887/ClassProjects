@@ -25,6 +25,11 @@
                         <a href="${pageContext.request.contextPath}/admin">Admin</a>
                     </li>
                 </sec:authorize> 
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                    <li id="nav-other">
+                        <a href="${pageContext.request.contextPath}/admin">Employee Tools</a>
+                    </li>
+                </sec:authorize> 
             </ul>
 
             <ul class="nav navbar-nav navbar-right">  
