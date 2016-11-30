@@ -36,7 +36,7 @@ $(document).ready(function () {
 function fillAllPostTable(data, status) {
     clearAllPostTable();
     $.each(data, function (index, post) {
-        $('#allPosts').append($('<tr>')
+        $('#allPosts').append($('<tr>').attr({'id' : (post.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').append($('<a>')
                                 .attr({
                                     'data-post-id': post.id,
@@ -55,9 +55,9 @@ function fillAllPostTable(data, status) {
                                 ))
                 .append($('<td>').append($('<a>')
                                 .attr({
-                                    'onClick': 'deletePost(' + post.id + ')'
+                                    'onClick': (post.status === 10 ? '' : 'deletePost(' + post.id + ')')
                                 })
-                                .text('Delete')
+                                .text(post.status === 10 ? 'Pending' : 'Delete')
                                 ))
                 );
     });
