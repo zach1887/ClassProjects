@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -59,10 +60,13 @@ public class AdminController {
     @RequestMapping(value="/admin", method=RequestMethod.GET)
     public String admin(Model model) {
         
-        List<BlogPost> posts = blogDao.getAllBlogPosts();
-        model.addAttribute("posts", posts);
-                
         return "admin";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="/posts", method=RequestMethod.GET)
+    public List<BlogPost> getAllBlogPosts() {
+        return blogDao.getAllBlogPosts();
     }
     
     //@ResponseBody
