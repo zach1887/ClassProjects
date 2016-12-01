@@ -47,6 +47,7 @@ CREATE TABLE `Comments` (
    `commentId` INT AUTO_INCREMENT NOT NULL, 
    `comment` TEXT,
    `postId` INT,
+   `displayName` TEXT,
    PRIMARY KEY(`commentId`)
    );
  
