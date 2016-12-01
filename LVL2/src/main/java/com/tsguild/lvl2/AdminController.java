@@ -60,7 +60,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
-        
+
         return "admin";
     }
 
@@ -74,24 +74,45 @@ public class AdminController {
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost, HttpServletRequest request) {
-        if (request.isUserInRole("ROLE_EMPLOYEE")) {
-            blogPost.setStatus(2);
-        } else if (request.isUserInRole("ROLE_ADMIN")) {
-            blogPost.setStatus(1);
+        /*
+        1 Admin Post
+        2 User Post Pending
+        3 User Post Approved
+        4 User Post Declined
+        5 Admin Comment
+        6 Reader comment Pending
+        7 Reader Comment Approved
+        8 Reader Comment Declined
+        9 Draft
+        10 Pending Deletion
+        11 Deleted
+         */
+
+        int s = blogPost.getStatus();
+
+        // admin only status
+        if (s == -1 || s == 1 || s == 2 || s == 3 || s == 4 || s == 9 || s == 10 || s == 11) {
+            if (s == -1 || s == 2) { //if its an unsorted or user post
+                if (request.isUserInRole("ROLE_EMPLOYEE")) {
+                    blogPost.setStatus(2);
+                } else if (request.isUserInRole("ROLE_ADMIN")) {
+                    blogPost.setStatus(1);
+                }
+            } else if (s == 9) { //if its a draft make sure they're authenticated
+                if (!(request.isUserInRole("ROLE_EMPLOYEE") || request.isUserInRole("ROLE_ADMIN"))) {
+                    return new BlogPost();
+                }
+            } else if (!request.isUserInRole("ROLE_ADMIN")) {
+                return new BlogPost();
+            }
+        } else {
+            return new BlogPost();
         }
 
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
     }
-    
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value="/blog", method=RequestMethod.PUT)
-    public BlogPost draftBlogPost(@RequestBody BlogPost blogPost){
-        blogPost.setStatus(9);
-        return blogDao.addBlogPost(blogPost);
-    }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public void editBlogPost(@RequestBody BlogPost editedPost, HttpServletRequest request) {
