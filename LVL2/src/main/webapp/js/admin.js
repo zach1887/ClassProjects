@@ -104,7 +104,6 @@ function addPost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            author: "Brumpo Tungus",
             status: -1
         })
     }).done(function (data) { //success is depreciated, were supposed to use done now
@@ -130,7 +129,7 @@ function savePost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            author: "Brumpo Tungus"
+            status: 9
         })
     }).done(function (data) { //success is depreciated, were supposed to use done now
         alert("success!");
