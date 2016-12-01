@@ -32,14 +32,53 @@ import java.util.Objects;
  * @author Dan Whitlow
  */
 public class Comment {
-    
+    private int commentId;
+    private int postId;
     private String name;
     private String comment;
+    private int status;
 
-    public Comment(String name, String comment) {
+    public Comment() {
+    }
+
+    public Comment(int commentId, int postId, String name, String comment, int status) {
+        this.commentId = commentId;
+        this.postId = postId;
         this.name = name;
         this.comment = comment;
+        this.status = status;
     }
+
+ 
+
+
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+     
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    
     
     public String getName() {
         return name;
@@ -59,9 +98,12 @@ public class Comment {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.comment);
+        int hash = 7;
+        hash = 71 * hash + this.commentId;
+        hash = 71 * hash + this.postId;
+        hash = 71 * hash + Objects.hashCode(this.name);
+        hash = 71 * hash + Objects.hashCode(this.comment);
+        hash = 71 * hash + this.status;
         return hash;
     }
 
@@ -77,6 +119,15 @@ public class Comment {
             return false;
         }
         final Comment other = (Comment) obj;
+        if (this.commentId != other.commentId) {
+            return false;
+        }
+        if (this.postId != other.postId) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -85,6 +136,11 @@ public class Comment {
         }
         return true;
     }
+
+    
+ 
+
+ 
     
     
 }

@@ -26,6 +26,7 @@
 package com.tsguild.lvl2.dao;
 
 import com.tsguild.lvl2.dto.BlogPost;
+import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -88,12 +89,12 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     private static final String SQL_GET_ALL_POSTS
             = "SELECT * FROM Posts";
-    
+
     @Override
     public List<BlogPost> getAllBlogPosts() {
         return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
     }
-    
+
     @Override
     public List<BlogPost> searchBlogPosts(Map<SearchTerm, String> criteria) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -118,7 +119,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     private static final String SQL_DELETE_POST_BY_ID
             = "DELETE FROM Posts WHERE postId = ?";
-    
+
     @Override
     public void removeBlogPost(int id) {
         jdbcTemplate.update(SQL_DELETE_POST_BY_ID, id);
@@ -159,6 +160,65 @@ public class BlogPostDaoImpl implements BlogPostDao {
             post.setStatus(status);
 
             return post;
+        }
+
+    }
+
+    private static final String SQL_ADD_COMMENT
+            = "INSERT INTO Comments (comment, postId, displayName, status)"
+            + " VALUES (?, ?, ?);";
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public Comment createComment(Comment comment) {
+        jdbcTemplate.update(SQL_ADD_COMMENT, comment.getComment(), comment.getPostId(),
+                comment.getName(), comment.getStatus());
+
+        int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
+                Integer.class);
+
+        comment.setCommentId(id);
+
+        return comment;
+    }
+    private static final String SQL_DELETE_COMMENT
+            = "UPDATE Comments SET status = 11 WHERE commentId = ?";
+
+    @Override
+    public void deleteComment(int commentId) {
+        jdbcTemplate.update(SQL_DELETE_COMMENT, commentId);
+    }
+
+    private static final String SQL_LOAD_ALL_COMMENTS
+            = "SELECT * FROM Comments WHERE postId = ?";
+
+    @Override
+    public List<Comment> loadCommentsByBlogId(int postId) {
+        try {
+            return jdbcTemplate.query(SQL_LOAD_ALL_COMMENTS,
+                    new CommentMapper(),
+                    postId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
+    }
+
+    private static final class CommentMapper implements RowMapper<Comment> {
+
+        @Override
+        public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Comment listComment = new Comment();
+            int id = rs.getInt("commentid");
+            String name = rs.getString("displayName");
+            String content = rs.getString("comment");
+            int status = rs.getInt("status");
+
+            // set properties
+            listComment.setName(name);
+            listComment.setComment(content);
+
+            return listComment;
         }
 
     }

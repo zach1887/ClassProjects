@@ -48,6 +48,7 @@ CREATE TABLE `Comments` (
    `comment` TEXT,
    `postId` INT,
    `displayName` TEXT,
+   `status` INT,
    PRIMARY KEY(`commentId`)
    );
  
@@ -61,7 +62,27 @@ CREATE TABLE `StatusCodes` (
   `status` VARCHAR(50),
   PRIMARY KEY(`statusId`)
   );
-  
+
+INSERT INTO StatusCodes(`statusId`, `status`) VALUES
+	(1, "Admin Post"), (2,"User Post Pending"), (3,"User Post Approved"),
+    (4, "User Post Declined"), (5, "Admin Comment"), (6, "Reader Comment Pending"),
+    (7, "Reader Comment Approved"), (8, "Reader Comment Declined"), (9, "Draft"),
+    (10, "Pending Deletion"), (11, "Deleted");
+ 
+
+ /*
+        1 Admin Post
+        2 User Post Pending
+        3 User Post Approved
+        4 User Post Declined
+        5 Admin Comment
+        6 Reader comment Pending
+        7 Reader Comment Approved
+        8 Reader Comment Declined
+        9 Draft
+        10 Pending Deletion
+        11 Deleted
+         */ 
   --
 -- Table structure for table `users`
 --
