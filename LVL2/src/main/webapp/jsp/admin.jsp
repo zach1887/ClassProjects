@@ -262,6 +262,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 
     <!-- Preview Modal -->
     <div id="post-preview-modal" class="modal fade" role="dialog">
@@ -326,6 +327,10 @@
 
         </div>
     </div>
+=======
+    <%@include file="template/previewModal.jsp" %>
+    <%@include file="template/editModal.jsp" %>
+>>>>>>> 14c7afaef0ab10f081f184e9d68813cb8587c047
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>tinymce.init({selector: 'textarea'});</script>
