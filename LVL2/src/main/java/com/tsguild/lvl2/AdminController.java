@@ -28,6 +28,7 @@ package com.tsguild.lvl2;
 import com.tsguild.lvl2.dao.BlogPostDao;
 import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
+import com.tsguild.lvl2.dto.StaticPage;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -149,5 +150,12 @@ public class AdminController {
         } else if (request.isUserInRole("ROLE_ADMIN")) {
             blogDao.removeBlogPost(id);
         }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/staticpage", method = RequestMethod.POST)
+    public void createStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {
+        // user auth? 
+        staticDao.addStaticPage(page);
     }
 }

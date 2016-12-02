@@ -20,17 +20,17 @@
                         <li class="active">
                             <a  href="#b1">New Post</a>
                         </li>
-                        <!-- <li><a href="#b2">New Static Page</a> 
-                        </li> -->
-                        <li><a href="#b2">Pending Comments</a>
+                        <li><a href="#b2">New Static Page</a> 
+                        </li> 
+                        <li><a href="#b3">Pending Comments</a>
                         </li>
-                        <li><a href="#b3">Pending Posts</a>
+                        <li><a href="#b4">Pending Posts</a>
                         </li>
-                        <li><a href="#b4">Scheduled Posts</a>
+                        <li><a href="#b5">Scheduled Posts</a>
                         </li>
-                        <li><a href="#b5">Deleted Posts</a>
+                        <li><a href="#b6">Deleted Posts</a>
                         </li>
-                        <li><a href="#b6">All Posts</a>
+                        <li><a href="#b7">All Posts</a>
                         </li>
                     </ul>
 
@@ -60,8 +60,27 @@
                             </form>
                         </div>
 
+                        <div class="tab-pane fade in" id="b2">
+                            <br>
+                            <form id="new-static-page-form" class="test">
+                                <div class="form-group row col-md-12">
+                                    <label for="page-title">Title:</label>
+                                    <input type="text" class="form-control clear-form" id="page-title" name="newPageTitle">
+                                </div>
+                                <div class="form-group row col-md-12">
+                                    <textarea class="form-control clear-form" id=new-page-content name="newPageContent"></textarea>
+                                </div>
+                                <div class="form-group pull-right row col-xs-4">
+                                    <button class="btn btn-default clear-page-button">Clear</button>
+                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
+                                    <button id="new-save-button" class="btn btn-default">Save</button>
+                                    <button id="new-static-page-button" class="btn btn-primary">Post</button>
+                                </div>
+                            </form>
+                        </div>
 
-                        <div class="tab-pane fade" id="b2">
+
+                        <div class="tab-pane fade" id="b3">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -99,7 +118,7 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="b3">
+                        <div class="tab-pane fade" id="b4">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -139,7 +158,7 @@
                         </div>
 
 
-                        <div class="tab-pane fade" id="b4">
+                        <div class="tab-pane fade" id="b5">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -178,7 +197,7 @@
                             </table>
                         </div>
 
-                        <div class="tab-pane fade" id="b5">
+                        <div class="tab-pane fade" id="b6">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -217,7 +236,7 @@
                             </table>
                         </div>
 
-                        <div class="tab-pane fade" id="b6">
+                        <div class="tab-pane fade" id="b7">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

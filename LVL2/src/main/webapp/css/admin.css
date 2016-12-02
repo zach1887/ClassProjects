@@ -14,11 +14,11 @@ h2 {
 	margin-top: 3%;
 }
 
-#b1 {
+#b1, #b2 {
 	padding-left: 3%;
 }
 
-#b1 .pull-right {
+#b1 .pull-right, #b2 .pull-right {
 	margin-right: .5%;
 }
 

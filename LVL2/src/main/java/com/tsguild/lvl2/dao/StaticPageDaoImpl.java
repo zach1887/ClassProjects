@@ -32,6 +32,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -45,9 +47,15 @@ public class StaticPageDaoImpl implements StaticPageDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private static final String SQL_ADD_PAGE
+            = "insert into StaticPages(pageTitle, pageContent, `status`) values(?, ?, ?)";
+    
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public StaticPage addStaticPage(StaticPage staticPage) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        jdbcTemplate.update(SQL_ADD_PAGE, staticPage.getTitle(), staticPage.getContent(), staticPage.getStatus());
+        staticPage.setId(jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class));
+        return staticPage;
     }
 
     //Get static page by ID
@@ -58,7 +66,6 @@ public class StaticPageDaoImpl implements StaticPageDao {
     @Override
     public StaticPage getStaticPageById(int id) {
         try {
-            int test = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
             return jdbcTemplate.queryForObject(SQL_GET_PAGE, // select stmt
                     new PageMapper(), // what we're turning the RS into!
                     id); // and then subsitituting in any placeholders
