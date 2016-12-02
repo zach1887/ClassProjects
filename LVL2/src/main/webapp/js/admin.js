@@ -49,6 +49,32 @@ $(document).ready(function () {
         deletePost();
     });
 
+    // This function would be for admin or employee comments
+    $("#add-comment-button").click(function (event) {
+        event.preventDefault();
+        addComment();
+    });
+    
+    // This function would be for reader or guest comments
+    $("#submit-comment-button").click(function (event) {
+        event.preventDefault();
+        submitComment();
+    });
+    
+    // This function would be for admin or employees moderating reader/guest comments
+    //   or deleting comments already posted
+    $("#delete-comment-button").click(function (event) {
+        event.preventDefault();
+        deleteComment();
+    });
+    
+    // This function would be for admin or employees moderating reader/guest comments
+    $("#approve-comment-button").click(function (event) {
+        event.preventDefault();
+        approveComment();
+    });
+    
+    
 });
 
 
@@ -125,7 +151,7 @@ function addPost() {
             content: postContent,
             status: -1
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         clearPost();
         loadAllPosts();
@@ -172,7 +198,7 @@ function savePost() {
             content: postContent,
             status: 9
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });
@@ -203,7 +229,7 @@ function editPost() {
             status: postStatus,
             id: postId
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
     });
 }
@@ -212,7 +238,7 @@ function deletePost(postId) {
     $.ajax({
         url: 'blog/' + postId,
         type: 'DELETE'
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });

@@ -263,7 +263,7 @@
     </div>
 
 
-    <!-- Preivew Modal -->
+    <!-- Preview Modal -->
     <div id="post-preview-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -271,7 +271,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Post Ttitle</h4>
+                    <h4 class="modal-title">Post Title</h4>
                     <div class="dim-text">Author - 11/11/1111</div>
                 </div>
                 <div class="modal-body">
@@ -294,7 +294,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Post Ttitle</h4>
+                    <h4 class="modal-title">Post Title</h4>
                     <div class="dim-text">Author - 11/11/1111</div>
                 </div>
                 <div class="modal-body">
