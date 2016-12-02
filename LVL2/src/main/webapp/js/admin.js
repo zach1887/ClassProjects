@@ -40,10 +40,13 @@ $(document).ready(function () {
         savePost();
     });
 
-    $("#edit-post-button").click(function (event) {
-        event.preventDefault();
-        editPost();
+    $("#post-edit-modal").on('show.bs.modal', function(event){
+        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
+        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        fillEditModal(postId);
     });
+    
+    
 
     $("#delete").click(function (event) {
         deletePost();
@@ -79,8 +82,11 @@ function fillAllPostTable(data, status) {
                 .append($('<td>').text(post.author))
                 .append($('<td>').text(post.datePosted))
                 .append($('<td>').append($('<a>')
+        //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
                         .attr({
-                            'href': 'edit/' + post.id
+                            'data-toggle': 'modal',
+                            'data-target': '#post-edit-modal',
+                            'data-post-id': post.id
                         })
                         .text('Edit')
                         ))
@@ -218,4 +224,22 @@ function deletePost(postId) {
     });
 }
 
+
+function fillEditModal(postId){
+    $.ajax({
+        type: 'GET',
+        url: 'post/' + postId,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (post) {
+       $('#post-edit-modal .modal-title').text(post.title);
+       $('#edit-post-author').text(post.author +" - " + post.datePosted);
+       $('#edit-post-id').val(post.id);
+       $('#edit-post-status').val(post.status);
+       $('#edit-post-title').val(post.title);
+       $('#edit-post-date').val(post.datePosted);
+       tinyMCE.activeEditor.setContent(post.content);
+    });
+}
 // </script> 
