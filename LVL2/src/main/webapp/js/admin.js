@@ -46,7 +46,11 @@ $(document).ready(function () {
         fillEditModal(postId);
     });
     
-    
+    $("#post-preview-modal").on('show.bs.modal', function(event){
+        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
+        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        fillPreviewModal(postId);
+    });
 
     $("#delete").click(function (event) {
         deletePost();
@@ -242,4 +246,19 @@ function fillEditModal(postId){
        tinyMCE.activeEditor.setContent(post.content);
     });
 }
+
+function fillPreviewModal(postId){
+    $.ajax({
+        type: 'GET',
+        url: 'post/' + postId,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (post) {
+       $('#preview-post-content').html(post.content);
+       $('#preview-post-author').text(post.author +" - " + post.datePosted);
+       $('#preview-post-title').text(post.title);
+    });
+}
+
 // </script> 
