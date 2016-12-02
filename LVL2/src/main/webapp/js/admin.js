@@ -8,8 +8,12 @@ $(document).ready(function () {
 
     $(".clear-button").click(function () {
         event.preventDefault();
-        $('#new-post-form input').val("");
-        tinymce.get('new-post-content').setContent("");
+        clearPost();
+    });
+
+    $(".clear-page-button").click(function () {
+        event.preventDefault();
+        clearPage();
     });
 
     $(".nav-pills a").click(function () {
@@ -21,11 +25,16 @@ $(document).ready(function () {
         event.preventDefault();
         addPost();
     });
-    
+
+    $("#new-static-page-button").click(function (event) {
+        event.preventDefault();
+        addPage();
+    });
+
     $("#new-preview-button").click(function (event) {
         event.preventDefault();
     });
-    
+
     $("#new-save-button").click(function (event) {
         event.preventDefault();
         savePost();
@@ -45,32 +54,42 @@ $(document).ready(function () {
 
 //functions
 
+function clearPost() {
+    $('#new-post-form input').val("");
+    tinymce.get('new-post-content').setContent("");
+}
+
+function clearPage() {
+    $('#new-static-page-form input').val("");
+    tinymce.get('new-page-content').setContent("");
+}
+
 function fillAllPostTable(data, status) {
     clearAllPostTable();
     $.each(data, function (index, post) {
-        $('#allPosts').append($('<tr>').attr({'id' : (post.status === 10 ? 'pendingDelete' : ' ')})
+        $('#allPosts').append($('<tr>').attr({'id': (post.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').append($('<a>')
-                                .attr({
-                                    'data-post-id': post.id,
-                                    'data-toggle': 'modal',
-                                    'data-target': '#post-preview-modal'
-                                })
-                                .text(post.title)
-                                ))
+                        .attr({
+                            'data-post-id': post.id,
+                            'data-toggle': 'modal',
+                            'data-target': '#post-preview-modal'
+                        })
+                        .text(post.title)
+                        ))
                 .append($('<td>').text(post.author))
                 .append($('<td>').text(post.datePosted))
                 .append($('<td>').append($('<a>')
-                                .attr({
-                                    'href': 'edit/' + post.id
-                                })
-                                .text('Edit')
-                                ))
+                        .attr({
+                            'href': 'edit/' + post.id
+                        })
+                        .text('Edit')
+                        ))
                 .append($('<td>').append($('<a>')
-                                .attr({
-                                    'onClick': (post.status === 10 ? '' : 'deletePost(' + post.id + ')')
-                                })
-                                .text(post.status === 10 ? 'Pending' : 'Delete')
-                                ))
+                        .attr({
+                            'onClick': (post.status === 10 ? '' : 'deletePost(' + post.id + ')')
+                        })
+                        .text(post.status === 10 ? 'Pending' : 'Delete')
+                        ))
                 );
     });
 }
@@ -84,7 +103,7 @@ function loadAllPosts() {
 }
 
 function clearAllPostTable() {
-    $('#allPosts').empty(); 
+    $('#allPosts').empty();
 }
 
 function addPost() {
@@ -108,7 +127,29 @@ function addPost() {
         })
     }).done(function (data) { //success is depreciated, were supposed to use done now
         alert("success!");
+        clearPost();
         loadAllPosts();
+    });
+}
+
+function addPage() {
+    var pageTitle = $("#page-title").val();
+    var pageContent = tinymce.get('new-page-content').getContent();
+
+    $.ajax({
+        url: 'staticpage',
+        type: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            title: pageTitle,
+            content: pageContent,
+            status: 1
+        })
+    }).done(function (data) {
+        clearPage();
+        alert("success!");
     });
 }
 
@@ -148,7 +189,7 @@ function editPost() {
 
     $.ajax({
         url: '/LVL2/edit/' + postId,
-        type: 'POST', 
+        type: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
