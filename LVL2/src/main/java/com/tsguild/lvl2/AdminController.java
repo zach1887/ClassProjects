@@ -71,7 +71,13 @@ public class AdminController {
     public List<BlogPost> getAllBlogPosts() {
         return blogDao.getAllBlogPosts();
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+    public BlogPost getJsonPost(@PathVariable int postId){
+        return blogDao.getBlogPostById(postId);
+    }
+    
     @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
