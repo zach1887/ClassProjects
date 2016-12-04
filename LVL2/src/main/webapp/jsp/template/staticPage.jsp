@@ -9,11 +9,11 @@
         <div class="container-fluid">
             <%@ include file="navbar.jsp" %>
             <div class="row">
-                <!--<div class="col-md-2"></div>-->
-                <div class="col-md-8 col-md-offset-2" id="content-area">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" id="content-area">
                     ${content}
                 </div>
-                <!--<div class="col-md-2"></div>-->
+                <div class="col-md-2"></div>
             </div>
 
             <hr>

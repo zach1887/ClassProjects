@@ -39,7 +39,7 @@
 
                         <div class="tab-pane fade in active" id="b1">
                             <br>
-                            <div id="new-post-form" class="test">
+                            <form id="new-post-form" class="test">
                                 <div class="form-group row col-md-12">
                                     <label for="post-title">Title:</label>
                                     <input type="text" class="form-control clear-form" id="post-title" name="newPostTitle">
@@ -49,19 +49,15 @@
                                     <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
                                 </div>
                                 <div class="form-group row col-md-12">
-                                    <textarea class="form-control clear-form" id="new-post-content" name="newPostContent"></textarea>
-                                    <iframe id="form_target" name="form_target" style="display:none"></iframe>
-                                    <form id="image_upload" action="${pageContext.request.contextPath}/upload" target="form_target" method="POST" enctype="multipart/form-data" style="width:0px;height:0px;overflow:hidden">
-                                        <input name="image" type="file" onchange="$('#image_upload').submit();this.value = '';">
-                                    </form>
+                                    <textarea class="form-control clear-form" id=new-post-content name="newPostContent"></textarea>
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-button">Clear</button>
                                     <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
-                                    <button id="new-save-button" class="btn btn-default">Save</button>
+                                    <button  id="new-save-button" class="btn btn-default">Save</button>
                                     <button id="new-post-button" class="btn btn-primary">Post</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
 
                         <div class="tab-pane fade in" id="b2">
@@ -270,26 +266,9 @@
     <%@include file="template/editModal.jsp" %>
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: '#new-post-content',
-            plugins: ["image"]
-//            file_browser_callback: function (field_name, url, type, win) {
-//                if (type == 'image')
-//                    $('#image_upload input').click();
-//            }
-        });
-        tinymce.init({
-            selector: '#new-page-content',
-            plugins: ["image"]
-//            file_browser_callback: function (field_name, url, type, win) {
-//                if (type == 'image')
-//                    $('#image_upload input').click();
-//            }
-        });
-    </script>
+    <script>tinymce.init({selector: 'textarea'});</script>
 
     <%@ include file="template/footer.jsp" %>
-    <script>$("#nav-other").addClass("active");</script>
+    <script>$("#nav-other").addClass("active")</script>
 </body>
 </html>
