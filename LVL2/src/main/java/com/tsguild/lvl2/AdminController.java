@@ -32,6 +32,7 @@ import com.tsguild.lvl2.dto.StaticPage;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -158,4 +159,11 @@ public class AdminController {
         // user auth? 
         staticDao.addStaticPage(page);
     }
+
+//    @ResponseBody
+//    @RequestMapping(value="/upload", method=RequestMethod.POST)
+//    public String uploadImage(HttpServletRequest request) {
+//        request.getParameter("image");
+//        return "<script>alert('message')</script>";
+//    }
 }
