@@ -181,6 +181,25 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
         return comment;
     }
+    private static final String SQL_APPROVE_COMMENT
+           = "UPDATE Comments SET status = 7 WHERE commentId = ?";
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void approveComment(int commentId) {
+        jdbcTemplate.update(SQL_APPROVE_COMMENT, commentId);
+
+    }
+    
+    private static final String SQL_DECLINE_COMMENT
+           = "UPDATE Comments SET status = 8 WHERE commentId = ?";
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void declineComment(int commentId) {
+        jdbcTemplate.update(SQL_DECLINE_COMMENT, commentId);
+
+    }
     private static final String SQL_DELETE_COMMENT
             = "UPDATE Comments SET status = 11 WHERE commentId = ?";
 
@@ -189,13 +208,13 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_DELETE_COMMENT, commentId);
     }
 
-    private static final String SQL_LOAD_ALL_COMMENTS
+    private static final String SQL_LOAD_COMMENTS_BY_BLOGID
             = "SELECT * FROM Comments WHERE postId = ?";
 
     @Override
     public List<Comment> loadCommentsByBlogId(int postId) {
         try {
-            return jdbcTemplate.query(SQL_LOAD_ALL_COMMENTS,
+            return jdbcTemplate.query(SQL_LOAD_COMMENTS_BY_BLOGID,
                     new CommentMapper(),
                     postId);
         } catch (EmptyResultDataAccessException e) {
