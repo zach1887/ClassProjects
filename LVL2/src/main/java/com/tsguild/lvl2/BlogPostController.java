@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -38,10 +39,9 @@ public class BlogPostController {
         return "template/blog";
     }
 
-    @RequestMapping(value = "/blogWithComments/{blogId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/blogWithComments/{postId}", method = RequestMethod.GET)
     public String displayBlogWithComments(ModelMap model, @PathVariable int postId) {
         BlogPost post = dao.getBlogPostById(postId);
-        List<Comment> BlogComments = dao.loadCommentsByBlogId(postId);
 
         model.addAttribute("title", post.getTitle());
         model.addAttribute("author", post.getAuthor());
@@ -52,14 +52,16 @@ public class BlogPostController {
         return "template/blogWithComments";
 
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value="/comments/{postId}", method = RequestMethod.GET)
+    public List<Comment> loadCommentsByPostId(@PathVariable int postId) {
+        return dao.loadCommentsByBlogId(postId);
+    }
+    
+    
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public void createComment(Comment comment, HttpServletRequest request) {
-        if (request.isUserInRole("ROLE_EMPLOYEE") || request.isUserInRole("ROLE_ADMIN")) {
-            comment.setStatus(5);
-        } else {
-            comment.setStatus(6);
-        }
+    public void createComment(Comment comment) {
         dao.createComment(comment);
     }
 

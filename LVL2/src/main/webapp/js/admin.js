@@ -276,7 +276,7 @@ function fillPreviewModal(postId) {
 }
 
 function addComment() {
-    var displayName = $("#comment-display-name").text();
+    var displayName = $("#comment-display-name").val();
     var postId = $("#postId").text();
     var commentContent = tinymce.get('#comment-content').getContent();
 
@@ -291,7 +291,31 @@ function addComment() {
         data: JSON.stringify({
             postId: postId,
             name: displayName,
-            comment: commentContent
+            comment: commentContent,
+            status: 5
+        })
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+function sumbitComment() {
+    var displayName = $("#comment-display-name").val();
+    var postId = $("#postId").text();
+    var commentContent = tinymce.get('#comment-content').getContent();
+
+    $.ajax({
+        url: 'comment',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            postId: postId,
+            name: displayName,
+            comment: commentContent,
+            status: 6
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
@@ -325,9 +349,24 @@ function declineComment(commentId) {
     });
 }
 
-function displayComments(blogId) {
-    
+
+function loadCommentsByPostId(postId) {
+    $.ajax({
+        url: 'comments/' + postId ,
+        method: 'GET'
+    }).done(function (data) {
+        displayComments(data, status);
+    });
 }
+function displayComments(blogId) {
+    $.each(data, function (index, comment) {
+        $('#blogComments').append($('<tr>')
+                .append($('<td>').text(comment.name))
+                .append($('<td>').text(comment.content))
+                );
+    });
+}
+
 
 function pullTag() {
     

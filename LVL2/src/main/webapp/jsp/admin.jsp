@@ -262,7 +262,6 @@
         </div>
     </div>
 
-<<<<<<< HEAD
 
     <!-- Preview Modal -->
     <div id="post-preview-modal" class="modal fade" role="dialog">
