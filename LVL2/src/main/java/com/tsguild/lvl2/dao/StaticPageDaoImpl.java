@@ -94,21 +94,21 @@ public class StaticPageDaoImpl implements StaticPageDao {
             String content1;
             String content2;
             String content3;
-            
+
             try {
                 content1 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 0);
                 page.setContent1(content1);
             } catch (EmptyResultDataAccessException e) {
                 content1 = null;
             }
-            
+
             try {
                 content2 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 1);
                 page.setContent2(content2);
             } catch (EmptyResultDataAccessException e) {
                 content2 = null;
             }
-            
+
             try {
                 content3 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 2);
                 page.setContent3(content3);
@@ -122,9 +122,40 @@ public class StaticPageDaoImpl implements StaticPageDao {
         }
     }
 
+    private static final String SQL_GET_ALL_PAGES
+            = "SELECT * FROM StaticPages";
+
     @Override
     public List<StaticPage> getAllStaticPages() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<StaticPage> pages = jdbcTemplate.query(SQL_GET_ALL_PAGES, new PageMapper());
+
+        for (StaticPage page : pages) {
+            String content1;
+            String content2;
+            String content3;
+
+            try {
+                content1 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 0);
+                page.setContent1(content1);
+            } catch (EmptyResultDataAccessException e) {
+                content1 = null;
+            }
+
+            try {
+                content2 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 1);
+                page.setContent2(content2);
+            } catch (EmptyResultDataAccessException e) {
+                content2 = null;
+            }
+
+            try {
+                content3 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 2);
+                page.setContent3(content3);
+            } catch (EmptyResultDataAccessException e) {
+                content3 = null;
+            }
+        }
+        return pages;
     }
 
     @Override

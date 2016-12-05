@@ -71,6 +71,12 @@ public class AdminController {
     public List<BlogPost> getAllBlogPosts() {
         return blogDao.getAllBlogPosts();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/pages", method = RequestMethod.GET)
+    public List<StaticPage> getAllStaticPages() {
+        return staticDao.getAllStaticPages();
+    }
     
     @ResponseBody
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)

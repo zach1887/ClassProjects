@@ -5,6 +5,7 @@
 $(document).ready(function () {
 
     loadAllPosts();
+    loadAllPages();
 
     $("#page-layout").change(function () {
         if ($("#page-layout").val() == 1) {
@@ -136,6 +137,14 @@ function fillAllPostTable(data, status) {
     });
 }
 
+function fillAllPageTable(data, status) {
+    clearAllPageTable();
+    $.each(data, function (index, page) {
+        $('#allPages').append($('<tr>')
+                .append($('<td>').text(page.title)))
+    });
+}
+
 function loadAllPosts() {
     $.ajax({
         url: "posts"
@@ -144,8 +153,20 @@ function loadAllPosts() {
     });
 }
 
+function loadAllPages() {
+    $.ajax({
+        url: "pages"
+    }).done(function (data) {
+        fillAllPageTable(data, status);
+    });
+}
+
 function clearAllPostTable() {
     $('#allPosts').empty();
+}
+
+function clearAllPageTable() {
+    $('#allPages').empty();
 }
 
 function addPost() {
@@ -197,6 +218,7 @@ function addPage() {
         })
     }).done(function (data) {
         clearPage();
+        loadAllPages();
         alert("success!");
     });
 }
