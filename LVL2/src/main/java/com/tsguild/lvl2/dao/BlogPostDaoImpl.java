@@ -107,14 +107,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
             + "WHERE Posts.postId = ?";
 
     @Override
-    public void updateBlogPost(BlogPost updatedPage) {
+    public void updateBlogPost(BlogPost updatedPost) {
         jdbcTemplate.update(SQL_UPDATE_POST_BY_ID,
-                updatedPage.getTitle(),
-                updatedPage.getContent(),
-                updatedPage.getAuthor(),
-                updatedPage.getDatePosted(),
-                updatedPage.getStatus(),
-                updatedPage.getId());
+                updatedPost.getTitle(),
+                updatedPost.getContent(),
+                updatedPost.getAuthor(),
+                updatedPost.getDatePosted(),
+                updatedPost.getStatus(),
+                updatedPost.getId());
     }
 
     private static final String SQL_DELETE_POST_BY_ID

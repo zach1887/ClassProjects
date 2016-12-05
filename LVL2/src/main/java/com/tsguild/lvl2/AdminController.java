@@ -165,6 +165,18 @@ public class AdminController {
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/staticpage/{id}", method = RequestMethod.DELETE)
+    public void deleteStaticPage(@PathVariable int id, HttpServletRequest request) {
+        StaticPage page = staticDao.getStaticPageById(id);
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            page.setStatus(10);
+            staticDao.updateStaticPage(page);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            staticDao.removeStaticPage(id);
+        }
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/staticpage", method = RequestMethod.POST)
     public void createStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {

@@ -28,7 +28,6 @@ package com.tsguild.lvl2.dao;
 import com.tsguild.lvl2.dto.StaticPage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -158,14 +157,24 @@ public class StaticPageDaoImpl implements StaticPageDao {
         return pages;
     }
 
+    private static final String SQL_UPDATE_PAGE
+            = "UPDATE StaticPages SET pageTitle = ?, `status` = ?, layout = ? where StaticPages.pageId = ?";
+    
     @Override
     public void updateStaticPage(StaticPage updatedPage) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        jdbcTemplate.update(SQL_UPDATE_PAGE, updatedPage.getTitle(), updatedPage.getStatus(), updatedPage.getLayout(), updatedPage.getId());
     }
 
+    private static final String SQL_REMOVE_PAGE
+            = "DELETE FROM StaticPages WHERE pageId = ?";
+
+    private static final String SQL_REMOVE_PAGE_CONTENTS
+            = "DELETE FROM StaticPageContents WHERE pageId = ?";
+    
     @Override
     public void removeStaticPage(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        jdbcTemplate.update(SQL_REMOVE_PAGE_CONTENTS, id);
+        jdbcTemplate.update(SQL_REMOVE_PAGE, id);
     }
 
     private static final class PageMapper implements RowMapper<StaticPage> {

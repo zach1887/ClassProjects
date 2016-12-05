@@ -140,9 +140,11 @@ function fillAllPostTable(data, status) {
 function fillAllPageTable(data, status) {
     clearAllPageTable();
     $.each(data, function (index, page) {
-        $('#allPages').append($('<tr>')
+        $('#allPages').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').text(page.title)))
     });
+
+        
 }
 
 function loadAllPosts() {
@@ -213,7 +215,7 @@ function addPage() {
             content1: pageContent1,
             content2: pageContent2,
             content3: pageContent3,
-            status: 1,
+            status: 15,
             layout: pageLayout
         })
     }).done(function (data) {
@@ -285,6 +287,16 @@ function deletePost(postId) {
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
+    });
+}
+
+function deletePage(pageId) {
+    $.ajax({
+        url: 'staticpage/' + pageId,
+        type: 'DELETE'
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+        loadAllPages();
     });
 }
 
@@ -369,7 +381,7 @@ function sumbitComment() {
 }
 
 function deleteComment(commentId) {
-   $.ajax({
+    $.ajax({
         url: 'comment/' + commentId,
         type: 'DELETE',
     }).done(function (data) { //success is deprecated, were supposed to use done now
@@ -381,7 +393,7 @@ function approveComment(commentId) {
     $.ajax({
         url: 'comment/approve' + commentId,
         type: 'PUT'
-        }).done(function (data) { //success is deprecated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
     });
 }
@@ -390,7 +402,7 @@ function declineComment(commentId) {
     $.ajax({
         url: 'comment/decline' + commentId,
         type: 'PUT'
-        }).done(function (data) { //success is deprecated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
     });
 }
@@ -398,7 +410,7 @@ function declineComment(commentId) {
 
 function loadCommentsByPostId(postId) {
     $.ajax({
-        url: 'comments/' + postId ,
+        url: 'comments/' + postId,
         method: 'GET'
     }).done(function (data) {
         displayComments(data, status);
@@ -415,14 +427,14 @@ function displayComments(blogId) {
 
 
 function pullTag() {
-    
+
 }
 
 function assignTagId(tagName) {
-    
+
 }
 
 function populateBridgeTable(postId) {
-    
+
 }
 // </script> 
