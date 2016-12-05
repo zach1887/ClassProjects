@@ -35,13 +35,31 @@ ADD CONSTRAINT fk_Tags
 FOREIGN KEY(`tagId`)
 REFERENCES `Tags`(`tagId`);      
 
+-- CREATE TABLE `StaticPages` (
+--    `pageId` INT AUTO_INCREMENT NOT NULL, 
+--    `pageTitle` VARCHAR(60),
+--    `pageContentId` TEXT,
+--    `status` INT,
+--    PRIMARY KEY(`pageId`)
+--    );
+
 CREATE TABLE `StaticPages` (
    `pageId` INT AUTO_INCREMENT NOT NULL, 
    `pageTitle` VARCHAR(60),
-   `pageContent` TEXT,
    `status` INT,
+   `layout` INT,
    PRIMARY KEY(`pageId`)
    );
+   
+CREATE TABLE `StaticPageContents` (
+	`pageId` INT,
+    `content` TEXT 
+);
+   
+ALTER TABLE `StaticPageContents`
+ADD CONSTRAINT fk_PageIdContents
+FOREIGN KEY(`pageId`)
+REFERENCES `StaticPages`(`pageId`);   
    
 CREATE TABLE `Comments` (
    `commentId` INT AUTO_INCREMENT NOT NULL, 

@@ -4,6 +4,23 @@
 $(document).ready(function () {
 
     loadAllPosts();
+    loadAllPages();
+
+    $("#page-layout").change(function () {
+        if ($("#page-layout").val() == 1) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "none");
+            $("#column3").css("display", "none");
+        } else if ($("#page-layout").val() == 2) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "block");
+            $("#column3").css("display", "none");
+        } else if ($("#page-layout").val() == 3) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "block");
+            $("#column3").css("display", "block");
+        }
+    });
 
     $(".clear-button").click(function () {
         event.preventDefault();
@@ -41,13 +58,13 @@ $(document).ready(function () {
 
     $("#post-edit-modal").on('show.bs.modal', function (event) {
         var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
-        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        var postId = element.data('post-id'); // found the a tag, now get the data-post-id value
         fillEditModal(postId);
     });
 
     $("#post-preview-modal").on('show.bs.modal', function (event) {
         var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
-        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        var postId = element.data('post-id'); // found the a tag, now get the data-post-id value
         fillPreviewModal(postId);
     });
 
@@ -81,7 +98,9 @@ function clearPost() {
 
 function clearPage() {
     $('#new-static-page-form input').val("");
-    tinymce.get('new-page-content').setContent("");
+    tinymce.get('new-page-content1').setContent("");
+    tinymce.get('new-page-content2').setContent("");
+    tinymce.get('new-page-content3').setContent("");
 }
 
 function fillAllPostTable(data, status) {
@@ -117,6 +136,14 @@ function fillAllPostTable(data, status) {
     });
 }
 
+function fillAllPageTable(data, status) {
+    clearAllPageTable();
+    $.each(data, function (index, page) {
+        $('#allPages').append($('<tr>')
+                .append($('<td>').text(page.title)))
+    });
+}
+
 function loadAllPosts() {
     $.ajax({
         url: "posts"
@@ -125,8 +152,20 @@ function loadAllPosts() {
     });
 }
 
+function loadAllPages() {
+    $.ajax({
+        url: "pages"
+    }).done(function (data) {
+        fillAllPageTable(data, status);
+    });
+}
+
 function clearAllPostTable() {
     $('#allPosts').empty();
+}
+
+function clearAllPageTable() {
+    $('#allPages').empty();
 }
 
 function addPost() {
@@ -157,7 +196,10 @@ function addPost() {
 
 function addPage() {
     var pageTitle = $("#page-title").val();
-    var pageContent = tinymce.get('new-page-content').getContent();
+    var pageLayout = $("#page-layout").val();
+    var pageContent1 = tinymce.get('new-page-content1').getContent();
+    var pageContent2 = tinymce.get('new-page-content2').getContent();
+    var pageContent3 = tinymce.get('new-page-content3').getContent();
 
     $.ajax({
         url: 'staticpage',
@@ -167,11 +209,15 @@ function addPage() {
         },
         data: JSON.stringify({
             title: pageTitle,
-            content: pageContent,
-            status: 1
+            content1: pageContent1,
+            content2: pageContent2,
+            content3: pageContent3,
+            status: 1,
+            layout: pageLayout
         })
     }).done(function (data) {
         clearPage();
+        loadAllPages();
         alert("success!");
     });
 }
