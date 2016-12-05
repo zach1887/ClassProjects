@@ -41,19 +41,23 @@ $(document).ready(function () {
     });
 
     $("#post-edit-modal").on('show.bs.modal', function(event){
-        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
-        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        var element = $(event.relatedTarget); 
+        var postId = element.data('post-id'); 
         fillEditModal(postId);
     });
     
     $("#post-preview-modal").on('show.bs.modal', function(event){
-        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
-        var postId = element.data('post-id'); // found the a tag, now get the data-pet-id value
+        var element = $(event.relatedTarget);
+        var postId = element.data('post-id');
         fillPreviewModal(postId);
     });
 
     $("#delete").click(function (event) {
         deletePost();
+    });
+    
+    $("#post-scheduled").change(function (){
+        valueChanged();
     });
 
 });
@@ -62,18 +66,26 @@ $(document).ready(function () {
 //functions
 
 function clearPost() {
-    $('#new-post-form input').val("");
+    $('#new-post-form')[0].reset();
     tinymce.get('new-post-content').setContent("");
 }
 
 function clearPage() {
-    $('#new-static-page-form input').val("");
+    $('#new-static-page-form')[0].reset();
     tinymce.get('new-page-content').setContent("");
 }
 
 function fillAllPostTable(data, status) {
     clearAllPostTable();
     $.each(data, function (index, post) {
+        var temp = new Date(post.datePosted);
+        var datePosted = temp.toDateString();
+        if (post.dateScheduled === null){
+            var dateScheduled = null;
+        } else {
+            var dateScheduled = new Date(post.dateScheduled).toDateString();
+        }
+        
         $('#allPosts').append($('<tr>').attr({'id': (post.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').append($('<a>')
                         .attr({
@@ -84,7 +96,8 @@ function fillAllPostTable(data, status) {
                         .text(post.title)
                         ))
                 .append($('<td>').text(post.author))
-                .append($('<td>').text(post.datePosted))
+                .append($('<td>').text(datePosted))
+                .append($('<td>').text(dateScheduled))
                 .append($('<td>').append($('<a>')
         //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
                         .attr({
@@ -118,9 +131,13 @@ function clearAllPostTable() {
 
 function addPost() {
     var postTitle = $("#post-title").val();
-    var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
-
+    
+    if($('#post-scheduled').is(":checked")){
+        var postDate = $("#post-date").val();
+    } else {
+        var postDate;
+    }
     $.ajax({
         url: 'blog',
         type: 'POST',
@@ -261,4 +278,12 @@ function fillPreviewModal(postId){
     });
 }
 
+
+function valueChanged()
+{
+    if($('#post-scheduled').is(":checked"))   
+        $("#new-post-schedule").show();
+    else
+        $("#new-post-schedule").hide();
+}
 // </script> 

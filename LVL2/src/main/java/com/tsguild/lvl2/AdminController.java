@@ -118,6 +118,10 @@ public class AdminController {
 
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
+        
+        
+        
+        
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

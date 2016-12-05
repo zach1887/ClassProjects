@@ -29,6 +29,9 @@ import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -51,7 +54,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     // Add blog post
     private static final String SQL_ADD_POST
-            = "INSERT INTO Posts (title, author, datePosted, content, status)"
+            = "INSERT INTO Posts (title, author, dateScheduled, content, status)"
             + " VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_GET_DISPLAY_NAME
             = "SELECT displayname FROM users WHERE username = ?";
@@ -61,7 +64,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     public BlogPost addBlogPost(BlogPost blogPost) {
         String displayName = jdbcTemplate.queryForObject(SQL_GET_DISPLAY_NAME, String.class, blogPost.getAuthor());
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
-                displayName, blogPost.getDatePosted(),
+                displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
 
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
@@ -147,9 +150,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
             int id = rs.getInt("postId");
             String title = rs.getString("title");
             String author = rs.getString("author");
-            String datePosted = rs.getString("datePosted");
+            
+            Timestamp datePosted = rs.getTimestamp("datePosted");
+            Timestamp dateScheduled = rs.getTimestamp("dateScheduled");
+            
             String content = rs.getString("content");
             int status = rs.getInt("status");
+            
+            
 
             // set properties
             post.setId(id);
@@ -158,6 +166,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
             post.setDatePosted(datePosted);
             post.setContent(content);
             post.setStatus(status);
+            post.setDateScheduled(dateScheduled);
 
             return post;
         }

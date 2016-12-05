@@ -45,8 +45,14 @@
                                     <input type="text" class="form-control clear-form" id="post-title" name="newPostTitle">
                                 </div>
                                 <div class="form-group row col-md-3">
-                                    <label for="post-date">Date:</label>
-                                    <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
+                                    <label for="post-scheduled">Schedule Post</label>
+                                    <input type="checkbox" class="form-control clear-form" id="post-scheduled" name="isPostScheduled">
+                                    <span id="new-post-schedule" style="display: none;" >
+                                        <label for="post-date">Date:</label>
+                                        <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
+                                        <label for="post-time">Time</label>
+                                        <input type="Time" class="form-control clear-form" id="post-time" name="newPostTime">
+                                    </span>
                                 </div>
                                 <div class="form-group row col-md-12">
                                     <textarea class="form-control clear-form" id=new-post-content name="newPostContent"></textarea>
@@ -243,6 +249,7 @@
                                         <th>Post</th>
                                         <th>User</th>
                                         <th>Date</th>
+                                        <th>Date Scheduled</th>
                                         <th></th>
                                     </tr>
                                 </thead>

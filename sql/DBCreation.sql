@@ -1,16 +1,19 @@
-DROP DATABASE IF EXISTS MakerSpace;
-CREATE DATABASE MakerSpace;
-USE MakerSpace;
+DROP DATABASE IF EXISTS MakerSpaceTest;
+CREATE DATABASE MakerSpaceTest;
+USE MakerSpaceTest;
 
 CREATE TABLE `Posts`(
-   `postId` INT AUTO_INCREMENT NOT NULL,
-   `title` VARCHAR(60) NOT NULL,
-   `author` VARCHAR(50) NOT NULL,
-   `datePosted` DATE NOT NULL, 
-   `content` Text,
-   `status` INT,
+	`postId` INT AUTO_INCREMENT NOT NULL,
+	`title` VARCHAR(60) NOT NULL,
+	`author` VARCHAR(50) NOT NULL,
+	`datePosted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`dateScheduled` TIMESTAMP DEFAULT NULL,
+	`content` Text,
+	`status` INT,
    PRIMARY KEY(`postId`)
    );
+
+
 
 CREATE TABLE `Tags` (
    `tagId` INT AUTO_INCREMENT NOT NULL,
