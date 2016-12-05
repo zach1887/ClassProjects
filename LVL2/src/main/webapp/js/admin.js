@@ -72,6 +72,20 @@ $(document).ready(function () {
         deletePost();
     });
 
+    // This function would be for admin or employee comments
+    $("#add-comment-button").click(function (event) {
+        event.preventDefault();
+        addComment();
+    });
+
+    // This function would be for reader or guest comments
+    $("#submit-comment-button").click(function (event) {
+        event.preventDefault();
+        submitComment();
+    });
+
+
+
 });
 
 
@@ -153,7 +167,7 @@ function addPost() {
             content: postContent,
             status: -1
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         clearPost();
         loadAllPosts();
@@ -206,7 +220,7 @@ function savePost() {
             content: postContent,
             status: 9
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });
@@ -237,7 +251,7 @@ function editPost() {
             status: postStatus,
             id: postId
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
     });
 }
@@ -246,7 +260,7 @@ function deletePost(postId) {
     $.ajax({
         url: 'blog/' + postId,
         type: 'DELETE'
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });
@@ -285,4 +299,108 @@ function fillPreviewModal(postId) {
     });
 }
 
+function addComment() {
+    var displayName = $("#comment-display-name").val();
+    var postId = $("#postId").text();
+    var commentContent = tinymce.get('#comment-content').getContent();
+
+    $.ajax({
+        url: 'comment',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            postId: postId,
+            name: displayName,
+            comment: commentContent,
+            status: 5
+        })
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+function sumbitComment() {
+    var displayName = $("#comment-display-name").val();
+    var postId = $("#postId").text();
+    var commentContent = tinymce.get('#comment-content').getContent();
+
+    $.ajax({
+        url: 'comment',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            postId: postId,
+            name: displayName,
+            comment: commentContent,
+            status: 6
+        })
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function deleteComment(commentId) {
+   $.ajax({
+        url: 'comment/' + commentId,
+        type: 'DELETE',
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function approveComment(commentId) {
+    $.ajax({
+        url: 'comment/approve' + commentId,
+        type: 'PUT'
+        }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function declineComment(commentId) {
+    $.ajax({
+        url: 'comment/decline' + commentId,
+        type: 'PUT'
+        }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+
+function loadCommentsByPostId(postId) {
+    $.ajax({
+        url: 'comments/' + postId ,
+        method: 'GET'
+    }).done(function (data) {
+        displayComments(data, status);
+    });
+}
+function displayComments(blogId) {
+    $.each(data, function (index, comment) {
+        $('#blogComments').append($('<tr>')
+                .append($('<td>').text(comment.name))
+                .append($('<td>').text(comment.content))
+                );
+    });
+}
+
+
+function pullTag() {
+    
+}
+
+function assignTagId(tagName) {
+    
+}
+
+function populateBridgeTable(postId) {
+    
+}
 // </script> 
