@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,15 +55,16 @@ public class BlogPostController {
     }
     
     @ResponseBody
-    @RequestMapping(value="/comments/{postId}", method = RequestMethod.GET)
+    @RequestMapping(value="/blogWithComments/comments/{postId}", method = RequestMethod.GET)
     public List<Comment> loadCommentsByPostId(@PathVariable int postId) {
         return dao.loadCommentsByBlogId(postId);
     }
     
     
-    @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public void createComment(Comment comment) {
-        dao.createComment(comment);
+    @ResponseBody
+    @RequestMapping(value = "/blogWithComments/comment", method = RequestMethod.POST)
+    public Comment createComment(@RequestBody Comment comment) {
+        return dao.createComment(comment);
     }
 
     @RequestMapping(value = "/comment/approve", method = RequestMethod.PUT)

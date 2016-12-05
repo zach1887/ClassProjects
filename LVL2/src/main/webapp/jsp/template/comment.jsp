@@ -48,6 +48,7 @@
         
      <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>   
     <script>tinymce.init({selector: 'textarea'});</script>
+        <script src="${pageContext.request.contextPath}/js/admin_forComments.js"></script>
     <%@ include file="footer.jsp" %>
     <script>$("#nav-other").addClass("active")</script>
 </body>

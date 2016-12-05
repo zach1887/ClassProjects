@@ -1,6 +1,5 @@
 
 // <script> 
-
 //register events
 $(document).ready(function () {
 
@@ -322,34 +321,6 @@ function sumbitComment() {
     });
 }
 
-function deleteComment(commentId) {
-   $.ajax({
-        url: 'comment/' + commentId,
-        type: 'DELETE',
-    }).done(function (data) { //success is deprecated, were supposed to use done now
-        alert("success!");
-    });
-}
-
-function approveComment(commentId) {
-    $.ajax({
-        url: 'comment/approve' + commentId,
-        type: 'PUT'
-        }).done(function (data) { //success is deprecated, were supposed to use done now
-        alert("success!");
-    });
-}
-
-function declineComment(commentId) {
-    $.ajax({
-        url: 'comment/decline' + commentId,
-        type: 'PUT'
-        }).done(function (data) { //success is deprecated, were supposed to use done now
-        alert("success!");
-    });
-}
-
-
 function loadCommentsByPostId(postId) {
     $.ajax({
         url: 'comments/' + postId ,
@@ -358,7 +329,7 @@ function loadCommentsByPostId(postId) {
         displayComments(data, status);
     });
 }
-function displayComments(blogId) {
+function displayComments(data, status) {
     $.each(data, function (index, comment) {
         $('#blogComments').append($('<tr>')
                 .append($('<td>').text(comment.name))

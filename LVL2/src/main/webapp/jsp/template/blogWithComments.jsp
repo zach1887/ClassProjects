@@ -22,7 +22,7 @@
                         <div class="post-content well">
                             ${content}
                         </div>
-                        <small class="dim-text">Comments(0)</small>
+                        <small class="dim-text">Comments(<span id="numOfComments"> </span>)</small>
                         <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
                     </div>
                 </div>
@@ -59,8 +59,8 @@
                         </div>
                         <div class="form-group pull-right row col-xs-4">     
 
-                            <button id="add-comment-button" class="btn btn-primary">Post</button>
-                            <button id="cancel-comment-button" class="btn btn-primary">Cancel</button>
+                            <button id="add-comment-button" class="btn btn-primary" type = "submit">Post</button>
+                            <button id="clear-comment-button" class="btn btn-primary">Clear</button>
                         </div>
                     </form>
                 </sec:authorize>
@@ -76,8 +76,8 @@
                         </div>
                         <div class="form-group pull-right row col-xs-4">     
 
-                            <button id="submit-comment-button" class="btn btn-primary">Submit</button>
-                            <button id="cancel-comment-button" class="btn btn-primary">Cancel</button>
+                            <button id="submit-comment-button" type = "submit" class="btn btn-primary">Submit</button>
+                            <button id="clear-comment-button" class="btn btn-primary">Clear</button>
                         </div>
                     </form>
                 </sec:authorize>   
@@ -159,10 +159,10 @@
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>   
     <script>tinymce.init({selector: 'textarea'});</script>
-    <%@ include file="footer.jsp" %>
     <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/admin.js"></script>
+    <script src="${pageContext.request.contextPath}/js/admin_forComments.js"></script>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>
 

@@ -166,7 +166,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     private static final String SQL_ADD_COMMENT
             = "INSERT INTO Comments (comment, postId, displayName, status)"
-            + " VALUES (?, ?, ?);";
+            + " VALUES (?, ?, ?, ?);";
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -229,13 +229,17 @@ public class BlogPostDaoImpl implements BlogPostDao {
         public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
             Comment listComment = new Comment();
             int id = rs.getInt("commentid");
+            int postId = rs.getInt("postId");
             String name = rs.getString("displayName");
             String content = rs.getString("comment");
             int status = rs.getInt("status");
 
             // set properties
+            listComment.setCommentId(id);
+            listComment.setPostId(postId);
             listComment.setName(name);
             listComment.setComment(content);
+            listComment.setStatus(status);
 
             return listComment;
         }
