@@ -28,6 +28,7 @@ package com.tsguild.lvl2.dao;
 import com.tsguild.lvl2.dto.StaticPage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,13 +49,31 @@ public class StaticPageDaoImpl implements StaticPageDao {
     }
 
     private static final String SQL_ADD_PAGE
-            = "insert into StaticPages(pageTitle, pageContent, `status`) values(?, ?, ?)";
-    
+            = "insert into StaticPages(pageTitle, `status`, layout) values(?, ?, ?)";
+    private static final String SQL_ADD_CONTENT
+            = "insert into StaticPageContents(pageID, content) values(?, ?)";
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public StaticPage addStaticPage(StaticPage staticPage) {
-        jdbcTemplate.update(SQL_ADD_PAGE, staticPage.getTitle(), staticPage.getContent(), staticPage.getStatus());
+        jdbcTemplate.update(SQL_ADD_PAGE, staticPage.getTitle(), staticPage.getStatus(), staticPage.getLayout());
         staticPage.setId(jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class));
+
+        if (staticPage.getContent1() != null) {
+            String content = staticPage.getContent1();
+            jdbcTemplate.update(SQL_ADD_CONTENT, staticPage.getId(), content);
+        }
+
+        if (staticPage.getContent2() != null) {
+            String content = staticPage.getContent2();
+            jdbcTemplate.update(SQL_ADD_CONTENT, staticPage.getId(), content);
+        }
+
+        if (staticPage.getContent3() != null) {
+            String content = staticPage.getContent3();
+            jdbcTemplate.update(SQL_ADD_CONTENT, staticPage.getId(), content);
+        }
+
         return staticPage;
     }
 
@@ -63,12 +82,41 @@ public class StaticPageDaoImpl implements StaticPageDao {
             = "SELECT * "
             + "FROM StaticPages WHERE pageId = ?";
 
+    private static final String SQL_GET_CONTENT = "select content from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = ? limit ?,1";
+
     @Override
     public StaticPage getStaticPageById(int id) {
         try {
-            return jdbcTemplate.queryForObject(SQL_GET_PAGE, // select stmt
+            StaticPage page = jdbcTemplate.queryForObject(SQL_GET_PAGE, // select stmt
                     new PageMapper(), // what we're turning the RS into!
                     id); // and then subsitituting in any placeholders
+
+            String content1;
+            String content2;
+            String content3;
+            
+            try {
+                content1 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 0);
+                page.setContent1(content1);
+            } catch (EmptyResultDataAccessException e) {
+                content1 = null;
+            }
+            
+            try {
+                content2 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 1);
+                page.setContent2(content2);
+            } catch (EmptyResultDataAccessException e) {
+                content2 = null;
+            }
+            
+            try {
+                content3 = jdbcTemplate.queryForObject(SQL_GET_CONTENT, String.class, page.getId(), 2);
+                page.setContent3(content3);
+            } catch (EmptyResultDataAccessException e) {
+                content3 = null;
+            }
+
+            return page;
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -88,22 +136,21 @@ public class StaticPageDaoImpl implements StaticPageDao {
     public void removeStaticPage(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
-    private static final class PageMapper implements RowMapper<StaticPage>{
+
+    private static final class PageMapper implements RowMapper<StaticPage> {
 
         @Override
         public StaticPage mapRow(ResultSet rs, int rowNum) throws SQLException {
             StaticPage mappedPage = new StaticPage();
-            
+
             mappedPage.setId(Integer.parseInt(rs.getString("pageId")));
             mappedPage.setTitle(rs.getString("pageTitle"));
-            mappedPage.setContent(rs.getString("pageContent"));
-            mappedPage.setStatus(Integer.parseInt(rs.getString("status")));
-            
+            mappedPage.setStatus(rs.getInt("status"));
+            mappedPage.setLayout(rs.getInt("layout"));
+
             return mappedPage;
         }
-        
+
     }
 
 }

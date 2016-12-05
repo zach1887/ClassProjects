@@ -29,6 +29,7 @@ import com.tsguild.lvl2.dao.BlogPostDao;
 import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.StaticPage;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -161,7 +162,13 @@ public class AdminController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/staticpage", method = RequestMethod.POST)
     public void createStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {
-        // user auth? 
+        
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            page.setStatus(12);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            page.setStatus(15);
+        }
+        
         staticDao.addStaticPage(page);
     }
 }

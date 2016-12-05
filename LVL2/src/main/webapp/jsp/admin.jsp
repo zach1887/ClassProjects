@@ -68,7 +68,24 @@
                                     <input type="text" class="form-control clear-form" id="page-title" name="newPageTitle">
                                 </div>
                                 <div class="form-group row col-md-12">
-                                    <textarea class="form-control clear-form" id=new-page-content name="newPageContent"></textarea>
+                                    <label for="page-layout">Layout:</label>
+                                    <select id="page-layout">
+                                        <option value="1">One Column</option>
+                                        <option value="2">Two Columns</option>
+                                        <option value="3">Three Columns</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row col-md-12" id="column1">
+                                    <label for="page-content-one">Column One:</label>
+                                    <textarea class="form-control clear-form" id=new-page-content1 name="newPageContent1"></textarea>
+                                </div>
+                                <div class="form-group row col-md-12" id="column2">
+                                    <label for="page-content-two">Column Two:</label>
+                                    <textarea class="form-control clear-form" id=new-page-content2 name="newPageContent2"></textarea>
+                                </div>
+                                <div class="form-group row col-md-12" id="column3">
+                                    <label for="page-content-three">Column Three:</label>
+                                    <textarea class="form-control clear-form" id=new-page-content3 name="newPageContent3"></textarea>
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-page-button">Clear</button>
@@ -266,7 +283,14 @@
     <%@include file="template/editModal.jsp" %>
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'});</script>
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'image'
+        });
+
+    </script>
 
     <%@ include file="template/footer.jsp" %>
     <script>$("#nav-other").addClass("active")</script>
