@@ -143,7 +143,11 @@ function fillAllPageTable(data, status) {
                 .append($('<td>').text(page.title)))
     });
 
-        
+    if (document.getElementById("mypag")) {
+        alert('yah');
+    } else {
+        alert('meh');
+    }
 }
 
 function loadAllPosts() {
