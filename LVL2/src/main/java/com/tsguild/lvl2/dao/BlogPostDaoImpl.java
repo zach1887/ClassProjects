@@ -110,14 +110,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
             + "WHERE Posts.postId = ?";
 
     @Override
-    public void updateBlogPost(BlogPost updatedPage) {
+    public void updateBlogPost(BlogPost updatedPost) {
         jdbcTemplate.update(SQL_UPDATE_POST_BY_ID,
-                updatedPage.getTitle(),
-                updatedPage.getContent(),
-                updatedPage.getAuthor(),
-                updatedPage.getDatePosted(),
-                updatedPage.getStatus(),
-                updatedPage.getId());
+                updatedPost.getTitle(),
+                updatedPost.getContent(),
+                updatedPost.getAuthor(),
+                updatedPost.getDatePosted(),
+                updatedPost.getStatus(),
+                updatedPost.getId());
     }
 
     private static final String SQL_DELETE_POST_BY_ID
@@ -175,7 +175,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     private static final String SQL_ADD_COMMENT
             = "INSERT INTO Comments (comment, postId, displayName, status)"
-            + " VALUES (?, ?, ?);";
+            + " VALUES (?, ?, ?, ?);";
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -190,6 +190,25 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
         return comment;
     }
+    private static final String SQL_APPROVE_COMMENT
+           = "UPDATE Comments SET status = 7 WHERE commentId = ?";
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void approveComment(int commentId) {
+        jdbcTemplate.update(SQL_APPROVE_COMMENT, commentId);
+
+    }
+    
+    private static final String SQL_DECLINE_COMMENT
+           = "UPDATE Comments SET status = 8 WHERE commentId = ?";
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void declineComment(int commentId) {
+        jdbcTemplate.update(SQL_DECLINE_COMMENT, commentId);
+
+    }
     private static final String SQL_DELETE_COMMENT
             = "UPDATE Comments SET status = 11 WHERE commentId = ?";
 
@@ -198,13 +217,13 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_DELETE_COMMENT, commentId);
     }
 
-    private static final String SQL_LOAD_ALL_COMMENTS
+    private static final String SQL_LOAD_COMMENTS_BY_BLOGID
             = "SELECT * FROM Comments WHERE postId = ?";
 
     @Override
     public List<Comment> loadCommentsByBlogId(int postId) {
         try {
-            return jdbcTemplate.query(SQL_LOAD_ALL_COMMENTS,
+            return jdbcTemplate.query(SQL_LOAD_COMMENTS_BY_BLOGID,
                     new CommentMapper(),
                     postId);
         } catch (EmptyResultDataAccessException e) {
@@ -219,13 +238,17 @@ public class BlogPostDaoImpl implements BlogPostDao {
         public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
             Comment listComment = new Comment();
             int id = rs.getInt("commentid");
+            int postId = rs.getInt("postId");
             String name = rs.getString("displayName");
             String content = rs.getString("comment");
             int status = rs.getInt("status");
 
             // set properties
+            listComment.setCommentId(id);
+            listComment.setPostId(postId);
             listComment.setName(name);
             listComment.setComment(content);
+            listComment.setStatus(status);
 
             return listComment;
         }

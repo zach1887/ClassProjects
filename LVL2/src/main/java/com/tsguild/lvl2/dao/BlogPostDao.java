@@ -51,6 +51,10 @@ public interface BlogPostDao {
 
     public List<BlogPost> getBlogPostsByAuthor(String author);
     
+    public void approveComment(int commentId);
+    
+    public void declineComment(int commentId);
+            
     public Comment createComment(Comment comment);
 
     public void deleteComment(int id);

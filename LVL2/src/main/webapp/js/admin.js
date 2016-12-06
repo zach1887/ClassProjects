@@ -1,10 +1,26 @@
 
 // <script> 
-
 //register events
 $(document).ready(function () {
 
     loadAllPosts();
+    loadAllPages();
+
+    $("#page-layout").change(function () {
+        if ($("#page-layout").val() == 1) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "none");
+            $("#column3").css("display", "none");
+        } else if ($("#page-layout").val() == 2) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "block");
+            $("#column3").css("display", "none");
+        } else if ($("#page-layout").val() == 3) {
+            $("#column1").css("display", "block");
+            $("#column2").css("display", "block");
+            $("#column3").css("display", "block");
+        }
+    });
 
     $(".clear-button").click(function () {
         event.preventDefault();
@@ -60,6 +76,20 @@ $(document).ready(function () {
         valueChanged();
     });
 
+    // This function would be for admin or employee comments
+    $("#add-comment-button").click(function (event) {
+        event.preventDefault();
+        addComment();
+    });
+
+    // This function would be for reader or guest comments
+    $("#submit-comment-button").click(function (event) {
+        event.preventDefault();
+        submitComment();
+    });
+
+
+
 });
 
 
@@ -71,8 +101,10 @@ function clearPost() {
 }
 
 function clearPage() {
-    $('#new-static-page-form')[0].reset();
-    tinymce.get('new-page-content').setContent("");
+    $('#new-static-page-form input').val("");
+    tinymce.get('new-page-content1').setContent("");
+    tinymce.get('new-page-content2').setContent("");
+    tinymce.get('new-page-content3').setContent("");
 }
 
 function fillAllPostTable(data, status) {
@@ -156,6 +188,28 @@ function fillScheduleTable(data, status) {
 
 
     });
+function fillAllPageTable(data, status) {
+    clearAllPageTable();
+    if (document.getElementById("allPagesAdmin")) {
+        $.each(data, function (index, page) {
+            $('#allPagesAdmin').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
+                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': 'deletePage(' + page.id + ')'
+                            }).text((page.status === 10 ? 'Really Delete' : 'Delete')))))
+        });
+    } else if (document.getElementById("allPagesEmployee")) {
+        $.each(data, function (index, page) {
+            $('#allPagesEmployee').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
+                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': (page.status === 10 ? '' : 'deletePage(' + page.id + ')') 
+                            }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion')))))
+        });
+    }
+    
 }
 
 function loadAllPosts() {
@@ -167,9 +221,24 @@ function loadAllPosts() {
     });
 }
 
+function loadAllPages() {
+    $.ajax({
+        url: "pages"
+    }).done(function (data) {
+        fillAllPageTable(data, status);
+    });
+}
+
+function clearAllPostTable() {
+    $('#allPosts').empty();
 
 function clearTable(table) {
     $(table).empty();
+}
+
+function clearAllPageTable() {
+    $('#allPagesAdmin').empty();
+    $('#allPagesEmployee').empty();
 }
 
 function addPost() {
@@ -196,7 +265,7 @@ function addPost() {
             content: postContent,
             status: -1
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         clearPost();
         loadAllPosts();
@@ -205,7 +274,10 @@ function addPost() {
 
 function addPage() {
     var pageTitle = $("#page-title").val();
-    var pageContent = tinymce.get('new-page-content').getContent();
+    var pageLayout = $("#page-layout").val();
+    var pageContent1 = tinymce.get('new-page-content1').getContent();
+    var pageContent2 = tinymce.get('new-page-content2').getContent();
+    var pageContent3 = tinymce.get('new-page-content3').getContent();
 
     $.ajax({
         url: 'staticpage',
@@ -215,11 +287,15 @@ function addPage() {
         },
         data: JSON.stringify({
             title: pageTitle,
-            content: pageContent,
-            status: 1
+            content1: pageContent1,
+            content2: pageContent2,
+            content3: pageContent3,
+            status: 15,
+            layout: pageLayout
         })
     }).done(function (data) {
         clearPage();
+        loadAllPages();
         alert("success!");
     });
 }
@@ -243,7 +319,7 @@ function savePost() {
             content: postContent,
             status: 9
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });
@@ -274,7 +350,7 @@ function editPost() {
             status: postStatus,
             id: postId
         })
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
     });
 }
@@ -283,12 +359,21 @@ function deletePost(postId) {
     $.ajax({
         url: 'blog/' + postId,
         type: 'DELETE'
-    }).done(function (data) { //success is depreciated, were supposed to use done now
+    }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
         loadAllPosts();
     });
 }
 
+function deletePage(pageId) {
+    $.ajax({
+        url: 'staticpage/' + pageId,
+        type: 'DELETE'
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+        loadAllPages();
+    });
+}
 
 function fillEditModal(postId) {
     $.ajax({
@@ -322,12 +407,107 @@ function fillPreviewModal(postId) {
     });
 }
 
+function addComment() {
+    var displayName = $("#comment-display-name").val();
+    var postId = $("#postId").text();
+    var commentContent = tinymce.get('#comment-content').getContent();
 
-function valueChanged()
-{
-    if ($('#post-scheduled').is(":checked"))
-        $("#new-post-schedule").show();
-    else
-        $("#new-post-schedule").hide();
+    $.ajax({
+        url: 'comment',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            postId: postId,
+            name: displayName,
+            comment: commentContent,
+            status: 5
+        })
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+function sumbitComment() {
+    var displayName = $("#comment-display-name").val();
+    var postId = $("#postId").text();
+    var commentContent = tinymce.get('#comment-content').getContent();
+
+    $.ajax({
+        url: 'comment',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json',
+        data: JSON.stringify({
+            postId: postId,
+            name: displayName,
+            comment: commentContent,
+            status: 6
+        })
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function deleteComment(commentId) {
+    $.ajax({
+        url: 'comment/' + commentId,
+        type: 'DELETE',
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function approveComment(commentId) {
+    $.ajax({
+        url: 'comment/approve' + commentId,
+        type: 'PUT'
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function declineComment(commentId) {
+    $.ajax({
+        url: 'comment/decline' + commentId,
+        type: 'PUT'
+    }).done(function (data) { //success is deprecated, were supposed to use done now
+        alert("success!");
+    });
+}
+
+function loadCommentsByPostId(postId) {
+    $.ajax({
+        url: 'comments/' + postId,
+        method: 'GET'
+    }).done(function (data) {
+        displayComments(data, status);
+    });
+}
+function displayComments(data, status) {
+    $.each(data, function (index, comment) {
+        $('#blogComments').append($('<tr>')
+                .append($('<td>').text(comment.name))
+                .append($('<td>').text(comment.content))
+                );
+    });
+}
+
+
+function pullTag() {
+
+}
+
+function assignTagId(tagName) {
+
+}
+
+function populateBridgeTable(postId) {
+
 }
 // </script> 
