@@ -71,6 +71,7 @@ public class AdminController {
         return blogDao.getAllBlogPosts();
     }
     
+    
     @ResponseBody
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
     public BlogPost getJsonPost(@PathVariable int postId){

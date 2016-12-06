@@ -94,7 +94,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="pendingComments">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Biden Forges President’s Signature On Executive Order To Make December Dokken History Month</a></td>
                                         <td>Karl</td>
@@ -132,7 +132,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="pendingPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Report: Holding Trophy Above Head Still Number One Celebration Technique</a></td>
                                         <td>Karl</td>
@@ -168,11 +168,12 @@
                                     <tr>
                                         <th>Post</th>
                                         <th>User</th>
-                                        <th>Date</th>
+                                        <th>Date Created</th>
+                                        <th>Date Scheduled</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="scheduledPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">James Dyson Meets In Secret With Alien Ambassador To Receive Technology For New Hand Dryer</a></td>
                                         <td>Karl</td>
@@ -211,7 +212,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="deletedPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Breitbart Traffic Down As Readers Now Getting Bulk Of News Analysis From Graffiti Scrawled Across Neighborhood</a></td>
                                         <td>Karl</td>
@@ -246,7 +247,7 @@
                                     <tr>
                                         <th>Post</th>
                                         <th>User</th>
-                                        <th>Date</th>
+                                        <th>Date Created</th>
                                         <th>Date Scheduled</th>
                                         <th></th>
                                     </tr>
