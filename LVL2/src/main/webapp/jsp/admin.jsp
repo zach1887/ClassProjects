@@ -55,9 +55,13 @@
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-button">Clear</button>
-                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
+                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="2">Preview</button>
                                     <button  id="new-save-button" class="btn btn-default">Save</button>
                                     <button id="new-post-button" class="btn btn-primary">Post</button>
+                                </div>
+                                <div class="form-group pull-right row col-xs-4">
+                                    <button id = "extract-tags-button" class="btn btn-default" data-toggle="modal" data-target="#tag-preview-modal" data-post-id="2">Extract Tags</button>
+                                    <button id="edit-tags-button" class="btn btn-default" data-toggle="modal" data-target="#tag-edit-modal" data-post-id="0">Edit Tags</button>
                                 </div>
                             </form>
                         </div>
@@ -293,6 +297,8 @@
 
     <%@include file="template/previewModal.jsp" %>
     <%@include file="template/editModal.jsp" %>
+    <%@include file="template/tagEditModal.jsp" %>
+    <%@include file="template/tagPreviewModal.jsp" %>
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>

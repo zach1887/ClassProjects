@@ -61,5 +61,7 @@ public interface BlogPostDao {
     
     public List<Comment> loadCommentsByBlogId(int id);
 
+    public void updateTagTable(String[] TagArray);
+
 
 }
