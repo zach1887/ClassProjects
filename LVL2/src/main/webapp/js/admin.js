@@ -78,12 +78,11 @@ function clearPage() {
 function fillAllPostTable(data, status) {
     clearAllPostTable();
     $.each(data, function (index, post) {
-        var temp = new Date(post.datePosted);
-        var datePosted = temp.toDateString();
+        var datePosted = new Date(post.datePosted).toLocaleDateString();
         if (post.dateScheduled === null){
             var dateScheduled = null;
         } else {
-            var dateScheduled = new Date(post.dateScheduled).toDateString();
+            var dateScheduled = new Date(post.dateScheduled).toUTCString();
         }
         
         $('#allPosts').append($('<tr>').attr({'id': (post.status === 10 ? 'pendingDelete' : ' ')})
@@ -134,7 +133,7 @@ function addPost() {
     var postContent = tinymce.get('new-post-content').getContent();
     
     if($('#post-scheduled').is(":checked")){
-        var postDate = $("#post-date").val();
+        var postDate = Date.parse($("#post-date").val());
     } else {
         var postDate;
     }
@@ -148,7 +147,7 @@ function addPost() {
         'dataType': 'json',
         data: JSON.stringify({
             title: postTitle,
-            datePosted: postDate,
+            dateScheduled: postDate,
             content: postContent,
             status: -1
         })

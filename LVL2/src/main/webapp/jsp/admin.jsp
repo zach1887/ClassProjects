@@ -49,9 +49,7 @@
                                     <input type="checkbox" class="form-control clear-form" id="post-scheduled" name="isPostScheduled">
                                     <span id="new-post-schedule" style="display: none;" >
                                         <label for="post-date">Date:</label>
-                                        <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
-                                        <label for="post-time">Time</label>
-                                        <input type="Time" class="form-control clear-form" id="post-time" name="newPostTime">
+                                        <input type="datetime-local" class="form-control clear-form" id="post-date" name="newPostDate">
                                     </span>
                                 </div>
                                 <div class="form-group row col-md-12">
