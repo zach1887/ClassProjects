@@ -119,7 +119,8 @@ public class AdminController {
             } else if (!request.isUserInRole("ROLE_ADMIN")) {
                 return new BlogPost();
             }
-        } else {
+        } 
+        else {
             return new BlogPost();
         }
 

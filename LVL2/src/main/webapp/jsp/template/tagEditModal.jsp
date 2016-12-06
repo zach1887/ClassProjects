@@ -4,7 +4,7 @@
     Author     : Dan Whitlow
 --%>
 
-<div id="tag-preview-modal" class="modal fade" role="dialog">
+<div id="tag-edit-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->

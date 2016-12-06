@@ -84,7 +84,6 @@ $(document).ready(function () {
     });
 
     $("#tag-edit-modal").on('show.bs.modal', function (event) {
-        displayNothing();
     });
 
     $("#delete").click(function (event) {
@@ -339,13 +338,16 @@ function fillPreviewModal(postId) {
 
 
 function tagPreviewModal() {
-
+  
     var postContent = tinymce.get('new-post-content').getContent();
 
     var hashArray = (postContent.match(/#(\w+)/g));
 
-    $('#extractedTags').text(hashArray);
+    $('#extractedTags').text(hashArray); 
+}
 
+function tagEditModal() {
+  
 }
 
 // </script> 

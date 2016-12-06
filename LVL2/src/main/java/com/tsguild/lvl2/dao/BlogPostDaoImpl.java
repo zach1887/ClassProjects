@@ -222,7 +222,15 @@ public class BlogPostDaoImpl implements BlogPostDao {
         }
 
     }
-
+    
+    public static final String SQL_LOAD_TAGS_INTO_TABLE 
+            = "INSERT INTO Tags(Tag) VALUES WHERE NOT EXISTS";
+    
+    @Override
+     public void updateTagTable(String[] TagArray) {
+     };
+     
+     
     private static final class CommentMapper implements RowMapper<Comment> {
 
         @Override
