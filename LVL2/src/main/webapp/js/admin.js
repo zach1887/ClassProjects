@@ -138,16 +138,26 @@ function fillAllPostTable(data, status) {
 
 function fillAllPageTable(data, status) {
     clearAllPageTable();
-    $.each(data, function (index, page) {
-        $('#allPages').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
-                .append($('<td>').text(page.title)))
-    });
-
-    if (document.getElementById("mypag")) {
-        alert('yah');
-    } else {
-        alert('meh');
+    if (document.getElementById("allPagesAdmin")) {
+        $.each(data, function (index, page) {
+            $('#allPagesAdmin').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
+                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': 'deletePage(' + page.id + ')'
+                            }).text((page.status === 10 ? 'Really Delete' : 'Delete')))))
+        });
+    } else if (document.getElementById("allPagesEmployee")) {
+        $.each(data, function (index, page) {
+            $('#allPagesEmployee').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
+                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': (page.status === 10 ? '' : 'deletePage(' + page.id + ')') 
+                            }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion')))))
+        });
     }
+    
 }
 
 function loadAllPosts() {
@@ -171,7 +181,8 @@ function clearAllPostTable() {
 }
 
 function clearAllPageTable() {
-    $('#allPages').empty();
+    $('#allPagesAdmin').empty();
+    $('#allPagesEmployee').empty();
 }
 
 function addPost() {
