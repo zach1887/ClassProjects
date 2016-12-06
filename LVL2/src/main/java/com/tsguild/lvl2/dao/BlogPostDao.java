@@ -42,26 +42,27 @@ public interface BlogPostDao {
     public BlogPost getBlogPostById(int id);
 
     public List<BlogPost> getAllBlogPosts();
-    
-    public List<BlogPost> searchBlogPosts(Map<SearchTerm,String> criteria);
-    
+
+    public List<BlogPost> searchBlogPosts(Map<SearchTerm, String> criteria);
+
     public void updateBlogPost(BlogPost updatedPage);
 
     public void removeBlogPost(int id);
 
     public List<BlogPost> getBlogPostsByAuthor(String author);
-    
+
     public void approveComment(int commentId);
-    
+
     public void declineComment(int commentId);
-            
+
     public Comment createComment(Comment comment);
 
     public void deleteComment(int id);
-    
+
     public List<Comment> loadCommentsByBlogId(int id);
 
-    public void updateTagTable(String[] TagArray);
+    public void updateTagTable(BlogPost extractedBlog);
 
+    public void updateBridgeTable(int postId, String[] TagArray);
 
 }

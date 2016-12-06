@@ -29,6 +29,8 @@ import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -63,12 +65,11 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
                 displayName, blogPost.getDatePosted(),
                 blogPost.getContent(), blogPost.getStatus());
-
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 
         blogPost.setId(id);
-
+//        updateTagTable(blogPost);
         return blogPost;
     }
 
@@ -224,10 +225,22 @@ public class BlogPostDaoImpl implements BlogPostDao {
     }
     
     public static final String SQL_LOAD_TAGS_INTO_TABLE 
-            = "INSERT INTO Tags(Tag) VALUES WHERE NOT EXISTS";
+            = "INSERT INTO Tags(tag) VALUES (?) WHERE NOT EXISTS (tag=t)";
     
     @Override
-     public void updateTagTable(String[] TagArray) {
+     public void updateTagTable(BlogPost extractedBlog) {
+         ArrayList <String> tagList = extractedBlog.getTags();
+         
+         for (String t : tagList) {
+             jdbcTemplate.update(SQL_LOAD_TAGS_INTO_TABLE,t);
+         } 
+     };
+     
+    public static final String SQL_POPULATE_BRIDGE_TABLE
+            = "INSERT INTO TagPostBridge(postId, tagId) VALUES (?,?)";
+    
+    @Override
+     public void updateBridgeTable(int postId, String[] TagArray) {
      };
      
      

@@ -82,9 +82,5 @@ public class BlogPostController {
         dao.deleteComment(commentId);
     }
     
-    @RequestMapping(value="/tags", method = RequestMethod.POST)
-    public void storeTags (@RequestBody String[] TagArray) {
-        dao.updateTagTable(TagArray);
-    }
 }
 
