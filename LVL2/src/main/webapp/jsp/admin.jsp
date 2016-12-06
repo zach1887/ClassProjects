@@ -109,8 +109,12 @@
                                         <th>Title</th>
                                     </tr>
                                 </thead>
-                                <tbody id="allPages">
-                                </tbody>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <tbody id="allPagesAdmin"></tbody>
+                                </sec:authorize>
+                                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                                    <tbody id="allPagesEmployee"></tbody>
+                                </sec:authorize>
                             </table>
                         </div>
 
