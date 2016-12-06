@@ -37,15 +37,6 @@ function clearCommentForm() {
     $('#new-comment-form input').val("");
     tinymce.get('new-comment-content').setContent("");
 }
-function clearPost() {
-    $('#new-post-form input').val("");
-    tinymce.get('new-post-content').setContent("");
-}
-
-function clearPage() {
-    $('#new-static-page-form input').val("");
-    tinymce.get('new-page-content').setContent("");
-}
 
 
 function addComment() {
