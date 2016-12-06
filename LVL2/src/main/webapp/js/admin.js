@@ -252,7 +252,7 @@ function addPage() {
 
 function savePost() {
     var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));
+    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
     var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();

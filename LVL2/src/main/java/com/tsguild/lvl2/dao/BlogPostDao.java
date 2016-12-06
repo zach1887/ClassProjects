@@ -63,6 +63,6 @@ public interface BlogPostDao {
 
     public void updateTagTable(BlogPost extractedBlog);
 
-    public void updateBridgeTable(int postId, String[] TagArray);
+    public void updateBridgeTable(int postId, List<Integer> TagArray);
 
 }
