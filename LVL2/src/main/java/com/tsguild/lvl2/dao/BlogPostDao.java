@@ -64,5 +64,9 @@ public interface BlogPostDao {
     public void updateTagTable(BlogPost extractedBlog);
 
     public void updateBridgeTable(int postId, List<Integer> TagArray);
+    
+    public List<BlogPost> getBlogPostsByTagName (String tag);
+
+    public int countCommentsById(int id);
 
 }

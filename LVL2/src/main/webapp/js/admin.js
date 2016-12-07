@@ -394,11 +394,42 @@ function storeTags() {
     var finalArray = (finalTags.match(/#(\w+)/g));
 
     
-    // fill Edit Modal 
-
-
-
-    $('#extractedTags').text(hashArray);
+    $('#extractedTags').text(finalArray);
     
 }
+
+function displayTagLinks(postId) {
+        $.ajax({
+        type: 'GET',
+        url: 'post/' + postId,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (post) {
+        
+        // post.tags is an array of tags
+        
+        $.each(post.tags, function (index,x) {
+        $('#tagLink').append($('<td>')).append($('<a>'))
+                        .attr({
+                            'onClick':('searchPostsByTag(' + x + ')').text("inactiveLink")
+                        }); 
+                        
+});
+    });
+}
+function searchPostsByTag(tag) {
+        $.ajax({
+        type: 'GET',
+        url: 'tag/' + tag,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (posts) {
+        alert("This function is complete.");             
+    });
+        }
+
+
+    
 

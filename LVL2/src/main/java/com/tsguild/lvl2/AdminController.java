@@ -85,6 +85,12 @@ public class AdminController {
     }
     
     @ResponseBody
+    @RequestMapping(value = "/tag/{tagName}", method = RequestMethod.GET)
+    public List<BlogPost>  searchPostsByTagName(@PathVariable String tagName) {
+        return blogDao.getBlogPostsByTagName(tagName);
+    }
+    
+    @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost, HttpServletRequest request) {

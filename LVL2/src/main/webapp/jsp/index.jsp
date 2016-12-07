@@ -23,7 +23,8 @@
                                 Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed <a href="#">#vestibulum</a> velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id <a href="#" class="tag">#commodo</a> imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, <a href="#" class="tag">#posuere</a> nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
                             </div>
                             <small class="dim-text">Comments(0)</small>
-                            <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                            <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> 
+                                    <a href="#">#posuere</a><a href="#">#commodo</a> <a href="#">#posuere</a><a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
                         </div>
                     </div>
 

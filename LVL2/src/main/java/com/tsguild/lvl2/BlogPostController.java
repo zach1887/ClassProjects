@@ -37,6 +37,7 @@ public class BlogPostController {
         model.addAttribute("datePosted", post.getDatePosted());
         model.addAttribute("content", post.getContent());
 
+        model.addAttribute("NumberOfComments",dao.countCommentsById(post.getId()));
         return "template/blog";
     }
 

@@ -85,7 +85,8 @@ INSERT INTO StatusCodes(`statusId`, `status`) VALUES
 	(1, "Admin Post"), (2,"User Post Pending"), (3,"User Post Approved"),
     (4, "User Post Declined"), (5, "Admin Comment"), (6, "Reader Comment Pending"),
     (7, "Reader Comment Approved"), (8, "Reader Comment Declined"), (9, "Draft"),
-    (10, "Pending Deletion"), (11, "Deleted");
+    (10, "Pending Deletion"), (11, "Deleted"), (12, "Static Page, Pending"), 
+    (13, "Static Page, Approved"), (14, "Static Page, Declined"), (15, "Admin Static Page");
  
 
  /*
