@@ -25,50 +25,94 @@
  */
 package com.tsguild.lvl2.dto;
 
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
  *
  * @author Dan Whitlow
  */
+
+
+
 public class BlogPost {
     private int id;
     private String title;
     private String author;
-    private String datePosted;
+    private Timestamp datePosted;
+    private Timestamp dateScheduled;
     private String content;
     private int status;
     private final ArrayList<Comment> comments;
     private final ArrayList<String> tags;
+    private boolean scheduled; 
+    
+    private final Locale locale = Locale.getDefault();
 
     public BlogPost() {
         this.comments = new ArrayList<>();
         this.tags = new ArrayList<>();
     }
-    
-    
+<<<<<<< HEAD
 
-    public BlogPost(int id, String title, String author, String datePosted, String content, int status) {
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+    
+    
+=======
+>>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
+
+    public BlogPost(int id, String title, String author, Timestamp datePosted, Timestamp dateScheduled, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags, boolean scheduled) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.datePosted = datePosted;
+        this.dateScheduled = dateScheduled;
+        this.content = content;
+        this.status = status;
+        this.comments = comments;
+        this.tags = tags;
+        this.scheduled = scheduled;
+    }
+
+    public BlogPost(String title, String author, Timestamp datePosted, Timestamp dateScheduled, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags, boolean scheduled) {
+        this.title = title;
+        this.author = author;
+        this.datePosted = datePosted;
+        this.dateScheduled = dateScheduled;
+        this.content = content;
+        this.status = status;
+        this.comments = comments;
+        this.tags = tags;
+        this.scheduled = scheduled;
+    }
+
+    public BlogPost(int id, String title, String author, Timestamp datePosted, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.datePosted = datePosted;
         this.content = content;
         this.status = status;
-        this.comments = new ArrayList<>();
-        this.tags = new ArrayList<>();
+        this.comments = comments;
+        this.tags = tags;
     }
 
-    public BlogPost(String title, String author, String datePosted, String content, int status) {
+    public BlogPost(String title, String author, Timestamp datePosted, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags) {
         this.title = title;
         this.author = author;
         this.datePosted = datePosted;
         this.content = content;
         this.status = status;
-        this.comments = new ArrayList<>();
-        this.tags = new ArrayList<>();
+        this.comments = comments;
+        this.tags = tags;
     }
+    
+    
 
     public int getId() {
         return id;
@@ -94,11 +138,11 @@ public class BlogPost {
         this.author = author;
     }
 
-    public String getDatePosted() {
+    public Timestamp getDatePosted() {
         return datePosted;
     }
 
-    public void setDatePosted(String datePosted) {
+    public void setDatePosted(Timestamp datePosted) {
         this.datePosted = datePosted;
     }
 
@@ -117,6 +161,17 @@ public class BlogPost {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public Timestamp getDateScheduled() {
+        return dateScheduled;
+    }
+
+    public void setDateScheduled(Timestamp dateScheduled) {
+        this.dateScheduled = dateScheduled;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

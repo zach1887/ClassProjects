@@ -22,10 +22,6 @@ $(document).ready(function () {
         }
     });
 
-    $("#edit-page-layout").change(function () {
-        setNumberOfTinyMceEdit();
-    });
-
     $(".clear-button").click(function () {
         event.preventDefault();
         clearPost();
@@ -43,13 +39,7 @@ $(document).ready(function () {
 
     $("#new-post-button").click(function (event) {
         event.preventDefault();
-        storeTags();
         addPost();
-    });
-
-    $("#edit-post-button").click(function (event) {
-        event.preventDefault();
-        editPost();
     });
 
     $("#new-static-page-button").click(function (event) {
@@ -63,14 +53,8 @@ $(document).ready(function () {
 
     $("#new-save-button").click(function (event) {
         event.preventDefault();
-        storeTags();
         savePost();
     });
-    
-    $("#extractedTags").focus(function(event) {
-        extractTags();
-    });
-        
 
     $("#extract-tags-button").click(function (event) {
         event.preventDefault();
@@ -82,46 +66,25 @@ $(document).ready(function () {
         alert("Just write something to the screen!");
     });
 
-
-    $("#edit-post-button").click(function (event) {
-        event.preventDefault();
-        editPost();
-    });
-
     $("#post-edit-modal").on('show.bs.modal', function (event) {
-        var element = $(event.relatedTarget);
-        var postId = element.data('post-id');
+        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
+        var postId = element.data('post-id'); // found the a tag, now get the data-post-id value
         fillEditModal(postId);
     });
 
-    $("#page-edit-modal").on('show.bs.modal', function (event) {
-        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
-        var pageId = element.data('page-id'); // found the a tag, now get the data-post-id value
-        fillEditPageModal(pageId);
-    });
-
     $("#post-preview-modal").on('show.bs.modal', function (event) {
-        var element = $(event.relatedTarget);
-        var postId = element.data('post-id');
+        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
+        var postId = element.data('post-id'); // found the a tag, now get the data-post-id value
         fillPreviewModal(postId);
     });
 
     $("#tag-preview-modal").on('show.bs.modal', function (event) {
-        var element = $(event.relatedTarget);
+        var element = $(event.relatedTarget); 
         tagPreviewModal();
     });
 
     $("#tag-edit-modal").on('show.bs.modal', function (event) {
-    });
-
-    $("#post-scheduled").change(function () {
-        valueChanged();
-    });
-
-    // This function would be for admin or employee comments
-    $("#add-comment-button").click(function (event) {
-        event.preventDefault();
-        addComment();
+        displayNothing();
     });
 
     $("#delete").click(function (event) {
@@ -133,25 +96,8 @@ $(document).ready(function () {
 
 //functions
 
-function setNumberOfTinyMceEdit() {
-    if ($("#edit-page-layout").val() == 1) {
-        $("#editColumn1").css("display", "block");
-        $("#editColumn2").css("display", "none");
-        $("#editColumn3").css("display", "none");
-    } else if ($("#edit-page-layout").val() == 2) {
-        $("#editColumn1").css("display", "block");
-        $("#editColumn2").css("display", "block");
-        $("#editColumn3").css("display", "none");
-    } else if ($("#edit-page-layout").val() == 3) {
-        $("#editColumn1").css("display", "block");
-        $("#editColumn2").css("display", "block");
-        $("#editColumn3").css("display", "block");
-    }
-}
-
 function clearPost() {
-    $("#new-post-schedule").hide();
-    $('#new-post-form')[0].reset();
+    $('#new-post-form input').val("");
     tinymce.get('new-post-content').setContent("");
 }
 
@@ -163,16 +109,9 @@ function clearPage() {
 }
 
 function fillAllPostTable(data, status) {
-    clearTable('#allPosts');
+    clearAllPostTable();
     $.each(data, function (index, post) {
-        var datePosted = new Date(post.datePosted).toLocaleDateString();
-        if (post.dateScheduled === null) {
-            var dateScheduled = null;
-        } else {
-            var dateScheduled = new Date(post.dateScheduled).toLocaleString();
-        }
-
-        $('#allPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
+        $('#allPosts').append($('<tr>').attr({'id': (post.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').append($('<a>')
                         .attr({
                             'data-post-id': post.id,
@@ -182,8 +121,7 @@ function fillAllPostTable(data, status) {
                         .text(post.title)
                         ))
                 .append($('<td>').text(post.author))
-                .append($('<td>').text(datePosted))
-                .append($('<td>').text(dateScheduled))
+                .append($('<td>').text(post.datePosted))
                 .append($('<td>').append($('<a>')
                         //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
                         .attr({
@@ -203,66 +141,19 @@ function fillAllPostTable(data, status) {
     });
 }
 
-function fillScheduleTable(data, status) {
-    clearTable('#scheduledPosts');
-    $.each(data, function (index, post) {
-        var datePosted = new Date(post.datePosted).toLocaleDateString();
-        if (post.dateScheduled === null) {
-
-        } else {
-            var dateScheduled = new Date(post.dateScheduled);//.toLocaleString();
-            $('#scheduledPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
-                    .append($('<td>').append($('<a>')
-                            .attr({
-                                'data-post-id': post.id,
-                                'data-toggle': 'modal',
-                                'data-target': '#post-preview-modal'
-                            })
-                            .text(post.title)
-                            ))
-                    .append($('<td>').text(post.author))
-                    .append($('<td>').text(datePosted))
-                    .append($('<td>').text(dateScheduled))
-                    .append($('<td>').append($('<a>')
-                            //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
-                            .attr({
-                                'data-toggle': 'modal',
-                                'data-target': '#post-edit-modal',
-                                'data-post-id': post.id
-                            })
-                            .text('Edit')
-                            ))
-                    .append($('<td>').append($('<a>')
-                            .attr({
-                                'onClick': (post.status === 10 ? '' : 'deletePost(' + post.id + ')')
-                            })
-                            .text(post.status === 10 ? 'Pending' : 'Delete')
-                            ))
-                    );
-        }
-
-
-    });
-}
-
 function fillAllPageTable(data, status) {
     clearAllPageTable();
     if (document.getElementById("allPagesAdmin")) {
         $.each(data, function (index, page) {
             $('#allPagesAdmin').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
-                    .append($('<td>')
-                            .append($('<a>').attr({
-                                'href': ('static/' + page.id)
-                            }).text(page.title)))
+                    .append($('<td>').text(page.title))
                     .append($('<td>')
                             .append($('<a>').attr({
                                 'onClick': 'deletePage(' + page.id + ')'
                             }).text((page.status === 10 ? 'Really Delete' : 'Delete'))))
                     .append($('<td>')
                             .append($('<a>').attr({
-                                'data-toggle': 'modal',
-                                'data-target': '#page-edit-modal',
-                                'data-page-id': page.id
+                                'onClick': ('editPage(' + page.id + ')')
                             }).text('Edit'))))
         });
     } else if (document.getElementById("allPagesEmployee")) {
@@ -275,20 +166,17 @@ function fillAllPageTable(data, status) {
                             }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion'))))
                     .append($('<td>')
                             .append($('<a>').attr({
-                                'data-toggle': 'modal',
-                                'data-target': '#page-edit-modal',
-                                'data-page-id': page.id
+                                'onClick': ('editPage(' + page.id + ')')
                             }).text('Edit'))))
         });
     }
-}
+    }
 
 function loadAllPosts() {
     $.ajax({
         url: "posts"
     }).done(function (data) {
         fillAllPostTable(data, status);
-        fillScheduleTable(data, status);
     });
 }
 
@@ -300,9 +188,8 @@ function loadAllPages() {
     });
 }
 
-
-function clearTable(table) {
-    $(table).empty();
+function clearAllPostTable() {
+    $('#allPosts').empty();
 }
 
 function clearAllPageTable() {
@@ -310,26 +197,11 @@ function clearAllPageTable() {
     $('#allPagesEmployee').empty();
 }
 
-function valueChanged()
-{
-    if ($('#post-scheduled').is(":checked"))
-        $("#new-post-schedule").show();
-    else
-        $("#new-post-schedule").hide();
-}
-
 function addPost() {
-    var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
+    var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
 
-    if ($('#post-scheduled').is(":checked")) {
-        document.getElementById("post-date").stepUp(new Date($("#post-date").val()).getTimezoneOffset());
-        var postDate = new Date($("#post-date").val());
-    } else {
-        var postDate;
-    }
     $.ajax({
         url: 'blog',
         type: 'POST',
@@ -340,10 +212,9 @@ function addPost() {
         'dataType': 'json',
         data: JSON.stringify({
             title: postTitle,
-            dateScheduled: postDate,
+            datePosted: postDate,
             content: postContent,
-            status: -1,
-            tags: finalArray
+            status: -1
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
@@ -381,15 +252,8 @@ function addPage() {
 }
 
 function savePost() {
-    var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
-    if ($('#post-scheduled').is(":checked")) {
-        document.getElementById("post-date").stepUp(new Date($("#post-date").val()).getTimezoneOffset());
-        var postDate = new Date($("#post-date").val());
-    } else {
-        var postDate;
-    }
+    var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
 
     $.ajax({
@@ -404,12 +268,10 @@ function savePost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            status: 9,
-            tags: finalArray
+            status: 9
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
-        clearPost();
         loadAllPosts();
     });
 }
@@ -417,16 +279,10 @@ function savePost() {
 
 function editPost() {
     var postTitle = $("#edit-post-title").val();
-    var postDate = $("edit-post-date").val();
-    if ($('#edit-post-scheduled').is(":checked")) {
-        document.getElementById("edit-post-date").stepUp(new Date($("#edit-post-date").val()).getTimezoneOffset());
-        var postSched = new Date($("#edit-post-date").val());
-    } else {
-        var postSched;
-    }
+    var postDate = $("#edit-post-date").val();
     var postContent = tinymce.get('edit-post-content').getContent();
     var postId = $("#edit-post-id").val();
-    var postAuthor = $("#edit-post-author").text();
+    var postAuthor = $("#edit-post-author").val();
     var postStatus = $("#edit-post-status").val();
 
     $.ajax({
@@ -443,13 +299,10 @@ function editPost() {
             content: postContent,
             author: postAuthor,
             status: postStatus,
-            dateScheduled: postSched,
             id: postId
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
-        clearPost();
-        loadAllPosts();
     });
 }
 
@@ -473,6 +326,7 @@ function deletePage(pageId) {
     });
 }
 
+
 function fillEditModal(postId) {
     $.ajax({
         type: 'GET',
@@ -482,31 +336,12 @@ function fillEditModal(postId) {
         }
     }).done(function (post) {
         $('#post-edit-modal .modal-title').text(post.title);
-        $('#edit-post-author').text(post.author);
-        $('#post-edit-date').text(post.datePosted);
+        $('#edit-post-author').text(post.author + " - " + post.datePosted);
         $('#edit-post-id').val(post.id);
         $('#edit-post-status').val(post.status);
         $('#edit-post-title').val(post.title);
         $('#edit-post-date').val(post.datePosted);
-        tinymce.activeEditor.setContent(post.content);
-    });
-}
-
-function fillEditPageModal(pageId) {
-    $.ajax({
-        type: 'GET',
-        url: 'page/' + pageId,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).done(function (page) {
-        $('#page-edit-modal .modal-title').text(page.title);
-        $('#edit-page-id').val(page.id);
-        $('#edit-page-layout').val(page.layout);
-        $('#edit-page-status').val(page.status);
-        $('#edit-page-title').val(page.title);
-        setNumberOfTinyMceEdit();
-        tinymce.activeEditor.setContent(page.content1);
+        tinyMCE.activeEditor.setContent(post.content);
     });
 }
 
@@ -519,66 +354,18 @@ function fillPreviewModal(postId) {
         }
     }).done(function (post) {
         $('#preview-post-content').html(post.content);
-        $('#preview-post-author').text(post.author + " - " + (new Date(post.datePosted).toLocaleString()));
+        $('#preview-post-author').text(post.author + " - " + post.datePosted);
         $('#preview-post-title').text(post.title);
     });
 }
 
 
-function extractTags() {
-  
+function tagPreviewModal() {
+
     var postContent = tinymce.get('new-post-content').getContent();
 
     var hashArray = (postContent.match(/#(\w+)/g));
 
-    $('#extractedTags').val(hashArray);
-    
-
-    // fill Edit Modal 
-    }
-    
-function storeTags() {
-  
-    var finalTags = $('#extractedTags').val();
-
-    var finalArray = (finalTags.match(/#(\w+)/g));
-
-    
-    $('#extractedTags').text(finalArray);
+    $('#extractedTags').text(hashArray);
     
 }
-
-function displayTagLinks(postId) {
-        $.ajax({
-        type: 'GET',
-        url: 'post/' + postId,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).done(function (post) {
-        
-        // post.tags is an array of tags
-        
-        $.each(post.tags, function (index,x) {
-        $('#tagLink').append($('<td>')).append($('<a>'))
-                        .attr({
-                            'onClick':('searchPostsByTag(' + x + ')').text("inactiveLink")
-                        }); 
-                        
-});
-    });
-}
-function searchPostsByTag(tag) {
-        $.ajax({
-        type: 'GET',
-        url: 'tag/' + tag,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).done(function (posts) {
-        alert("This function is complete.");             
-    });
-        }
-
-
-    

@@ -29,14 +29,12 @@ import com.tsguild.lvl2.dao.BlogPostDao;
 import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.StaticPage;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,19 +75,25 @@ public class AdminController {
     public List<StaticPage> getAllStaticPages() {
         return staticDao.getAllStaticPages();
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
-    public BlogPost getJsonPost(@PathVariable int postId){
+    public BlogPost getJsonPost(@PathVariable int postId) {
         return blogDao.getBlogPostById(postId);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/page/{pageId}", method = RequestMethod.GET)
-    public StaticPage getJsonPage(@PathVariable int pageId){
+    public StaticPage getJsonPage(@PathVariable int pageId) {
         return staticDao.getStaticPageById(pageId);
     }
-    
+
+    @ResponseBody
+    @RequestMapping(value = "/tag/{tagName}", method = RequestMethod.GET)
+    public List<BlogPost> searchPostsByTagName(@PathVariable String tagName) {
+        return blogDao.getBlogPostsByTagName(tagName);
+    }
+
     @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
@@ -131,6 +135,7 @@ public class AdminController {
 
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
+
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -142,21 +147,6 @@ public class AdminController {
             editedPost.setStatus(1);
         }
         blogDao.updateBlogPost(editedPost);
-    }
-
-    // this isnt the real edit page just using it for testing
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editBlogPost(ModelMap model, @PathVariable int id) {
-        BlogPost postToEdit = blogDao.getBlogPostById(id);
-
-        model.addAttribute("title", postToEdit.getTitle());
-        model.addAttribute("author", postToEdit.getAuthor());
-        model.addAttribute("datePosted", postToEdit.getDatePosted());
-        model.addAttribute("content", postToEdit.getContent());
-        model.addAttribute("status", postToEdit.getStatus());
-        model.addAttribute("id", postToEdit.getId());
-
-        return "edit";
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -186,13 +176,13 @@ public class AdminController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/staticpage", method = RequestMethod.POST)
     public void createStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {
-        
+
         if (request.isUserInRole("ROLE_EMPLOYEE")) {
             page.setStatus(12);
         } else if (request.isUserInRole("ROLE_ADMIN")) {
             page.setStatus(15);
         }
-        
+
         staticDao.addStaticPage(page);
     }
 }
