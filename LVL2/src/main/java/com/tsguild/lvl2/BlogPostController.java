@@ -72,7 +72,7 @@ public class BlogPostController {
         dao.approveComment(commentId);
     }
 
-    @RequestMapping(value = "/comment/decline", method = RequestMethod.POST)
+    @RequestMapping(value = "/comment/decline", method = RequestMethod.PUT)
     public void declineComment(int commentId) {
         dao.declineComment(commentId);
     }
@@ -81,4 +81,6 @@ public class BlogPostController {
     public void deleteComment(@PathVariable int commentId) {
         dao.deleteComment(commentId);
     }
+    
 }
+
