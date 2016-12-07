@@ -7,9 +7,10 @@ CREATE TABLE `Posts`(
 	`title` VARCHAR(60) NOT NULL,
 	`author` VARCHAR(50) NOT NULL,
 	`datePosted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	`dateScheduled` TIMESTAMP DEFAULT NULL,
+	`dateScheduled` TIMESTAMP NULL,
 	`content` Text,
 	`status` INT,
+	`live` BOOL,
    PRIMARY KEY(`postId`)
    );
 

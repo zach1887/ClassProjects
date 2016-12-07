@@ -55,7 +55,12 @@ $(document).ready(function () {
         event.preventDefault();
         savePost();
     });
-
+    
+    $("#edit-post-button").click(function (event) {
+        event.preventDefault();
+        editPost();
+    });
+    
     $("#post-edit-modal").on('show.bs.modal', function (event) {
         var element = $(event.relatedTarget);
         var postId = element.data('post-id');
@@ -96,6 +101,7 @@ $(document).ready(function () {
 //functions
 
 function clearPost() {
+    $("#new-post-schedule").hide();
     $('#new-post-form')[0].reset();
     tinymce.get('new-post-content').setContent("");
 }
@@ -155,7 +161,7 @@ function fillScheduleTable(data, status) {
         if (post.dateScheduled === null) {
 
         } else {
-            var dateScheduled = new Date(post.dateScheduled).toLocaleString();
+            var dateScheduled = new Date(post.dateScheduled);//.toLocaleString();
             $('#scheduledPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
                     .append($('<td>').append($('<a>')
                             .attr({
@@ -188,6 +194,8 @@ function fillScheduleTable(data, status) {
 
 
     });
+}
+
 function fillAllPageTable(data, status) {
     clearAllPageTable();
     if (document.getElementById("allPagesAdmin")) {
@@ -229,8 +237,6 @@ function loadAllPages() {
     });
 }
 
-function clearAllPostTable() {
-    $('#allPosts').empty();
 
 function clearTable(table) {
     $(table).empty();
@@ -241,13 +247,21 @@ function clearAllPageTable() {
     $('#allPagesEmployee').empty();
 }
 
+function valueChanged()
+{
+    if ($('#post-scheduled').is(":checked"))
+        $("#new-post-schedule").show();
+    else
+        $("#new-post-schedule").hide();
+}
+
 function addPost() {
     var postTitle = $("#post-title").val();
     var postContent = tinymce.get('new-post-content').getContent();
 
     if ($('#post-scheduled').is(":checked")) {
-        document.getElementById("post-date").stepUp(new Date().getTimezoneOffset());
-        var postDate = Date.parse($("#post-date").val());
+        document.getElementById("post-date").stepUp(new Date($("#post-date").val()).getTimezoneOffset());
+        var postDate = new Date($("#post-date").val());
     } else {
         var postDate;
     }
@@ -328,10 +342,16 @@ function savePost() {
 
 function editPost() {
     var postTitle = $("#edit-post-title").val();
-    var postDate = $("#edit-post-date").val();
+    var postDate = $("edit-post-date").val();
+    if ($('#edit-post-scheduled').is(":checked")) {
+        document.getElementById("edit-post-date").stepUp(new Date($("#edit-post-date").val()).getTimezoneOffset());
+        var postSched = new Date($("#edit-post-date").val());
+    } else {
+        var postSched;
+    }
     var postContent = tinymce.get('edit-post-content').getContent();
     var postId = $("#edit-post-id").val();
-    var postAuthor = $("#edit-post-author").val();
+    var postAuthor = $("#edit-post-author").text();
     var postStatus = $("#edit-post-status").val();
 
     $.ajax({
@@ -348,6 +368,7 @@ function editPost() {
             content: postContent,
             author: postAuthor,
             status: postStatus,
+            dateScheduled: postSched,
             id: postId
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
@@ -384,7 +405,8 @@ function fillEditModal(postId) {
         }
     }).done(function (post) {
         $('#post-edit-modal .modal-title').text(post.title);
-        $('#edit-post-author').text(post.author + " - " + post.datePosted);
+        $('#edit-post-author').text(post.author);
+        $('#post-edit-date').text(post.datePosted);
         $('#edit-post-id').val(post.id);
         $('#edit-post-status').val(post.status);
         $('#edit-post-title').val(post.title);
@@ -510,4 +532,3 @@ function assignTagId(tagName) {
 function populateBridgeTable(postId) {
 
 }
-// </script> 

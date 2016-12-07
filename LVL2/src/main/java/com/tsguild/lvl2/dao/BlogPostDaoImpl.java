@@ -58,6 +58,15 @@ public class BlogPostDaoImpl implements BlogPostDao {
             + " VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_GET_DISPLAY_NAME
             = "SELECT displayname FROM users WHERE username = ?";
+    
+    
+    // Scheduled post
+    private static final String SQL_SCHED_POST
+            = "CREATE EVENT ? "
+            + "ON SCHEDULE AT ? "
+            + "DO "
+            + "INSERT INTO Posts (title, author, dateScheduled, content, status)";
+    
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -66,6 +75,10 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
                 displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
+        
+        if (blogPost.getDateScheduled() == null){
+            
+        }
 
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
@@ -106,7 +119,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     // Update blog post
     private static final String SQL_UPDATE_POST_BY_ID
             = "UPDATE Posts SET title = ?, content = ?, author = ?, "
-            + "datePosted = ?, status = ? "
+            + "datePosted = ?, status = ?, dateScheduled = ? "
             + "WHERE Posts.postId = ?";
 
     @Override
@@ -117,6 +130,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 updatedPost.getAuthor(),
                 updatedPost.getDatePosted(),
                 updatedPost.getStatus(),
+                updatedPost.getDateScheduled(),
                 updatedPost.getId());
     }
 

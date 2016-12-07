@@ -123,7 +123,7 @@ public class AdminController {
         } else {
             return new BlogPost();
         }
-
+        
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
         
@@ -143,20 +143,6 @@ public class AdminController {
         blogDao.updateBlogPost(editedPost);
     }
 
-    // this isnt the real edit page just using it for testing
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editBlogPost(ModelMap model, @PathVariable int id) {
-        BlogPost postToEdit = blogDao.getBlogPostById(id);
-
-        model.addAttribute("title", postToEdit.getTitle());
-        model.addAttribute("author", postToEdit.getAuthor());
-        model.addAttribute("datePosted", postToEdit.getDatePosted());
-        model.addAttribute("content", postToEdit.getContent());
-        model.addAttribute("status", postToEdit.getStatus());
-        model.addAttribute("id", postToEdit.getId());
-
-        return "edit";
-    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
