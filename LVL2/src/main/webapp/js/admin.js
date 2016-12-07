@@ -206,6 +206,8 @@ function clearAllPageTable() {
 }
 
 function addPost() {
+    var finalTags = $('#extractedTags').val();
+    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
     var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
@@ -222,7 +224,8 @@ function addPost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            status: -1
+            status: -1,
+            tags: finalArray
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");

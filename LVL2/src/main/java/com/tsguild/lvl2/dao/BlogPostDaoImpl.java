@@ -228,36 +228,38 @@ public class BlogPostDaoImpl implements BlogPostDao {
     }
 
     public static final String SQL_LOAD_TAGS_INTO_TABLE
-            = "INSERT IGNORE Tags(tag) VALUES (?)";
+            = "INSERT Tags(tag) VALUES (?)";
 
- //  public static final String SQL_PULL_TAGID
-   //         = "SELECT tagId FROM Tags WHERE tag = ?";
+    public static final String SQL_PULL_TAGID
+            = "SELECT tagId FROM Tags WHERE tag = ?";
 
     @Override
     public void updateTagTable(BlogPost extractedBlog) {
         ArrayList<String> tagList = extractedBlog.getTags();
-        List<Integer> indices = new ArrayList<Integer>();
-        int x;
+        List<Integer> indices = new ArrayList<>();
         for (String t : tagList) {
-            jdbcTemplate.update(SQL_LOAD_TAGS_INTO_TABLE, t);
+            try {
+                Integer queryForObject = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, t);
+                indices.add(queryForObject);
+            } catch (EmptyResultDataAccessException emp) {
+                jdbcTemplate.update(SQL_LOAD_TAGS_INTO_TABLE, t);
+                Integer queryForObject = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, t);
+                indices.add(queryForObject);
+            }
         }
-
- //       updateBridgeTable(extractedBlog.getId(), indices);
+         updateBridgeTable(extractedBlog.getId(),indices);
     }
-    ;
-     
+
+    //   updateBridgeTable(extractedBlog.getId(),indices);
     public static final String SQL_POPULATE_BRIDGE_TABLE
             = "INSERT INTO TagPostBridge(postId, tagId) VALUES (?,?)";
 
     @Override
     public void updateBridgeTable(int postId, List<Integer> TagArray) {
-        for (Integer x : TagArray) {
-            jdbcTemplate.update(SQL_POPULATE_BRIDGE_TABLE, postId, x);
+        for (Integer n : TagArray) {
+            jdbcTemplate.update(SQL_POPULATE_BRIDGE_TABLE, postId, n);
         }
     }
-     
-     
-    
 
     private static final class CommentMapper implements RowMapper<Comment> {
 
@@ -282,3 +284,13 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     }
 }
+//    private static final class TagMapper implements RowMapper<Integer> {
+//
+//        @Override
+//        public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+//              Integer tagLocation = new Integer(rs.getInt("tag"));
+//              
+//
+//            return tagLocation;
+//        }
+
