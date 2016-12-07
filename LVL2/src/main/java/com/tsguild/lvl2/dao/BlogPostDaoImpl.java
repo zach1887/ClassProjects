@@ -31,12 +31,8 @@ import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.ArrayList;
-import java.util.Collection;
-=======
 import java.sql.Timestamp;
->>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -79,14 +75,10 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
                 displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
-<<<<<<< HEAD
-=======
 
         if (blogPost.getDateScheduled() == null) {
 
         }
-
->>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 
