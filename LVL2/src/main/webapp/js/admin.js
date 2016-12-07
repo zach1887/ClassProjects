@@ -22,6 +22,10 @@ $(document).ready(function () {
         }
     });
 
+    $("#edit-page-layout").change(function () {
+        setNumberOfTinyMceEdit();
+    });
+
     $(".clear-button").click(function () {
         event.preventDefault();
         clearPost();
@@ -42,6 +46,11 @@ $(document).ready(function () {
         addPost();
     });
 
+    $("#edit-post-button").click(function (event) {
+        event.preventDefault();
+        editPost();
+    });
+
     $("#new-static-page-button").click(function (event) {
         event.preventDefault();
         addPage();
@@ -60,6 +69,12 @@ $(document).ready(function () {
         var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
         var postId = element.data('post-id'); // found the a tag, now get the data-post-id value
         fillEditModal(postId);
+    });
+
+    $("#page-edit-modal").on('show.bs.modal', function (event) {
+        var element = $(event.relatedTarget); // Hey, go find the thing that made this event happen
+        var pageId = element.data('page-id'); // found the a tag, now get the data-post-id value
+        fillEditPageModal(pageId);
     });
 
     $("#post-preview-modal").on('show.bs.modal', function (event) {
@@ -90,6 +105,22 @@ $(document).ready(function () {
 
 
 //functions
+
+function setNumberOfTinyMceEdit() {
+    if ($("#edit-page-layout").val() == 1) {
+        $("#editColumn1").css("display", "block");
+        $("#editColumn2").css("display", "none");
+        $("#editColumn3").css("display", "none");
+    } else if ($("#edit-page-layout").val() == 2) {
+        $("#editColumn1").css("display", "block");
+        $("#editColumn2").css("display", "block");
+        $("#editColumn3").css("display", "none");
+    } else if ($("#edit-page-layout").val() == 3) {
+        $("#editColumn1").css("display", "block");
+        $("#editColumn2").css("display", "block");
+        $("#editColumn3").css("display", "block");
+    }
+}
 
 function clearPost() {
     $('#new-post-form input').val("");
@@ -141,14 +172,19 @@ function fillAllPageTable(data, status) {
     if (document.getElementById("allPagesAdmin")) {
         $.each(data, function (index, page) {
             $('#allPagesAdmin').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
-                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'href': ('static/' + page.id)
+                            }).text(page.title)))
                     .append($('<td>')
                             .append($('<a>').attr({
                                 'onClick': 'deletePage(' + page.id + ')'
                             }).text((page.status === 10 ? 'Really Delete' : 'Delete'))))
                     .append($('<td>')
                             .append($('<a>').attr({
-                                'onClick': ('editPage(' + page.id + ')')
+                                'data-toggle': 'modal',
+                                'data-target': '#page-edit-modal',
+                                'data-page-id': page.id
                             }).text('Edit'))))
         });
     } else if (document.getElementById("allPagesEmployee")) {
@@ -161,7 +197,9 @@ function fillAllPageTable(data, status) {
                             }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion'))))
                     .append($('<td>')
                             .append($('<a>').attr({
-                                'onClick': ('editPage(' + page.id + ')')
+                                'data-toggle': 'modal',
+                                'data-target': '#page-edit-modal',
+                                'data-page-id': page.id
                             }).text('Edit'))))
         });
     }
@@ -278,7 +316,7 @@ function editPost() {
     var postDate = $("#edit-post-date").val();
     var postContent = tinymce.get('edit-post-content').getContent();
     var postId = $("#edit-post-id").val();
-    var postAuthor = $("#edit-post-author").val();
+    var postAuthor = $("#edit-post-author-span").text();
     var postStatus = $("#edit-post-status").val();
 
     $.ajax({
@@ -299,6 +337,8 @@ function editPost() {
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
+        clearPost();
+        loadAllPosts();
     });
 }
 
@@ -332,12 +372,31 @@ function fillEditModal(postId) {
         }
     }).done(function (post) {
         $('#post-edit-modal .modal-title').text(post.title);
-        $('#edit-post-author').text(post.author + " - " + post.datePosted);
+        $('#edit-post-author-span').text(post.author);
+        $('#edit-post-date-span').text(post.datePosted);
         $('#edit-post-id').val(post.id);
         $('#edit-post-status').val(post.status);
         $('#edit-post-title').val(post.title);
         $('#edit-post-date').val(post.datePosted);
-        tinyMCE.activeEditor.setContent(post.content);
+        tinymce.activeEditor.setContent(post.content);
+    });
+}
+
+function fillEditPageModal(pageId) {
+    $.ajax({
+        type: 'GET',
+        url: 'page/' + pageId,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (page) {
+        $('#page-edit-modal .modal-title').text(page.title);
+        $('#edit-page-id').val(page.id);
+        $('#edit-page-layout').val(page.layout);
+        $('#edit-page-status').val(page.status);
+        $('#edit-page-title').val(page.title);
+        setNumberOfTinyMceEdit();
+        tinymce.activeEditor.setContent(page.content1);
     });
 }
 

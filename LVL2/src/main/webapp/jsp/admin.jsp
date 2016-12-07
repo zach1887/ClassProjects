@@ -296,15 +296,16 @@
     </div>
 
     <%@include file="template/previewModal.jsp" %>
-    <%@include file="template/editModal.jsp" %>
+    <%@include file="template/editPostModal.jsp" %>
+    <%@include file="template/editPageModal.jsp" %>
 
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
 
-                                                tinymce.init({
-                                                    selector: 'textarea',
-                                                    plugins: 'image'
-                                                });
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'image'
+        });
 
     </script>
 

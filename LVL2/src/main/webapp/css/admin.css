@@ -37,3 +37,8 @@ h2 {
 #column2, #column3 {
     display: none;
 }
+
+#buttons > button {
+    margin-left: 1px;
+    margin-right: 1px;
+}

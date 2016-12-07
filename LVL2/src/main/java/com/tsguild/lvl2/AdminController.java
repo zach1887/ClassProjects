@@ -85,6 +85,12 @@ public class AdminController {
     }
     
     @ResponseBody
+    @RequestMapping(value = "/page/{pageId}", method = RequestMethod.GET)
+    public StaticPage getJsonPage(@PathVariable int pageId){
+        return staticDao.getStaticPageById(pageId);
+    }
+    
+    @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost, HttpServletRequest request) {
