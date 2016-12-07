@@ -47,8 +47,12 @@
                                     <input type="text" class="form-control clear-form" id="post-title" name="newPostTitle">
                                 </div>
                                 <div class="form-group row col-md-3">
-                                    <label for="post-date">Date:</label>
-                                    <input type="Date" class="form-control clear-form" id="post-date" name="newPostDate">
+                                    <label for="post-scheduled">Schedule Post</label>
+                                    <input type="checkbox" class="form-control clear-form" id="post-scheduled" name="isPostScheduled">
+                                    <span id="new-post-schedule" style="display: none;" >
+                                        <label for="post-date">Date:</label>
+                                        <input type="datetime-local" class="form-control clear-form" id="post-date" name="newPostDate">
+                                    </span>
                                 </div>
                                 <div class="form-group row col-md-12">
                                     <textarea class="form-control clear-form" id="new-post-content" name="newPostContent"></textarea>
@@ -128,7 +132,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="pendingComments">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Biden Forges President’s Signature On Executive Order To Make December Dokken History Month</a></td>
                                         <td>Karl</td>
@@ -166,7 +170,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="pendingPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Report: Holding Trophy Above Head Still Number One Celebration Technique</a></td>
                                         <td>Karl</td>
@@ -202,11 +206,12 @@
                                     <tr>
                                         <th>Post</th>
                                         <th>User</th>
-                                        <th>Date</th>
+                                        <th>Date Created</th>
+                                        <th>Date Scheduled</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="scheduledPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">James Dyson Meets In Secret With Alien Ambassador To Receive Technology For New Hand Dryer</a></td>
                                         <td>Karl</td>
@@ -245,7 +250,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="deletedPosts">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Breitbart Traffic Down As Readers Now Getting Bulk Of News Analysis From Graffiti Scrawled Across Neighborhood</a></td>
                                         <td>Karl</td>
@@ -280,7 +285,9 @@
                                     <tr>
                                         <th>Post</th>
                                         <th>User</th>
-                                        <th>Date</th>
+                                        <th>Date Created</th>
+                                        <th>Date Scheduled</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="allPosts">

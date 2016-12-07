@@ -31,8 +31,12 @@ import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collection;
+=======
+import java.sql.Timestamp;
+>>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -56,18 +60,33 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     // Add blog post
     private static final String SQL_ADD_POST
-            = "INSERT INTO Posts (title, author, datePosted, content, status)"
+            = "INSERT INTO Posts (title, author, dateScheduled, content, status)"
             + " VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_GET_DISPLAY_NAME
             = "SELECT displayname FROM users WHERE username = ?";
+
+    // Scheduled post
+    private static final String SQL_SCHED_POST
+            = "CREATE EVENT ? "
+            + "ON SCHEDULE AT ? "
+            + "DO "
+            + "INSERT INTO Posts (title, author, dateScheduled, content, status)";
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public BlogPost addBlogPost(BlogPost blogPost) {
         String displayName = jdbcTemplate.queryForObject(SQL_GET_DISPLAY_NAME, String.class, blogPost.getAuthor());
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
-                displayName, blogPost.getDatePosted(),
+                displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
+<<<<<<< HEAD
+=======
+
+        if (blogPost.getDateScheduled() == null) {
+
+        }
+
+>>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 
@@ -101,6 +120,18 @@ public class BlogPostDaoImpl implements BlogPostDao {
     public List<BlogPost> getAllBlogPosts() {
         return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
     }
+    
+    //Get live posts in batch
+    private static final String SQL_GET_POST_RANGE
+            = "SELECT * FROM livePosts WHERE postId > ? LIMIT ? ";
+
+    public List<BlogPost> getNextBlogPosts(int lastPost, int limit) {
+        try {
+            return jdbcTemplate.query(SQL_GET_POST_RANGE, new PostMapper(), lastPost, limit);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
     @Override
     public List<BlogPost> searchBlogPosts(Map<SearchTerm, String> criteria) {
@@ -110,7 +141,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     // Update blog post
     private static final String SQL_UPDATE_POST_BY_ID
             = "UPDATE Posts SET title = ?, content = ?, author = ?, "
-            + "datePosted = ?, status = ? "
+            + "datePosted = ?, status = ?, dateScheduled = ? "
             + "WHERE Posts.postId = ?";
 
     @Override
@@ -121,6 +152,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 updatedPost.getAuthor(),
                 updatedPost.getDatePosted(),
                 updatedPost.getStatus(),
+                updatedPost.getDateScheduled(),
                 updatedPost.getId());
     }
 
@@ -154,7 +186,10 @@ public class BlogPostDaoImpl implements BlogPostDao {
             int id = rs.getInt("postId");
             String title = rs.getString("title");
             String author = rs.getString("author");
-            String datePosted = rs.getString("datePosted");
+
+            Timestamp datePosted = rs.getTimestamp("datePosted");
+            Timestamp dateScheduled = rs.getTimestamp("dateScheduled");
+
             String content = rs.getString("content");
             int status = rs.getInt("status");
 
@@ -165,6 +200,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
             post.setDatePosted(datePosted);
             post.setContent(content);
             post.setStatus(status);
+            post.setDateScheduled(dateScheduled);
 
             return post;
         }
