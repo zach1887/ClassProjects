@@ -46,6 +46,10 @@ public class BlogPost {
         this.comments = new ArrayList<>();
         this.tags = new ArrayList<>();
     }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
     
     
 

@@ -29,6 +29,8 @@ import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -63,12 +65,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
                 displayName, blogPost.getDatePosted(),
                 blogPost.getContent(), blogPost.getStatus());
-
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 
         blogPost.setId(id);
 
+        if (blogPost.getTags() != null) {
+            updateTagTable(blogPost);
+        }
         return blogPost;
     }
 
@@ -182,18 +186,18 @@ public class BlogPostDaoImpl implements BlogPostDao {
         return comment;
     }
     private static final String SQL_APPROVE_COMMENT
-           = "UPDATE Comments SET status = 7 WHERE commentId = ?";
-    
+            = "UPDATE Comments SET status = 7 WHERE commentId = ?";
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void approveComment(int commentId) {
         jdbcTemplate.update(SQL_APPROVE_COMMENT, commentId);
 
     }
-    
+
     private static final String SQL_DECLINE_COMMENT
-           = "UPDATE Comments SET status = 8 WHERE commentId = ?";
-    
+            = "UPDATE Comments SET status = 8 WHERE commentId = ?";
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void declineComment(int commentId) {
@@ -222,6 +226,38 @@ public class BlogPostDaoImpl implements BlogPostDao {
         }
 
     }
+
+    public static final String SQL_LOAD_TAGS_INTO_TABLE
+            = "INSERT IGNORE Tags(tag) VALUES (?)";
+
+ //  public static final String SQL_PULL_TAGID
+   //         = "SELECT tagId FROM Tags WHERE tag = ?";
+
+    @Override
+    public void updateTagTable(BlogPost extractedBlog) {
+        ArrayList<String> tagList = extractedBlog.getTags();
+        List<Integer> indices = new ArrayList<Integer>();
+        int x;
+        for (String t : tagList) {
+            jdbcTemplate.update(SQL_LOAD_TAGS_INTO_TABLE, t);
+        }
+
+ //       updateBridgeTable(extractedBlog.getId(), indices);
+    }
+    ;
+     
+    public static final String SQL_POPULATE_BRIDGE_TABLE
+            = "INSERT INTO TagPostBridge(postId, tagId) VALUES (?,?)";
+
+    @Override
+    public void updateBridgeTable(int postId, List<Integer> TagArray) {
+        for (Integer x : TagArray) {
+            jdbcTemplate.update(SQL_POPULATE_BRIDGE_TABLE, postId, x);
+        }
+    }
+     
+     
+    
 
     private static final class CommentMapper implements RowMapper<Comment> {
 

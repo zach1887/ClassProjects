@@ -39,6 +39,7 @@ $(document).ready(function () {
 
     $("#new-post-button").click(function (event) {
         event.preventDefault();
+        storeTags();
         addPost();
     });
 
@@ -53,8 +54,14 @@ $(document).ready(function () {
 
     $("#new-save-button").click(function (event) {
         event.preventDefault();
+        storeTags();
         savePost();
     });
+    
+    $("#extractedTags").focus(function(event) {
+        extractTags();
+    });
+        
 
     $("#extract-tags-button").click(function (event) {
         event.preventDefault();
@@ -84,7 +91,6 @@ $(document).ready(function () {
     });
 
     $("#tag-edit-modal").on('show.bs.modal', function (event) {
-        displayNothing();
     });
 
     $("#delete").click(function (event) {
@@ -170,7 +176,12 @@ function fillAllPageTable(data, status) {
                             }).text('Edit'))))
         });
     }
+<<<<<<< HEAD
 
+=======
+    
+}
+>>>>>>> 014edc3b8c04d0849ce2221fc9d0f3ddab6742a8
 
 function loadAllPosts() {
     $.ajax({
@@ -252,6 +263,8 @@ function addPage() {
 }
 
 function savePost() {
+    var finalTags = $('#extractedTags').val();
+    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
     var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
@@ -268,10 +281,12 @@ function savePost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            status: 9
+            status: 9,
+            tags: finalArray
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
+        clearPost();
         loadAllPosts();
     });
 }
@@ -360,12 +375,30 @@ function fillPreviewModal(postId) {
 }
 
 
-function tagPreviewModal() {
-
+function extractTags() {
+  
     var postContent = tinymce.get('new-post-content').getContent();
 
     var hashArray = (postContent.match(/#(\w+)/g));
 
+<<<<<<< HEAD
     $('#extractedTags').text(hashArray);
     
 }
+=======
+    $('#extractedTags').val(hashArray);
+    
+    // fill Edit Modal 
+    }
+    
+function storeTags() {
+  
+    var finalTags = $('#extractedTags').val();
+
+    var finalArray = (finalTags.match(/#(\w+)/g));
+
+    
+    // fill Edit Modal 
+}
+
+>>>>>>> 014edc3b8c04d0849ce2221fc9d0f3ddab6742a8
