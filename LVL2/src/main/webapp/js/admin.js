@@ -156,7 +156,11 @@ function fillAllPageTable(data, status) {
                     .append($('<td>')
                             .append($('<a>').attr({
                                 'onClick': 'deletePage(' + page.id + ')'
-                            }).text((page.status === 10 ? 'Really Delete' : 'Delete')))))
+                            }).text((page.status === 10 ? 'Really Delete' : 'Delete'))))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': ('editPage(' + page.id + ')')
+                            }).text('Edit'))))
         });
     } else if (document.getElementById("allPagesEmployee")) {
         $.each(data, function (index, page) {
@@ -164,12 +168,15 @@ function fillAllPageTable(data, status) {
                     .append($('<td>').text(page.title))
                     .append($('<td>')
                             .append($('<a>').attr({
-                                'onClick': (page.status === 10 ? '' : 'deletePage(' + page.id + ')') 
-                            }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion')))))
+                                'onClick': (page.status === 10 ? '' : 'deletePage(' + page.id + ')')
+                            }).text((page.status === 10 ? 'Flagged For Deletion' : 'Flag For Deletion'))))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'onClick': ('editPage(' + page.id + ')')
+                            }).text('Edit'))))
         });
     }
-    
-}
+
 
 function loadAllPosts() {
     $.ajax({
@@ -382,5 +389,9 @@ function storeTags() {
 
     
     // fill Edit Modal 
+}
+
+    $('#extractedTags').text(hashArray);
+    
 }
 
