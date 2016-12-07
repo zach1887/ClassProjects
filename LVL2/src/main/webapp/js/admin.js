@@ -316,7 +316,12 @@ function addPage() {
 
 function savePost() {
     var postTitle = $("#post-title").val();
-    var postDate = $("#post-date").val();
+    if ($('#post-scheduled').is(":checked")) {
+        document.getElementById("post-date").stepUp(new Date($("#post-date").val()).getTimezoneOffset());
+        var postDate = new Date($("#post-date").val());
+    } else {
+        var postDate;
+    }
     var postContent = tinymce.get('new-post-content').getContent();
 
     $.ajax({
@@ -424,7 +429,7 @@ function fillPreviewModal(postId) {
         }
     }).done(function (post) {
         $('#preview-post-content').html(post.content);
-        $('#preview-post-author').text(post.author + " - " + post.datePosted);
+        $('#preview-post-author').text(post.author + " - " + (new Date(post.datePosted).toLocaleString()));
         $('#preview-post-title').text(post.title);
     });
 }

@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS MakerSpaceTest;
-CREATE DATABASE MakerSpaceTest;
-USE MakerSpaceTest;
+DROP DATABASE IF EXISTS MakerSpace;
+CREATE DATABASE MakerSpace;
+USE MakerSpace;
 
 CREATE TABLE `Posts`(
 	`postId` INT AUTO_INCREMENT NOT NULL,
@@ -10,7 +10,6 @@ CREATE TABLE `Posts`(
 	`dateScheduled` TIMESTAMP NULL,
 	`content` Text,
 	`status` INT,
-	`live` BOOL,
    PRIMARY KEY(`postId`)
    );
 
@@ -112,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `users` (
  `user_id` int(11) NOT NULL AUTO_INCREMENT,
  `username` varchar(20) NOT NULL,
  `displayname` varchar(20) NOT NULL,
- `password` varchar(20) NOT NULL,
+ `password` varchar(40) NOT NULL,
  `enabled` tinyint(1) NOT NULL,
  PRIMARY KEY (`user_id`),
  KEY `username` (`username`)
@@ -126,3 +125,9 @@ CREATE TABLE IF NOT EXISTS `authorities` (
 
 ALTER TABLE `authorities`
  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
+
+/* creates view of approved */
+
+CREATE VIEW livePosts AS 
+SELECT * FROM Posts
+WHERE status IN (1,3) AND (dateScheduled <= NOW() OR dateScheduled IS NULL);

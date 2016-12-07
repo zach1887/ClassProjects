@@ -25,3 +25,4 @@ select * from Posts;
 select * from StaticPages;
 select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 1;
 
+SELECT * FROM livePosts WHERE postId > 3 LIMIT 3;

@@ -30,8 +30,6 @@ import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -58,15 +56,13 @@ public class BlogPostDaoImpl implements BlogPostDao {
             + " VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_GET_DISPLAY_NAME
             = "SELECT displayname FROM users WHERE username = ?";
-    
-    
+
     // Scheduled post
     private static final String SQL_SCHED_POST
             = "CREATE EVENT ? "
             + "ON SCHEDULE AT ? "
             + "DO "
             + "INSERT INTO Posts (title, author, dateScheduled, content, status)";
-    
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -75,9 +71,9 @@ public class BlogPostDaoImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_ADD_POST, blogPost.getTitle(),
                 displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
-        
-        if (blogPost.getDateScheduled() == null){
-            
+
+        if (blogPost.getDateScheduled() == null) {
+
         }
 
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
@@ -109,6 +105,18 @@ public class BlogPostDaoImpl implements BlogPostDao {
     @Override
     public List<BlogPost> getAllBlogPosts() {
         return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
+    }
+    
+    //Get live posts in batch
+    private static final String SQL_GET_POST_RANGE
+            = "SELECT * FROM livePosts WHERE postId > ? LIMIT ? ";
+
+    public List<BlogPost> getNextBlogPosts(int lastPost, int limit) {
+        try {
+            return jdbcTemplate.query(SQL_GET_POST_RANGE, new PostMapper(), lastPost, limit);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -164,14 +172,12 @@ public class BlogPostDaoImpl implements BlogPostDao {
             int id = rs.getInt("postId");
             String title = rs.getString("title");
             String author = rs.getString("author");
-            
+
             Timestamp datePosted = rs.getTimestamp("datePosted");
             Timestamp dateScheduled = rs.getTimestamp("dateScheduled");
-            
+
             String content = rs.getString("content");
             int status = rs.getInt("status");
-            
-            
 
             // set properties
             post.setId(id);
@@ -205,18 +211,18 @@ public class BlogPostDaoImpl implements BlogPostDao {
         return comment;
     }
     private static final String SQL_APPROVE_COMMENT
-           = "UPDATE Comments SET status = 7 WHERE commentId = ?";
-    
+            = "UPDATE Comments SET status = 7 WHERE commentId = ?";
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void approveComment(int commentId) {
         jdbcTemplate.update(SQL_APPROVE_COMMENT, commentId);
 
     }
-    
+
     private static final String SQL_DECLINE_COMMENT
-           = "UPDATE Comments SET status = 8 WHERE commentId = ?";
-    
+            = "UPDATE Comments SET status = 8 WHERE commentId = ?";
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void declineComment(int commentId) {
