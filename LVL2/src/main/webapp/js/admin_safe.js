@@ -39,7 +39,6 @@ $(document).ready(function () {
 
     $("#new-post-button").click(function (event) {
         event.preventDefault();
-        storeTags();
         addPost();
     });
 
@@ -54,14 +53,8 @@ $(document).ready(function () {
 
     $("#new-save-button").click(function (event) {
         event.preventDefault();
-        storeTags();
         savePost();
     });
-    
-    $("#extractedTags").focus(function(event) {
-        extractTags();
-    });
-        
 
     $("#extract-tags-button").click(function (event) {
         event.preventDefault();
@@ -91,6 +84,7 @@ $(document).ready(function () {
     });
 
     $("#tag-edit-modal").on('show.bs.modal', function (event) {
+        displayNothing();
     });
 
     $("#delete").click(function (event) {
@@ -176,9 +170,7 @@ function fillAllPageTable(data, status) {
                             }).text('Edit'))))
         });
     }
-
-}
-
+    }
 
 function loadAllPosts() {
     $.ajax({
@@ -206,8 +198,6 @@ function clearAllPageTable() {
 }
 
 function addPost() {
-    var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
     var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
@@ -224,8 +214,7 @@ function addPost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            status: -1,
-            tags: finalArray
+            status: -1
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
@@ -263,8 +252,6 @@ function addPage() {
 }
 
 function savePost() {
-    var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
     var postTitle = $("#post-title").val();
     var postDate = $("#post-date").val();
     var postContent = tinymce.get('new-post-content').getContent();
@@ -281,12 +268,10 @@ function savePost() {
             title: postTitle,
             datePosted: postDate,
             content: postContent,
-            status: 9,
-            tags: finalArray
+            status: 9
         })
     }).done(function (data) { //success is deprecated, were supposed to use done now
         alert("success!");
-        clearPost();
         loadAllPosts();
     });
 }
@@ -375,30 +360,12 @@ function fillPreviewModal(postId) {
 }
 
 
-function extractTags() {
-  
+function tagPreviewModal() {
+
     var postContent = tinymce.get('new-post-content').getContent();
 
     var hashArray = (postContent.match(/#(\w+)/g));
 
-    $('#extractedTags').val(hashArray);
-    
-
-    // fill Edit Modal 
-    }
-    
-function storeTags() {
-  
-    var finalTags = $('#extractedTags').val();
-
-    var finalArray = (finalTags.match(/#(\w+)/g));
-
-    
-    // fill Edit Modal 
-
-
-
     $('#extractedTags').text(hashArray);
     
 }
-
