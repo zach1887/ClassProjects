@@ -3,17 +3,14 @@ CREATE DATABASE MakerSpace;
 USE MakerSpace;
 
 CREATE TABLE `Posts`(
-	`postId` INT AUTO_INCREMENT NOT NULL,
-	`title` VARCHAR(60) NOT NULL,
-	`author` VARCHAR(50) NOT NULL,
-	`datePosted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	`dateScheduled` TIMESTAMP NULL,
-	`content` Text,
-	`status` INT,
+   `postId` INT AUTO_INCREMENT NOT NULL,
+   `title` VARCHAR(60) NOT NULL,
+   `author` VARCHAR(50) NOT NULL,
+   `datePosted` DATE NOT NULL, 
+   `content` Text,
+   `status` INT,
    PRIMARY KEY(`postId`)
    );
-
-
 
 CREATE TABLE `Tags` (
    `tagId` INT AUTO_INCREMENT NOT NULL,
@@ -112,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `users` (
  `user_id` int(11) NOT NULL AUTO_INCREMENT,
  `username` varchar(20) NOT NULL,
  `displayname` varchar(20) NOT NULL,
- `password` varchar(40) NOT NULL,
+ `password` varchar(20) NOT NULL,
  `enabled` tinyint(1) NOT NULL,
  PRIMARY KEY (`user_id`),
  KEY `username` (`username`)
@@ -126,9 +123,3 @@ CREATE TABLE IF NOT EXISTS `authorities` (
 
 ALTER TABLE `authorities`
  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
-
-/* creates view of approved */
-
-CREATE VIEW livePosts AS 
-SELECT * FROM Posts
-WHERE status IN (1,3) AND (dateScheduled <= NOW() OR dateScheduled IS NULL);

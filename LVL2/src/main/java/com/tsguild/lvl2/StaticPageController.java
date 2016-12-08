@@ -53,6 +53,7 @@ public class StaticPageController {
         StaticPage page = dao.getStaticPageById(id);
         
         model.addAttribute("title", page.getTitle());
+        model.addAttribute("id", page.getId());
         model.addAttribute("content1", page.getContent1());
         model.addAttribute("content2", page.getContent2());
         model.addAttribute("content3", page.getContent3());

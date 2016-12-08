@@ -23,8 +23,12 @@ INSERT INTO `authorities` (`username`, `authority`) VALUES
 
 select * from Posts;
 select * from StaticPages;
-select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 1;
-
+select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 4;
 SELECT * FROM livePosts WHERE postId > 3 LIMIT 3;
 
-insert into Posts(postId, title, author, content, `status`) values(6, 'Pending Deleteion', 'John Smith', 'Almost gone', 10);
+SELECT * FROM livePosts
+ORDER BY CASE 
+    WHEN dateScheduled IS NOT NULL THEN dateScheduled 
+    ELSE datePosted 
+END DESC limit 3;
+

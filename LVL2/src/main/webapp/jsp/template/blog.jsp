@@ -21,8 +21,8 @@
                             <div class="post-content well">
                                 ${content}
                             </div>
-                            <small class="dim-text">Comments(0)</small>
-                            <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                            <small class="dim-text">Comments(${NumberOfComments})</small>
+                            <small class="pull-right dim-text">Tags: <span id="tagLink"></span></small>
                         </div>
                     </div>
 

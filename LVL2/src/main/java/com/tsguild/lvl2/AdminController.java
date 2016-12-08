@@ -75,14 +75,25 @@ public class AdminController {
     public List<StaticPage> getAllStaticPages() {
         return staticDao.getAllStaticPages();
     }
-    
-    
+
     @ResponseBody
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
-    public BlogPost getJsonPost(@PathVariable int postId){
+    public BlogPost getJsonPost(@PathVariable int postId) {
         return blogDao.getBlogPostById(postId);
     }
-    
+
+    @ResponseBody
+    @RequestMapping(value = "/page/{pageId}", method = RequestMethod.GET)
+    public StaticPage getJsonPage(@PathVariable int pageId) {
+        return staticDao.getStaticPageById(pageId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/tag/{tagName}", method = RequestMethod.GET)
+    public List<BlogPost> searchPostsByTagName(@PathVariable String tagName) {
+        return blogDao.getBlogPostsByTagName(tagName);
+    }
+
     @ResponseBody
 //    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/blog", method = RequestMethod.POST)
@@ -121,13 +132,10 @@ public class AdminController {
         } else {
             return new BlogPost();
         }
-        
+
         blogPost.setAuthor(request.getUserPrincipal().getName());
         return blogDao.addBlogPost(blogPost);
-        
-        
-        
-        
+
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -141,6 +149,16 @@ public class AdminController {
         blogDao.updateBlogPost(editedPost);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/staticpage/{id}", method = RequestMethod.PUT)
+    public void editStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_EMPLOYEE")) {
+            page.setStatus(12);
+        } else if (request.isUserInRole("ROLE_ADMIN")) {
+            page.setStatus(15);
+        }
+        staticDao.updateStaticPage(page);
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/blog/{id}", method = RequestMethod.DELETE)
@@ -169,13 +187,13 @@ public class AdminController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/staticpage", method = RequestMethod.POST)
     public void createStaticPage(@RequestBody StaticPage page, HttpServletRequest request) {
-        
+
         if (request.isUserInRole("ROLE_EMPLOYEE")) {
             page.setStatus(12);
         } else if (request.isUserInRole("ROLE_ADMIN")) {
             page.setStatus(15);
         }
-        
+
         staticDao.addStaticPage(page);
     }
 }

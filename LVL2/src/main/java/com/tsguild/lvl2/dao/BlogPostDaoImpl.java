@@ -25,14 +25,18 @@
  */
 package com.tsguild.lvl2.dao;
 
+import static com.tsguild.lvl2.dao.BlogPostDaoImpl.SQL_LOAD_TAGS_INTO_TABLE;
+import static com.tsguild.lvl2.dao.BlogPostDaoImpl.SQL_PULL_TAGID;
 import com.tsguild.lvl2.dto.BlogPost;
 import com.tsguild.lvl2.dto.Comment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.annotation.Propagation;
@@ -72,11 +76,17 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
 
+        if (blogPost.getDateScheduled() == null) {
+
+        }
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 
         blogPost.setId(id);
 
+        if (blogPost.getTags() != null) {
+            updateTagTable(blogPost);
+        }
         return blogPost;
     }
 
@@ -102,7 +112,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     public List<BlogPost> getAllBlogPosts() {
         return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
     }
-    
+
     //Get live posts in batch
     private static final String SQL_GET_POST_RANGE
             = "SELECT * FROM livePosts WHERE postId > ? LIMIT ? ";
@@ -158,6 +168,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    private static final String SQL_GET_RECENT_POSTS
+            = "SELECT * FROM livePosts ORDER BY CASE WHEN dateScheduled IS NOT NULL THEN dateScheduled ELSE datePosted END DESC;";
+
+    @Override
+    public List<BlogPost> getRecentPosts() {
+        return jdbcTemplate.query(SQL_GET_RECENT_POSTS, new PostMapper());
     }
 
     private static final class PostMapper implements RowMapper<BlogPost> {
@@ -248,6 +266,51 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     }
 
+    public static final String SQL_COUNT_COMMENTS_BY_POSTID
+            = "SELECT COUNT(commentId) from Comments WHERE postId = ?"
+            + " AND (Status = 5 OR Status = 7)";
+
+    @Override
+    public int countCommentsById(int postId) {
+        return jdbcTemplate.queryForObject(SQL_COUNT_COMMENTS_BY_POSTID, Integer.class, postId);
+    }
+
+    public static final String SQL_LOAD_TAGS_INTO_TABLE
+            = "INSERT Tags(tag) VALUES (?)";
+
+    public static final String SQL_PULL_TAGID
+            = "SELECT tagId FROM Tags WHERE tag = ?";
+
+    @Override
+    public void updateTagTable(BlogPost extractedBlog) {
+        ArrayList<String> tagList = extractedBlog.getTags();
+        List<Integer> indices = new ArrayList<>();
+        for (String t : tagList) {
+            try {
+                Integer queryForObject = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, t);
+                indices.add(queryForObject);
+//            } catch (EmptyResultDataAccessException emp) {
+            } catch (IncorrectResultSizeDataAccessException emp) {
+                jdbcTemplate.update(SQL_LOAD_TAGS_INTO_TABLE, t);
+                Integer queryForObject = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, t);
+                indices.add(queryForObject);
+            }
+        }
+
+        updateBridgeTable(extractedBlog.getId(), indices);
+    }
+
+    //   updateBridgeTable(extractedBlog.getId(),indices);
+    public static final String SQL_POPULATE_BRIDGE_TABLE
+            = "INSERT INTO TagPostBridge(postId, tagId) VALUES (?,?)";
+
+    @Override
+    public void updateBridgeTable(int postId, List<Integer> TagArray) {
+        for (Integer n : TagArray) {
+            jdbcTemplate.update(SQL_POPULATE_BRIDGE_TABLE, postId, n);
+        }
+    }
+
     private static final class CommentMapper implements RowMapper<Comment> {
 
         @Override
@@ -269,5 +332,21 @@ public class BlogPostDaoImpl implements BlogPostDao {
             return listComment;
         }
 
+    }
+
+    public static final String SQL_PULL_POSTS_BY_TAGID
+            = "SELECT * FROM Posts JOIN TagPostBridge ON (Posts.postId = TagBridge.postId)"
+            + " WHERE TagBridge.tagId = ?";
+
+    @Override
+    public List<BlogPost> getBlogPostsByTagName(String tag) {
+        try {
+            Integer tagId = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, tag);
+            return jdbcTemplate.query(SQL_PULL_POSTS_BY_TAGID, new PostMapper(), tagId);
+//            } catch (EmptyResultDataAccessException emp) {
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
     }
 }

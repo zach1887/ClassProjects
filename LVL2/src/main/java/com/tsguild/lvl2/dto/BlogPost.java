@@ -57,6 +57,12 @@ public class BlogPost {
         this.tags = new ArrayList<>();
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+    
+    
+
     public BlogPost(int id, String title, String author, Timestamp datePosted, Timestamp dateScheduled, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags, boolean scheduled) {
         this.id = id;
         this.title = title;
