@@ -171,7 +171,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     }
 
     private static final String SQL_GET_RECENT_POSTS
-            = "SELECT * FROM livePosts ORDER BY CASE WHEN dateScheduled IS NOT NULL THEN dateScheduled ELSE datePosted END DESC limit 3;";
+            = "SELECT * FROM livePosts ORDER BY CASE WHEN dateScheduled IS NOT NULL THEN dateScheduled ELSE datePosted END DESC;";
 
     @Override
     public List<BlogPost> getRecentPosts() {
