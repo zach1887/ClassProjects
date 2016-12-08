@@ -1,7 +1,9 @@
 package com.tsguild.lvl2;
 
 import com.tsguild.lvl2.dao.BlogPostDao;
+import com.tsguild.lvl2.dao.StaticPageDao;
 import com.tsguild.lvl2.dto.BlogPost;
+import com.tsguild.lvl2.dto.StaticPage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
     
     private BlogPostDao dao;
+    private StaticPageDao staticDao;
     
     @Inject
-    public HomeController(BlogPostDao dao) {
+    public HomeController(BlogPostDao dao, StaticPageDao staticDao) {
         this.dao = dao;
+        this.staticDao = staticDao;
     }
     
     @RequestMapping(value="/", method=RequestMethod.GET)
@@ -29,6 +33,7 @@ public class HomeController {
         for (BlogPost post : recentPosts) {
             postCommentNumbers.add(dao.countCommentsById(post.getId()));
         }
+        
         model.addAttribute("recentPosts", recentPosts);
         model.addAttribute("commentNumber", postCommentNumbers);
         return "index";

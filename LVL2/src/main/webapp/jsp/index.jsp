@@ -45,24 +45,9 @@
                 <!-- post history -->
                 <h2>Recent Posts</h2>
                 <div class="row well" id="post-history">
-
+                    
                     <div>
                         <h3>October</h3>
-                        <ul>
-                            <li>
-                                <a href="#">Post 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Post 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Post 3</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3>November</h3>
                         <ul>
                             <li>
                                 <a href="#">Post 1</a>

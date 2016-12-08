@@ -14,12 +14,17 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li id="nav-about">
-                    <a href="${pageContext.request.contextPath}/about">About Us</a>
-                </li>
-                <li id="nav-static">
-                    <a href="${pageContext.request.contextPath}/static/1">Static Page From DB</a>
-                </li>
+                <!--                <li id="nav-about">
+                                    <a href="${pageContext.request.contextPath}/about">About Us</a>
+                                </li>-->
+                <!--                <li id="nav-static">
+                                    <a href="${pageContext.request.contextPath}/static/1">Static Page From DB</a>
+                                </li>-->
+                <c:forEach items="${staticPages}" var="page"> 
+                    <li id="nav-static-${page.id}">
+                        <a href="${pageContext.request.contextPath}/static/${page.id}">${page.title}</a>
+                    </li>
+                </c:forEach>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li id="nav-other">
                         <a href="${pageContext.request.contextPath}/admin">Admin</a>

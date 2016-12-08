@@ -42,6 +42,6 @@
     </div>
 
     <%@ include file="footer.jsp" %>
-    <script>$("#nav-static").addClass("active");</script>
+    <script>$("#nav-static-${id}").addClass("active");</script>
 </body>
 </html>
