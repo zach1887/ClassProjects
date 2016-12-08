@@ -13,7 +13,7 @@
                     <div class="row post">
                         <div class="col-md-12">
                             <h3>
-                                <a href="#" class="post-title">${post.title}</a>
+                                <a href="${pageContext.request.contextPath}/blogWithComments/${post.id}" class="post-title">${post.title}</a>
                             </h3>
                             <small class="dim-text"><a href="${pageContext.request.contextPath}/author/${post.author}">By: ${author}</a></small>
                             <small class="pull-right dim-text">${post.datePosted}</small>
