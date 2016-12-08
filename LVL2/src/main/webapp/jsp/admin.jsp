@@ -318,8 +318,9 @@
                                                     plugins: "paste imagetools ",
                                                     imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
                                                     paste_data_images: true,
+                                                    //images_upload_base_path: 'http://${pageContext.request.localName}:8080${pageContext.request.contextPath}',
                                                     images_upload_url: 'uploadFile',
-                                                    images_upload_base_path: '${pageContext.request.contextPath}'
+                                                    relative_urls: false
                                                 });
 
     </script>
