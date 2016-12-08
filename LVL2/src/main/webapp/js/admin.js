@@ -170,9 +170,7 @@ function fillScheduleTable(data, status) {
     clearTable('#scheduledPosts');
     $.each(data, function (index, post) {
         var datePosted = new Date(post.datePosted).toLocaleDateString();
-        if (post.dateScheduled === null) {
-
-        } else {
+        if (post.dateScheduled !== null) {
             var dateScheduled = new Date(post.dateScheduled);//.toLocaleString();
             $('#scheduledPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
                     .append($('<td>').append($('<a>')
@@ -239,12 +237,58 @@ function fillAllPageTable(data, status) {
     }
 }
 
+function fillDeleteTable(data, status) {
+    clearTable('#deletedPosts');
+    $.each(data, function (index, post) {
+
+        if (post.status === 10) {
+            var datePosted = new Date(post.datePosted).toLocaleDateString();
+            if (post.dateScheduled === null) {
+                var dateScheduled = null;
+            } else {
+                var dateScheduled = new Date(post.dateScheduled).toLocaleString();
+            }
+
+            $('#deletedPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
+                    .append($('<td>').append($('<a>')
+                            .attr({
+                                'data-post-id': post.id,
+                                'data-toggle': 'modal',
+                                'data-target': '#post-preview-modal'
+                            })
+                            .text(post.title)
+                            ))
+                    .append($('<td>').text(post.author))
+                    .append($('<td>').text(datePosted))
+                    .append($('<td>').text(dateScheduled))
+                    .append($('<td>').append($('<a>')
+                            .attr({
+                                'onClick': 'undelete(' + post.id + ')'
+                            })
+                            .text('Undelete')
+                            ))
+                    .append($('<td>').append($('<a>')
+                            //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
+                            .attr({
+                                'data-toggle': 'modal',
+                                'data-target': '#post-edit-modal',
+                                'data-post-id': post.id
+                            })
+                            .text('Edit')
+                            ))
+                    );
+        }
+    });
+}
+
+
 function loadAllPosts() {
     $.ajax({
         url: "posts"
     }).done(function (data) {
         fillAllPostTable(data, status);
         fillScheduleTable(data, status);
+        fillDeleteTable(data, status);
     });
 }
 
@@ -428,9 +472,12 @@ function fillEditModal(postId) {
             'Accept': 'application/json'
         }
     }).done(function (post) {
+        if (post.dateScheduled !== null) {
+            $('#edit-post-scheduled').prop("checked", true);
+        }
         $('#post-edit-modal .modal-title').text(post.title);
         $('#edit-post-author').text(post.author);
-        $('#post-edit-date').text(post.datePosted);
+        $('#edit-post-date').val(new Date(post.dateScheduled).toLocaleString());
         $('#edit-post-id').val(post.id);
         $('#edit-post-status').val(post.status);
         $('#edit-post-title').val(post.title);

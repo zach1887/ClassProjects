@@ -72,10 +72,6 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 displayName, blogPost.getDateScheduled(),
                 blogPost.getContent(), blogPost.getStatus());
 
-        if (blogPost.getDateScheduled() == null) {
-
-        }
-
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()",
                 Integer.class);
 

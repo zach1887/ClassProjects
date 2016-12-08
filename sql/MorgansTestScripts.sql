@@ -1,4 +1,4 @@
-USE MakerSpaceTest;
+USE MakerSpace;
 
 
 insert into StaticPages(pageId, pageTitle,`status`, layout) values(1, 'Cool Page', 1, 2);
@@ -26,3 +26,5 @@ select * from StaticPages;
 select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 1;
 
 SELECT * FROM livePosts WHERE postId > 3 LIMIT 3;
+
+insert into Posts(postId, title, author, content, `status`) values(6, 'Pending Deleteion', 'John Smith', 'Almost gone', 10);
