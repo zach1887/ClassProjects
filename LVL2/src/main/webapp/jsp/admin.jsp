@@ -99,8 +99,8 @@
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-page-button">Clear</button>
-<!--                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
-                                    <button id="new-save-button" class="btn btn-default">Save</button>-->
+                                    <!--                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
+                                                                        <button id="new-save-button" class="btn btn-default">Save</button>-->
                                     <button id="new-static-page-button" class="btn btn-primary">Post</button>
                                 </div>
                             </form>
@@ -313,10 +313,14 @@
     <script type='text/javascript' src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
 
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'image'
-        });
+                                                tinymce.init({
+                                                    selector: "textarea", // change this value according to your HTML
+                                                    plugins: "paste imagetools ",
+                                                    imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+                                                    paste_data_images: true,
+                                                    images_upload_url: 'uploadFile',
+                                                    images_upload_base_path: '${pageContext.request.contextPath}'
+                                                });
 
     </script>
 

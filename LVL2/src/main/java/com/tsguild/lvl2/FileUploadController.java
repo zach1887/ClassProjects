@@ -68,7 +68,7 @@ public class FileUploadController {
                 logger.info("Server File Location="
                         + serverFile.getAbsolutePath());
 
-                return name;
+                return "{\"location\": \"img/upload/" + name + "\"}";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }

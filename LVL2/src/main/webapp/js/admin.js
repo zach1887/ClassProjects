@@ -6,8 +6,6 @@ $(document).ready(function () {
     loadAllPosts();
     loadAllPages();
 
-    
-
     $("#page-layout").change(function () {
         if ($("#page-layout").val() == 1) {
             $("#column1").css("display", "block");
@@ -51,7 +49,7 @@ $(document).ready(function () {
     $("#new-post-button").click(function (event) {
         event.preventDefault();
         storeTags();
-        uploadImages();
+        tinymce.activeEditor.uploadImages();
         addPost();
     });
 
@@ -685,10 +683,21 @@ function searchPostsByTag(tag) {
 
 
 
-function uploadImages() {
-    tinymce.activeEditor.uploadImages(function (success) {
-        $.post('uploadFile', tinymce.activeEditor.getContent()).done(function () {
-            console.log("Uploaded images and posted content as an ajax request.");
-        });
-    });
+function uploadImages(blobInfo, success, failure) {
+    $.ajax({
+        url: 'uploadFile',
+        type: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/formdata'
+        },
+        'dataType': 'formdata',
+        data: "fd" 
+   });
+    
+//    tinymce.activeEditor.uploadImages(function (success) {
+//        $.post('uploadFile', tinymce.activeEditor.getContent()).done(function () {
+//            console.log("Uploaded images and posted content as an ajax request.");
+//        });
+//    });
 }
