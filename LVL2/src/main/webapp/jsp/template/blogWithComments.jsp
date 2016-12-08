@@ -158,7 +158,7 @@
     </div>
 
     <%@ include file="footer.jsp" %>
-    <script src="${pageContext.request.contextPath}/js/admin_forComments.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tagLinks.js"></script>
 </body>
 </html>
 

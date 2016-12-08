@@ -89,9 +89,21 @@ public class AdminController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/tag/{tagName}", method = RequestMethod.GET)
-    public List<BlogPost> searchPostsByTagName(@PathVariable String tagName) {
-        return blogDao.getBlogPostsByTagName(tagName);
+    @RequestMapping(value = "/tags/{tagID}", method = RequestMethod.GET)
+    public List<BlogPost> searchPostsByTagID(@PathVariable int tagID) {
+        return blogDao.getBlogPostsByTagID(tagID);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/tagName/{tagId}", method = RequestMethod.GET)
+    public String searchPostsByTagName(@PathVariable int tagId) {
+        return blogDao.getTagNameFromID(tagId);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/post/{postId}/tags", method = RequestMethod.GET)
+    public List<Integer> extractTagsByPostId(@PathVariable int postId) {
+        return blogDao.extractTagsByPostId(postId);
     }
 
     @ResponseBody

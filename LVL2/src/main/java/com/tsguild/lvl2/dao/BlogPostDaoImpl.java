@@ -335,13 +335,12 @@ public class BlogPostDaoImpl implements BlogPostDao {
     }
 
     public static final String SQL_PULL_POSTS_BY_TAGID
-            = "SELECT * FROM Posts JOIN TagPostBridge ON (Posts.postId = TagBridge.postId)"
-            + " WHERE TagBridge.tagId = ?";
+            = "SELECT * FROM Posts JOIN TagPostBridge ON (Posts.postId = TagPostBridge.postId)"
+            + " WHERE TagPostBridge.tagId = ?";
 
     @Override
-    public List<BlogPost> getBlogPostsByTagName(String tag) {
+    public List<BlogPost> getBlogPostsByTagID(int tagId) {
         try {
-            Integer tagId = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, tag);
             return jdbcTemplate.query(SQL_PULL_POSTS_BY_TAGID, new PostMapper(), tagId);
 //            } catch (EmptyResultDataAccessException emp) {
         } catch (EmptyResultDataAccessException e) {
@@ -349,4 +348,57 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
         }
     }
+    
+       public static final String SQL_EXTRACT_TAGS_BY_POSTID
+            = "SELECT Tags.tagId from Posts JOIN TagPostBridge ON (Posts.postId = TagPostBridge.postId) "
+            + "JOIN Tags ON (TagPostBridge.tagId = Tags.tagID) WHERE Posts.postId = ?";
+
+    @Override
+    public List<Integer> extractTagsByPostId(int postId) {
+        try {
+            return jdbcTemplate.query(SQL_EXTRACT_TAGS_BY_POSTID, new TagMapper(), postId);
+
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
+    }
+    
+        private static final class TagMapper implements RowMapper<Integer> {
+
+        @Override
+        public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Integer tagId = rs.getInt("tagId");
+            return tagId;
+        }
+
+    }
+
+    public static final String SQL_EXTRACT_TAG_NAMES
+            = "SELECT Tag FROM Tags WHERE tagId = ?";
+    
+    @Override
+    public String getTagNameFromID(int tagId) {
+        try {
+            List<String> listString = jdbcTemplate.query(SQL_EXTRACT_TAG_NAMES, new TagNameMapper(), tagId);
+            String tagName = listString.get(0);
+            return tagName;
+//            } catch (EmptyResultDataAccessException emp) {
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
+    }
+        private static final class TagNameMapper implements RowMapper<String> {
+
+        @Override
+        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+            String tagContent = rs.getString("tag");
+
+            return tagContent;
+        }
+
+    }
 }
+
+
