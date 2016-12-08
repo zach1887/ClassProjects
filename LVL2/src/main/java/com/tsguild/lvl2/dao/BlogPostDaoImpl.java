@@ -41,7 +41,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
 /**
  *
@@ -113,7 +112,7 @@ public class BlogPostDaoImpl implements BlogPostDao {
     public List<BlogPost> getAllBlogPosts() {
         return jdbcTemplate.query(SQL_GET_ALL_POSTS, new PostMapper());
     }
-    
+
     //Get live posts in batch
     private static final String SQL_GET_POST_RANGE
             = "SELECT * FROM livePosts WHERE postId > ? LIMIT ? ";
@@ -169,6 +168,14 @@ public class BlogPostDaoImpl implements BlogPostDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    private static final String SQL_GET_RECENT_POSTS
+            = "SELECT * FROM livePosts ORDER BY CASE WHEN dateScheduled IS NOT NULL THEN dateScheduled ELSE datePosted END DESC limit 3;";
+
+    @Override
+    public List<BlogPost> getRecentPosts() {
+        return jdbcTemplate.query(SQL_GET_RECENT_POSTS, new PostMapper());
     }
 
     private static final class PostMapper implements RowMapper<BlogPost> {
@@ -258,11 +265,11 @@ public class BlogPostDaoImpl implements BlogPostDao {
         }
 
     }
-    
-    public static final String SQL_COUNT_COMMENTS_BY_POSTID =
-            "SELECT COUNT(commentId) from Comments WHERE postId = ?"
+
+    public static final String SQL_COUNT_COMMENTS_BY_POSTID
+            = "SELECT COUNT(commentId) from Comments WHERE postId = ?"
             + " AND (Status = 5 OR Status = 7)";
-    
+
     @Override
     public int countCommentsById(int postId) {
         return jdbcTemplate.queryForObject(SQL_COUNT_COMMENTS_BY_POSTID, Integer.class, postId);
@@ -289,8 +296,8 @@ public class BlogPostDaoImpl implements BlogPostDao {
                 indices.add(queryForObject);
             }
         }
-        
-         updateBridgeTable(extractedBlog.getId(),indices);
+
+        updateBridgeTable(extractedBlog.getId(), indices);
     }
 
     //   updateBridgeTable(extractedBlog.getId(),indices);
@@ -327,21 +334,19 @@ public class BlogPostDaoImpl implements BlogPostDao {
 
     }
 
-
-    public static final String SQL_PULL_POSTS_BY_TAGID 
+    public static final String SQL_PULL_POSTS_BY_TAGID
             = "SELECT * FROM Posts JOIN TagPostBridge ON (Posts.postId = TagBridge.postId)"
-               + " WHERE TagBridge.tagId = ?";
-    
+            + " WHERE TagBridge.tagId = ?";
+
     @Override
     public List<BlogPost> getBlogPostsByTagName(String tag) {
-            try {
-                Integer tagId = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, tag);
-                return jdbcTemplate.query(SQL_PULL_POSTS_BY_TAGID,new PostMapper(),tagId);              
+        try {
+            Integer tagId = jdbcTemplate.queryForObject(SQL_PULL_TAGID, Integer.class, tag);
+            return jdbcTemplate.query(SQL_PULL_POSTS_BY_TAGID, new PostMapper(), tagId);
 //            } catch (EmptyResultDataAccessException emp) {
-            } catch (EmptyResultDataAccessException e) {
-                return null;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
 
-            }
         }
     }
-
+}

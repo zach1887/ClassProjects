@@ -2,6 +2,7 @@ package com.tsguild.lvl2;
 
 import com.tsguild.lvl2.dao.BlogPostDao;
 import com.tsguild.lvl2.dto.BlogPost;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -22,7 +23,14 @@ public class HomeController {
     }
     
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public String displayHomeBlog(Map<String, Object> model) {
+    public String displayHomeBlog(Model model) {
+        List<BlogPost> recentPosts = dao.getRecentPosts();
+        ArrayList<Integer> postCommentNumbers = new ArrayList<>();
+        for (BlogPost post : recentPosts) {
+            postCommentNumbers.add(dao.countCommentsById(post.getId()));
+        }
+        model.addAttribute("recentPosts", recentPosts);
+        model.addAttribute("commentNumber", postCommentNumbers);
         return "index";
     }
     

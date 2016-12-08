@@ -69,4 +69,6 @@ public interface BlogPostDao {
 
     public int countCommentsById(int id);
 
+    public List<BlogPost> getRecentPosts();
+
 }

@@ -26,3 +26,9 @@ select * from StaticPages;
 select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 4;
 SELECT * FROM livePosts WHERE postId > 3 LIMIT 3;
 
+SELECT * FROM livePosts
+ORDER BY CASE 
+    WHEN dateScheduled IS NOT NULL THEN dateScheduled 
+    ELSE datePosted 
+END DESC limit 3;
+

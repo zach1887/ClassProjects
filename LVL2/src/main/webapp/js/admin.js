@@ -76,11 +76,11 @@ $(document).ready(function () {
         storeTags();
         savePost();
     });
-    
-    $("#extractedTags").focus(function(event) {
+
+    $("#extractedTags").focus(function (event) {
         extractTags();
     });
-        
+
 
     $("#extract-tags-button").click(function (event) {
         event.preventDefault();
@@ -285,7 +285,10 @@ function fillAllPageTable(data, status) {
     } else if (document.getElementById("allPagesEmployee")) {
         $.each(data, function (index, page) {
             $('#allPagesEmployee').append($('<tr>').attr({'id': (page.status === 10 ? 'pendingDelete' : ' ')})
-                    .append($('<td>').text(page.title))
+                    .append($('<td>')
+                            .append($('<a>').attr({
+                                'href': ('static/' + page.id)
+                            }).text(page.title)))
                     .append($('<td>')
                             .append($('<a>').attr({
                                 'onClick': (page.status === 10 ? '' : 'deletePage(' + page.id + ')')
@@ -337,7 +340,7 @@ function valueChanged()
 
 function addPost() {
     var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
+    var finalArray = (finalTags.match(/#(\w+)/g));
     var postTitle = $("#post-title").val();
     var postContent = tinymce.get('new-post-content').getContent();
 
@@ -430,7 +433,7 @@ function editPage() {
 
 function savePost() {
     var finalTags = $('#extractedTags').val();
-    var finalArray = (finalTags.match(/#(\w+)/g));  
+    var finalArray = (finalTags.match(/#(\w+)/g));
     var postTitle = $("#post-title").val();
     if ($('#post-scheduled').is(":checked")) {
         document.getElementById("post-date").stepUp(new Date($("#post-date").val()).getTimezoneOffset());
@@ -576,59 +579,59 @@ function fillPreviewModal(postId) {
 
 
 function extractTags() {
-  
+
     var postContent = tinymce.get('new-post-content').getContent();
 
     var hashArray = (postContent.match(/#(\w+)/g));
 
     $('#extractedTags').val(hashArray);
-    
+
 
     // fill Edit Modal 
-    }
-    
+}
+
 function storeTags() {
-  
+
     var finalTags = $('#extractedTags').val();
 
     var finalArray = (finalTags.match(/#(\w+)/g));
 
-    
+
     $('#extractedTags').text(finalArray);
-    
+
 }
 
 function displayTagLinks(postId) {
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: 'post/' + postId,
         headers: {
             'Accept': 'application/json'
         }
     }).done(function (post) {
-        
+
         // post.tags is an array of tags
-        
-        $.each(post.tags, function (index,x) {
-        $('#tagLink').append($('<td>')).append($('<a>'))
-                        .attr({
-                            'onClick':('searchPostsByTag(' + x + ')').text("inactiveLink")
-                        }); 
-                        
-});
+
+        $.each(post.tags, function (index, x) {
+            $('#tagLink').append($('<td>')).append($('<a>'))
+                    .attr({
+                        'onClick': ('searchPostsByTag(' + x + ')').text("inactiveLink")
+                    });
+
+        });
     });
 }
 function searchPostsByTag(tag) {
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: 'tag/' + tag,
         headers: {
             'Accept': 'application/json'
         }
     }).done(function (posts) {
-        alert("This function is complete.");             
+        alert("This function is complete.");
     });
-        }
+}
 
 
-    
+
