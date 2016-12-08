@@ -6,6 +6,8 @@ $(document).ready(function () {
     loadAllPosts();
     loadAllPages();
 
+    
+
     $("#page-layout").change(function () {
         if ($("#page-layout").val() == 1) {
             $("#column1").css("display", "block");
@@ -39,6 +41,7 @@ $(document).ready(function () {
 
     $("#new-post-button").click(function (event) {
         event.preventDefault();
+        uploadImages();
         addPost();
     });
 
@@ -135,7 +138,7 @@ function fillAllPostTable(data, status) {
             var dateScheduled = new Date(post.dateScheduled).toLocaleString();
         }
 
-        $('#allPosts').append($('<tr>').attr({'class': (post.status === 10 ? 'pendingDelete' : ' ')})
+        $('#allPosts').append($('<tr>').attr({'id': (post.status === 10 ? 'pendingDelete' : ' ')})
                 .append($('<td>').append($('<a>')
                         .attr({
                             'data-post-id': post.id,
@@ -511,3 +514,10 @@ function tagPreviewModal() {
 
 }
 
+function uploadImages() {
+    tinymce.activeEditor.uploadImages(function (success) {
+        $.post('uploadFile', tinymce.activeEditor.getContent()).done(function () {
+            console.log("Uploaded images and posted content as an ajax request.");
+        });
+    });
+}

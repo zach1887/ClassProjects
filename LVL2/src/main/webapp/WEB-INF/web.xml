@@ -85,6 +85,7 @@
         <param-value>
             /WEB-INF/spring-dispatcher-servlet.xml
             /WEB-INF/spring-security.xml 
+            /WEB-INF/spring/appServlet/servlet-context.xml
             classpath:spring-persistence.xml
         </param-value>
     </context-param>
