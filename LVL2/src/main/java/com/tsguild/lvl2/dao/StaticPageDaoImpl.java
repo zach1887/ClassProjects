@@ -159,10 +159,29 @@ public class StaticPageDaoImpl implements StaticPageDao {
 
     private static final String SQL_UPDATE_PAGE
             = "UPDATE StaticPages SET pageTitle = ?, `status` = ?, layout = ? where StaticPages.pageId = ?";
-    
+
+    private static final String SQL_DELETE_CONTENT
+            = "DELETE FROM StaticPageContents where pageId = ?";
+
     @Override
     public void updateStaticPage(StaticPage updatedPage) {
         jdbcTemplate.update(SQL_UPDATE_PAGE, updatedPage.getTitle(), updatedPage.getStatus(), updatedPage.getLayout(), updatedPage.getId());
+        jdbcTemplate.update(SQL_DELETE_CONTENT, updatedPage.getId());
+
+        if (updatedPage.getContent1() != null) {
+            String content = updatedPage.getContent1();
+            jdbcTemplate.update(SQL_ADD_CONTENT, updatedPage.getId(), content);
+        }
+
+        if (updatedPage.getContent2() != null) {
+            String content = updatedPage.getContent2();
+            jdbcTemplate.update(SQL_ADD_CONTENT, updatedPage.getId(), content);
+        }
+
+        if (updatedPage.getContent3() != null) {
+            String content = updatedPage.getContent3();
+            jdbcTemplate.update(SQL_ADD_CONTENT, updatedPage.getId(), content);
+        }
     }
 
     private static final String SQL_REMOVE_PAGE
@@ -170,7 +189,7 @@ public class StaticPageDaoImpl implements StaticPageDao {
 
     private static final String SQL_REMOVE_PAGE_CONTENTS
             = "DELETE FROM StaticPageContents WHERE pageId = ?";
-    
+
     @Override
     public void removeStaticPage(int id) {
         jdbcTemplate.update(SQL_REMOVE_PAGE_CONTENTS, id);

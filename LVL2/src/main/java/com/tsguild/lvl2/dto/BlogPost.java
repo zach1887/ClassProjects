@@ -56,15 +56,12 @@ public class BlogPost {
         this.comments = new ArrayList<>();
         this.tags = new ArrayList<>();
     }
-<<<<<<< HEAD
 
     public ArrayList<String> getTags() {
         return tags;
     }
     
     
-=======
->>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
 
     public BlogPost(int id, String title, String author, Timestamp datePosted, Timestamp dateScheduled, String content, int status, ArrayList<Comment> comments, ArrayList<String> tags, boolean scheduled) {
         this.id = id;

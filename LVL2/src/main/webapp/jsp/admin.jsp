@@ -99,8 +99,8 @@
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-page-button">Clear</button>
-                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
-                                    <button id="new-save-button" class="btn btn-default">Save</button>
+<!--                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="0">Preview</button>
+                                    <button id="new-save-button" class="btn btn-default">Save</button>-->
                                     <button id="new-static-page-button" class="btn btn-primary">Post</button>
                                 </div>
                             </form>

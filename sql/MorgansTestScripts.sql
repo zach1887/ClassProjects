@@ -1,4 +1,4 @@
-USE MakerSpaceTest;
+USE MakerSpace;
 
 
 insert into StaticPages(pageId, pageTitle,`status`, layout) values(1, 'Cool Page', 1, 2);
@@ -23,10 +23,6 @@ INSERT INTO `authorities` (`username`, `authority`) VALUES
 
 select * from Posts;
 select * from StaticPages;
-<<<<<<< HEAD
-select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 2;
-=======
-select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 1;
-
+select * from StaticPages join StaticPageContents on StaticPages.pageId=StaticPageContents.pageId where StaticPages.pageId = 4;
 SELECT * FROM livePosts WHERE postId > 3 LIMIT 3;
->>>>>>> 66cae5a5266dab07ed7102ca257384eedacdf090
+

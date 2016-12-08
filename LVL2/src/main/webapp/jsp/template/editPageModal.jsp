@@ -28,29 +28,29 @@
                     </div>
                     <div class="form-group row col-md-12" id="editColumn1">
                         <label for="edit-page-content-one">Column One:</label>
-                        <textarea class="form-control clear-form" id=new-page-content1 name="editPageContent1"></textarea>
+                        <textarea class="form-control clear-form" id=edit-page-content1 name="editPageContent1"></textarea>
                     </div>
                     <div class="form-group row col-md-12" id="editColumn2">
                         <label for="edit-page-content-two">Column Two:</label>
-                        <textarea class="form-control clear-form" id=new-page-content2 name="editPageContent2"></textarea>
+                        <textarea class="form-control clear-form" id=edit-page-content2 name="editPageContent2"></textarea>
                     </div>
                     <div class="form-group row col-md-12" id="editColumn3">
                         <label for="edit-page-content-three">Column Three:</label>
-                        <textarea class="form-control clear-form" id=new-page-content3 name="editPageContent3"></textarea>
+                        <textarea class="form-control clear-form" id=edit-page-content3 name="editPageContent3"></textarea>
                     </div>
 
                     
                     <div class="form-group pull-right row col-xs-6" id="buttons">
-                        <button class="btn btn-default clear-button col-xs-2">Clear</button>
-                        <button class="btn btn-default col-xs-2">Preview</button>
-                        <button class="btn btn-default col-xs-2">Save</button>
-                        <button id="edit-page-button" class="btn btn-primary col-xs-2">Post</button>
+                        <button class="btn btn-default clear-button col-xs-2 clear-page-button-modal">Clear</button>
+<!--                        <button class="btn btn-default col-xs-2">Preview</button>
+                        <button class="btn btn-default col-xs-2">Save</button>-->
+                        <button id="edit-page-button-modal" class="btn btn-primary col-xs-2">Post</button>
                     </div>
                 </form>
                 <!--</form>-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="edit-modal-close-button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 

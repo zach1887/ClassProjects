@@ -36,6 +36,11 @@ $(document).ready(function () {
         clearPage();
     });
 
+    $(".clear-page-button-modal").click(function () {
+        event.preventDefault();
+        clearPageModal();
+    });
+
     $(".nav-pills a").click(function () {
         event.preventDefault();
         $(this).tab('show');
@@ -50,6 +55,11 @@ $(document).ready(function () {
     $("#edit-post-button").click(function (event) {
         event.preventDefault();
         editPost();
+    });
+
+    $("#edit-page-button-modal").click(function (event) {
+        event.preventDefault();
+        editPage();
     });
 
     $("#new-static-page-button").click(function (event) {
@@ -160,6 +170,13 @@ function clearPage() {
     tinymce.get('new-page-content1').setContent("");
     tinymce.get('new-page-content2').setContent("");
     tinymce.get('new-page-content3').setContent("");
+}
+
+function clearPageModal() {
+    $('#edit-page-form input').val("");
+    tinymce.get('edit-page-content1').setContent("");
+    tinymce.get('edit-page-content2').setContent("");
+    tinymce.get('edit-page-content3').setContent("");
 }
 
 function fillAllPostTable(data, status) {
@@ -380,6 +397,37 @@ function addPage() {
     });
 }
 
+function editPage() {
+    var pageTitle = $("#edit-page-title").val();
+    var pageId = $("#edit-page-id").val();
+    var pageStatus = $("#edit-page-status").val();
+    var pageLayout = $("#edit-page-layout").val();
+    var pageContent1 = tinymce.get('edit-page-content1').getContent();
+    var pageContent2 = tinymce.get('edit-page-content2').getContent();
+    var pageContent3 = tinymce.get('edit-page-content3').getContent();
+
+    $.ajax({
+        url: 'staticpage/' + pageId,
+        type: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            title: pageTitle,
+            content1: pageContent1,
+            content2: pageContent2,
+            content3: pageContent3,
+            status: pageStatus,
+            layout: pageLayout,
+            id: pageId
+        })
+    }).done(function (data) {
+        $("#edit-modal-close-button").click();
+        loadAllPages();
+        alert("success!");
+    });
+}
+
 function savePost() {
     var finalTags = $('#extractedTags').val();
     var finalArray = (finalTags.match(/#(\w+)/g));  
@@ -506,7 +554,9 @@ function fillEditPageModal(pageId) {
         $('#edit-page-status').val(page.status);
         $('#edit-page-title').val(page.title);
         setNumberOfTinyMceEdit();
-        tinymce.activeEditor.setContent(page.content1);
+        tinymce.get('edit-page-content1').setContent(page.content1);
+        tinymce.get('edit-page-content2').setContent(page.content2);
+        tinymce.get('edit-page-content3').setContent(page.content3);
     });
 }
 
