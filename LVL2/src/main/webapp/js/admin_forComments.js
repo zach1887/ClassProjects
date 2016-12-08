@@ -35,7 +35,7 @@ $(document).ready(function () {
 //functions
 function clearCommentForm() {
     $('#new-comment-form input').val("");
-    tinymce.get('new-comment-content').setContent("");
+    $("#new-comment-content").val("");
 }
 
 
