@@ -42,7 +42,8 @@ function clearCommentForm() {
 function addComment() {
     var displayName = $("#comment-displayName").val();
     var postId = $("#postId").val();
-    var commentContent = tinymce.get('new-comment-content').getContent();
+//    var commentContent = tinymce.get('new-comment-content').getContent();
+    var commentContent = $("#new-comment-content").val();
 
     $.ajax({
         url: 'comment',
@@ -66,7 +67,8 @@ function addComment() {
 function submitComment() {
     var displayName = $("#comment-displayName").val();
     var postId = $("#postId").val();
-    var commentContent = tinymce.get('new-comment-content').getContent();
+//    var commentContent = tinymce.get('new-comment-content').getContent({format : 'raw'});
+    var commentContent = $("#new-comment-content").val();
 
     $.ajax({
         url: 'comment',
