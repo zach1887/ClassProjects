@@ -9,7 +9,7 @@
 
             <!-- post area -->
             <div class="col-md-9" id="post-area">
-                <c:forEach items="${authorPosts}" var="post">
+                <c:forEach items="${authorPosts}" var="post" varStatus="loop">
                     <div class="row post">
                         <div class="col-md-12">
                             <h3>
@@ -21,7 +21,7 @@
                             <div class="post-content well">
                                 ${post.content}
                             </div>
-                            <small class="dim-text">Comments(0)</small>
+                            <small class="dim-text">Comments(<c:out value="${commentNumber[loop.index]}"/>)</small>
                             <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
                         </div>
                     </div>

@@ -48,7 +48,14 @@ public class HomeController {
     public String displayPostsByAuthor(Model model, @PathVariable String author) {
         
         List<BlogPost> posts = dao.getBlogPostsByAuthor(author);
+        ArrayList<Integer> postCommentNumbers = new ArrayList<>();
+        for (BlogPost post : posts) {
+            postCommentNumbers.add(dao.countCommentsById(post.getId()));
+        }
+        
+        
         model.addAttribute("authorPosts", posts);
+        model.addAttribute("commentNumber", postCommentNumbers);
         
         return "template/authors";
     }
