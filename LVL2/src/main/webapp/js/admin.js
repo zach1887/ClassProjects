@@ -326,12 +326,12 @@ function fillDeleteTable(data, status) {
                     .append($('<td>').text(post.author))
                     .append($('<td>').text(datePosted))
                     .append($('<td>').text(dateScheduled))
-                    .append($('<td>').append($('<a>')
-                            .attr({
-                                'onClick': 'undelete(' + post.id + ')'
-                            })
-                            .text('Undelete')
-                            ))
+//                    .append($('<td>').append($('<a>')
+//                            .attr({
+//                                'onClick': 'undelete(' + post.id + ')'
+//                            })
+//                            .text('Undelete')
+//                            ))
                     .append($('<td>').append($('<a>')
                             //<a data-toggle="modal" data-target="#post-edit-modal" data-post-id="0">Edit</a
                             .attr({
