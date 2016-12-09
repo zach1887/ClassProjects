@@ -38,7 +38,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">  
-                <li>
+<!--                <li>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" />
@@ -47,7 +47,7 @@
                             Search
                         </button>
                     </form>
-                </li>
+                </li>-->
 
                 <sec:authorize access="isAnonymous()">
                     <li class="dropdown" style="margin-right: 10px">

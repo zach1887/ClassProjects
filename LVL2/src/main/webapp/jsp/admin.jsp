@@ -24,13 +24,13 @@
                         </li> 
                         <li><a href="#b3">Static Pages</a> 
                         </li> 
-                        <li><a href="#b4">Pending Comments</a>
+<!--                        <li><a href="#b4">Pending Comments</a>
                         </li>
                         <li><a href="#b5">Pending Posts</a>
-                        </li>
+                        </li>-->
                         <li><a href="#b6">Scheduled Posts</a>
                         </li>
-                        <li><a href="#b7">Deleted Posts</a>
+                        <li><a href="#b7">Pending Deletion Posts</a>
                         </li>
                         <li><a href="#b8">All Posts</a>
                         </li>
@@ -59,8 +59,8 @@
                                 </div>
                                 <div class="form-group pull-right row col-xs-4">
                                     <button class="btn btn-default clear-button">Clear</button>
-                                    <button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="2">Preview</button>
-                                    <button  id="new-save-button" class="btn btn-default">Save</button>
+                                    <!--<button id="new-preview-button" class="btn btn-default" data-toggle="modal" data-target="#post-preview-modal" data-post-id="2">Preview</button>-->
+                                    <!--<button  id="new-save-button" class="btn btn-default">Save</button>-->
                                     <button id="new-post-button" class="btn btn-primary">Post</button>
                                 </div>
                                 <div class="form-group row col-xs-4">

@@ -8,7 +8,7 @@
             <div class="row">
 
                 <!-- post area -->
-                <div class="col-md-9" id="post-area">
+                <div class="col-md-12" id="post-area">
 
                     <div class="row post">
                         <div class="col-md-12">
@@ -34,10 +34,10 @@
                 </div>
                 <!-- /post area -->
 
-                <!-- sidebar -->
+<!--                 sidebar 
                 <div class="col-md-3" id="sidebar">
 
-                    <!-- post history -->
+                     post history 
                     <h2>Recent Posts</h2>
                     <div class="row well" id="post-history">
 
@@ -72,9 +72,9 @@
                         </div>
 
                     </div>
-                    <!-- /post history -->
+                     /post history 
 
-                    <!-- tags -->
+                     tags 
                     <div class="row" id="tag-cloud">
                         <h2>Tags</h2>
                         <div class="well">
@@ -96,9 +96,9 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /tags -->
+                     /tags 
                 </div> 
-                <!-- /sidebar -->
+                 /sidebar -->
             </div>
             <!-- /main row -->
             <hr>
