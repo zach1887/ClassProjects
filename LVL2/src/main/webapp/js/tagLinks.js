@@ -26,6 +26,7 @@ function createTagLinks(postId) {
                 type: 'GET'
             }).done(function (y) {
                 $('#tagLink').append($('<a>').attr({'onClick': 'searchPostsByTag(' + x + ')'}).text(y + "  "));
+//               $('#tagLink2').append($('<a>').attr({'onClick': 'searchPostsByTag(' + x + ')'}).text(y + "  "));
             });
 
         });
