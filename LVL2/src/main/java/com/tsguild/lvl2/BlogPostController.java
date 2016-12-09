@@ -54,6 +54,12 @@ public class BlogPostController {
         return "template/blogWithComments";
 
     }
+    @RequestMapping(value = "/tagSearch/{tagId}", method = RequestMethod.GET)
+    public String displaySearchPage(@PathVariable int tagId) {
+        
+        return "template/tagSearchResultPage";
+
+    }
     
     @ResponseBody
     @RequestMapping(value="/blogWithComments/comments/{postId}", method = RequestMethod.GET)

@@ -2,7 +2,6 @@
 // <script> 
 //register events
 $(document).ready(function () {
-     postTags();
 
     $("#post-preview-modal").on('show.bs.modal', function (event) {
         var element = $(event.relatedTarget);
@@ -10,76 +9,75 @@ $(document).ready(function () {
         fillPreviewModal(postId);
     });
 
-
 });
 
-function postTags(post) {
 
-    $.ajax({
-        url: 'post/' + post.postId + '/tags',
-        type: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        'dataType': 'json',
-        data: JSON.stringify({
-            tags: post.tags
-        })
-    });
-}
-
+    function clearTable(table) {
+        $(table).empty();
+    }
 function createTagLinks(postId) {
     $.ajax({
-        url: 'post/' + post.postId + '/tags',
+        url: '/LVL2/post/' + postId + '/tags',
         type: 'GET'
-    }).done(function (data) {  // simply a list of tag numbers, maybe empty
+    }).done(function (data) {
         $.each(data, function (index, x) {
-            var tagName = retreiveTagName(x);
-            $('#blogLinks').append($('</a>').attr({
-                'onClick': 'searchPostsByTag(' + x + ')'}).text(tagName))
-        })
-    });
-}
-
-
-function retreiveTagName(tagId) {
-    $.ajax({
-        url: 'tagName/' + tagId,
-        type: 'GET'
-    });
-}
-
-
-function displayTagLinks(postId) {
-    $.ajax({
-        type: 'GET',
-        url: 'post/' + postId,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).done(function (post) {
-
-        // post.tags is an array of tags
-
-        $.each(post.tags, function (index, x) {
-            $('#tagLink').append($('<td>')).append($('<a>'))
-                    .attr({
-                        'onClick': ('searchPostsByTag(' + x + ')').text("inactiveLink")
-                    });
+            $.ajax({
+                url: '/LVL2/tagName/' + x,
+                type: 'GET'
+            }).done(function (y) {
+                $('#tagLink').append($('<a>').attr({'onClick': 'searchPostsByTag(' + x + ')'}).text(y + "  "));
+            });
 
         });
     });
 }
+
+//// simply a list of tag numbers, maybe empty
+//            $.ajax({
+//                url: '/LVL2/tagName/' + x,
+//                type: 'GET'
+//            }).done(function (y) {
+//            $('#tagLink').append($('</a>').attr({
+//                'onClick': 'searchPostsByTag(' + x + ')'}).text(y));
+//        });
+
+//
+function retreiveTagName(tagId) {
+    $.ajax({
+        url: '/LVL2/tagName/' + tagId,
+        type: 'GET',
+    });
+}
+
+
+//function displayTagLinks(postId) {
+//    $.ajax({
+//        type: 'GET',
+//        url: '/LVL2/post/' + postId,
+//        headers: {
+//            'Accept': 'application/json'
+//        }
+//    }).done(function (post) {
+//
+//        // post.tags is an array of tags
+//        $('#tagLink').append(
+//                $.each(post.tags, function (index, x) {
+//                    $('#tagLink').append($('<td>')).append($('<a>'))
+//                            .attr({
+//                                'onClick': ('searchPostsByTag(' + x + ')').text(tagName)
+//                            });
+//    });
+//}
 function searchPostsByTag(tagId) {
     $.ajax({
         type: 'GET',
-        url: 'tag/' + tagId,
+        url: '/LVL2/tags/' + tagId,
         headers: {
             'Accept': 'application/json'
         }
     }).done(function (data) {  // what to do when the data come back?
 
-        clearTable('tagSearchResults');
+        clearTable('#tagSearchResults');
         $.each(data, function (index, post) {
             var datePosted = new Date(post.datePosted).toLocaleDateString();
             if (post.dateScheduled === null) {
@@ -100,6 +98,26 @@ function searchPostsByTag(tagId) {
                     .append($('<td>').text(post.author))
                     .append($('<td>').text(datePosted)))
         });
+
+    }).done(function (data) {
+        $.ajax({
+            type: 'GET',
+            url: '/LVL2/tagSearch/' + tagId
+        });
+    });
+}
+
+function fillPreviewModal(postId) {
+    $.ajax({
+        type: 'GET',
+        url: '/LVL2/post/' + postId,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).done(function (post) {
+        $('#preview-post-content').html(post.content);
+        $('#preview-post-author').text(post.author + " - " + (new Date(post.datePosted).toLocaleString()));
+        $('#preview-post-title').text(post.title);
     });
 }
 

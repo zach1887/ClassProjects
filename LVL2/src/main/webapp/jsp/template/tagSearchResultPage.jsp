@@ -13,7 +13,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody id="#tagSearchResults">
+                                <tbody id="tagSearchResults">
                                 </tbody>
                             </table>
             <div class="row col-lg-12 text-center dim-text myfooter">

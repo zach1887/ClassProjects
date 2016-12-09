@@ -129,7 +129,7 @@ function loadCommentsByPostId(postId) {
 function displayComments(data, status) {
     var numOfComments = 0;
     $.each(data, function (index, comment) {
-        if (comment.status == 5 || comment.status == 7) {  // only displays approved comments
+        if (comment.status === 5 || comment.status === 7) {  // only displays approved comments
             $('#blogComments').append($('<tr>')
                     .append($('<td>').text(comment.name))
                     .append($('<td>').text(comment.comment))

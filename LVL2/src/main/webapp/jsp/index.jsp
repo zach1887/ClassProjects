@@ -19,9 +19,9 @@
                             <small class="pull-right dim-text">
                                 <c:if test="${post.dateScheduled != null}">${post.dateScheduled}</c:if>
                                 <c:if test="${post.datePosted != null && post.dateScheduled == null}">${post.datePosted}</c:if>
-                            </small>
-                            <br/>
-                            <div class="post-content well">
+                                </small>
+                                <br/>
+                                <div class="post-content well">
                                 ${post.content}
                             </div>
                             <small class="dim-text">Comments(<c:out value="${commentNumber[loop.index]}"/>)</small>
@@ -45,7 +45,7 @@
                 <!-- post history -->
                 <h2>Recent Posts</h2>
                 <div class="row well" id="post-history">
-                    
+
                     <div>
                         <h3>October</h3>
                         <ul>
@@ -97,6 +97,7 @@
         </div>
     </div>
 
+    <script src="${pageContext.request.contextPath}/js/tagLinks.js"></script>
     <%@ include file="template/footer.jsp" %>
 </body>
 </html>

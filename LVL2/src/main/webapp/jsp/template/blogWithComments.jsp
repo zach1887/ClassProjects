@@ -1,5 +1,5 @@
 <%@ include file="header.jsp" %>
-<body id="mypage">
+<body id="mypage" onload="createTagLinks(${id})">
     <div class="container-fluid">
 
         <%@ include file="navbar.jsp" %>
@@ -23,7 +23,7 @@
                             ${content}
                         </div>
                         <small class="dim-text">Comments(<span id="numOfComments"> </span>)</small>
-                        <small class="pull-right dim-text">Tags: <span class="tag"><a href="#">#vestibulum</a> <a href="#">#commodo</a> <a href="#">#posuere</a></span></small>
+                        <small class="pull-right dim-text">Tags: <span id="tagLink"></span></small>
                     </div>
                 </div>
 
@@ -158,6 +158,9 @@
     </div>
 
     <%@ include file="footer.jsp" %>
+     <%@include file="previewModal.jsp" %>
+    <%@include file="tagSearchResultPage.jsp" %>
+    <script src="${pageContext.request.contextPath}/js/admin_forComments.js"></script>
     <script src="${pageContext.request.contextPath}/js/tagLinks.js"></script>
 </body>
 </html>
